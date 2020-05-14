@@ -1,0 +1,3 @@
+export const FETCH_SERVIS = "FETCH_SERVIS";
+export const FETCH_SERVIS_ERROR = "FETCH_SERVIS_ERROR";
+export const UPDATE_SERVIS = "UPDATE_SERVIS";

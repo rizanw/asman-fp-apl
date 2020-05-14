@@ -1,0 +1,25 @@
+h6 {
+  font-size: 0.9em;
+  margin: 0;
+}
+
+label {
+  font-weight: 500;
+}
+
+tr {
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: lavender;
+}
+
+.equipment-items p {
+  font-size: 0.68em;
+  margin: 0;
+}
+
+.watermark-background {
+  background: url(../assets/img/background.svg);
+}
