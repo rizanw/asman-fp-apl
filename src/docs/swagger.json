@@ -1,0 +1,498 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Asset Management"
+  },
+  "host": "localhost:3000",
+  "basePath": "",
+  "schemes": ["http"],
+  "produces": ["application/json"],
+  "tags": [
+    {
+      "name": "Categories",
+      "description": "Manage categories"
+    },
+    {
+      "name": "Induk",
+      "description": "Manage induk"
+    },
+    {
+      "name": "Sub-induk",
+      "description": "Manage sub-induk"
+    },
+    {
+      "name": "Equipment",
+      "description": "Manage equipments"
+    },
+    {
+      "name": "Types",
+      "description": "Manage asset types"
+    },
+    {
+      "name": "Classes",
+      "description": "Manage asset classes"
+    },
+    {
+      "name": "Growth Types",
+      "description": "Manage asset growth types"
+    },
+    {
+      "name": "Consumption Types",
+      "description": "Manage asset consumption types"
+    },
+    {
+      "name": "Assets",
+      "description": "Manage assets"
+    }
+  ],
+  "paths": {
+    "/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get categories that have been registered.",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      },
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Add new category",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Category name",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/induk": {
+      "get": {
+        "tags": ["Induk"],
+        "summary": "Get induk that have been registered.",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      },
+      "post": {
+        "tags": ["Induk"],
+        "summary": "Create new induk",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Induk name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tel",
+            "in": "formData",
+            "description": "Telp number induk",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "Address induk",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "latitude",
+            "in": "formData",
+            "description": "Latitude induk",
+            "required": true,
+            "type": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "Longitude induk",
+            "required": true,
+            "type": "double"
+          }
+        ]
+      }
+    },
+    "/subinduk": {
+      "get": {
+        "tags": ["Sub-induk"],
+        "summary": "Get sub-induk that have been registered.",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "induk_id",
+            "in": "query",
+            "description": "Induk id"
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Sub-induk"],
+        "summary": "Create new sub-induk",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "parent_id",
+            "in": "formData",
+            "description": "Parent induk id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Sub-induk name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tel",
+            "in": "formData",
+            "description": "Telp number sub-induk",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "Address sub-induk",
+            "type": "string"
+          },
+          {
+            "name": "latitude",
+            "in": "formData",
+            "description": "Latitude sub-induk",
+            "type": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "Longitude sub-induk",
+            "type": "double"
+          }
+        ]
+      }
+    },
+    "/equipment": {
+      "get": {
+        "tags": ["Equipment"],
+        "summary": "Get equipment that have been registered.",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "subinduk_id",
+            "in": "query",
+            "description": "Sub-induk id"
+          }
+        ]
+      },
+      "post": {
+        "tags": ["Equipment"],
+        "summary": "Create new equipment",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "parent_id",
+            "in": "formData",
+            "description": "Parent sub-induk id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Equipment name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tel",
+            "in": "formData",
+            "description": "Telp number equipment",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "description": "Address equipment",
+            "type": "string"
+          },
+          {
+            "name": "latitude",
+            "in": "formData",
+            "description": "Latitude equipment",
+            "type": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "Longitude equipment",
+            "type": "double"
+          }
+        ]
+      }
+    },
+    "/types": {
+      "get": {
+        "tags": ["Types"],
+        "summary": "Get all asset types",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/classes": {
+      "get": {
+        "tags": ["Classes"],
+        "summary": "Get all asset classes",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/growth-types": {
+      "get": {
+        "tags": ["Growth Types"],
+        "summary": "Get all asset growth types",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/consumption-types": {
+      "get": {
+        "tags": ["Consumption Types"],
+        "summary": "Get all asset consumption types",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/assets": {
+      "get": {
+        "tags": ["Assets"],
+        "summary": "Get all assets",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": []
+      },
+      "post": {
+        "tags": ["Assets"],
+        "summary": "Add new asset",
+        "responses": {
+          "200": {
+            "description": "Request success"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "formData",
+            "description": "Group id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Asset name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type_id",
+            "in": "formData",
+            "description": "Type id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "growth_type_id",
+            "in": "formData",
+            "description": "Growth type id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "growth_rate",
+            "in": "formData",
+            "description": "Growth rate",
+            "required": true,
+            "type": "double"
+          },
+          {
+            "name": "class_id",
+            "in": "formData",
+            "description": "Class id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "consumption_type_id",
+            "in": "formData",
+            "description": "Consumption type id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "category_id",
+            "in": "formData",
+            "description": "Category id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "manufacturer",
+            "in": "formData",
+            "description": "Asset manufacturer",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "capacity",
+            "in": "formData",
+            "description": "Asset capacity",
+            "required": true,
+            "type": "double"
+          },
+          {
+            "name": "capacity_unit",
+            "in": "formData",
+            "description": "Asset capacity unit",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serial_number",
+            "in": "formData",
+            "description": "Asset serial number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "description": "Asset price",
+            "required": true,
+            "type": "double"
+          },
+          {
+            "name": "manufacture_date",
+            "in": "formData",
+            "description": "Asset manufacture date",
+            "required": true,
+            "type": "date"
+          },
+          {
+            "name": "installation_date",
+            "in": "formData",
+            "description": "Asset installation date",
+            "required": true,
+            "type": "date"
+          },
+          {
+            "name": "custom_field",
+            "in": "formData",
+            "description": "Asset custom fields",
+            "required": true,
+            "type": "json"
+          }
+        ]
+      }
+    }
+  }
+}

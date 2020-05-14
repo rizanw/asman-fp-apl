@@ -1,0 +1,1074 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Asset Management
+host: localhost:3000
+basePath: ""
+schemes:
+  - http
+produces:
+  - application/json
+tags:
+  - name: Auth
+    description: Authentication
+  - name: Company
+    description: Manage companies
+  - name: Categories
+    description: Manage categories
+  - name: Induk
+    description: Manage induk
+  - name: Sub-induk
+    description: Manage sub-induk
+  - name: Equipment
+    description: Manage equipments
+  - name: Types
+    description: Manage asset types
+  - name: Classes
+    description: Manage asset classes
+  - name: Growth Types
+    description: Manage asset growth types
+  - name: Consumption Types
+    description: Manage asset consumption types
+  - name: Assets
+    description: Manage assets
+  - name: Services
+    description: Manage Services
+  - name: Settings
+    description: Settings
+paths:
+  "/login":
+    post:
+      tags:
+        - Auth
+      summary: Login user
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: username
+          in: formData
+          description: Username
+          request: true
+          type: string
+        - name: password
+          in: formData
+          description: Password
+          request: true
+          type: string
+  "/companies":
+    get:
+      tags:
+        - Company
+      summary: Get companies that have been registered.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+    post:
+      tags:
+        - Company
+      summary: Add new Company
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: name
+          in: formData
+          description: Company name
+          request: true
+          type: string
+        - name: username
+          in: formData
+          description: Username
+          request: true
+          type: string
+        - name: password
+          in: formData
+          description: Password
+          request: true
+          type: string
+        - name: email
+          in: formData
+          description: Company email
+          request: true
+          type: string
+        - name: tel
+          in: formData
+          description: Company telephone
+          request: true
+          type: string
+        - name: address
+          in: formData
+          description: Company Address
+          request: true
+          type: string
+        - name: latitude
+          in: formData
+          description: Company Latitude
+          request: true
+          type: string
+        - name: longitude
+          in: formData
+          description: Company Longitude
+          request: true
+          type: string
+  "/categories":
+    get:
+      tags:
+        - Categories
+      summary: Get categories that have been registered.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+    post:
+      tags:
+        - Categories
+      summary: Add new category
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: name
+          in: formData
+          description: Category name
+          required: true
+          type: string
+  "/categories/:id":
+    get:
+      tags:
+        - Categories
+      summary: Get categories by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          required: true
+    put:
+      tags:
+        - Categories
+      summary: Update category by id
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          required: true
+        - name: name
+          in: formData
+          description: Category name
+          required: true
+          type: string
+    delete:
+      tags:
+        - Categories
+      summary: Delete categories by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Category id
+          required: true
+  "/induk":
+    get:
+      tags:
+        - Induk
+      summary: Get induk that have been registered.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+    post:
+      tags:
+        - Induk
+      summary: Create new induk
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: name
+          in: formData
+          description: Induk name
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: Telp number induk
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: Address induk
+          required: true
+          type: string
+        - name: latitude
+          in: formData
+          description: Latitude induk
+          required: true
+          type: double
+        - name: longitude
+          in: formData
+          description: Longitude induk
+          required: true
+          type: double
+  "/induk/:id":
+    get:
+      tags:
+        - Induk
+      summary: Get induk by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Induk id
+          required: true
+    put:
+      tags:
+        - Induk
+      summary: Update induk by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Induk id
+          required: true
+        - name: name
+          in: formData
+          description: Induk name
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: Telp number induk
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: Address induk
+          required: true
+          type: string
+        - name: latitude
+          in: formData
+          description: Latitude induk
+          required: true
+          type: double
+        - name: longitude
+          in: formData
+          description: Longitude induk
+          required: true
+          type: double
+    delete:
+      tags:
+        - Induk
+      summary: Delete induk by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Induk id
+          required: true
+  "/subinduk":
+    get:
+      tags:
+        - Sub-induk
+      summary: Get sub-induk that have been registered.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: induk_id
+          in: query
+          description: Induk id
+    post:
+      tags:
+        - Sub-induk
+      summary: Create new sub-induk
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: parent_id
+          in: formData
+          description: Parent induk id
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Sub-induk name
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: Telp number sub-induk
+          type: string
+        - name: address
+          in: formData
+          description: Address sub-induk
+          type: string
+        - name: latitude
+          in: formData
+          description: Latitude sub-induk
+          type: double
+        - name: longitude
+          in: formData
+          description: Longitude sub-induk
+          type: double
+  "/subinduk/:id":
+    get:
+      tags:
+        - Sub-induk
+      summary: Get sub-induk by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Sub-induk id
+          required: true
+    put:
+      tags:
+        - Sub-induk
+      summary: Update sub-induk by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Sub-induk id
+          required: true
+        - name: parent_id
+          in: formData
+          description: Parent induk id
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Sub-induk name
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: Telp number sub-induk
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: Address sub-induk
+          required: true
+          type: string
+        - name: latitude
+          in: formData
+          description: Latitude sub-induk
+          required: true
+          type: double
+        - name: longitude
+          in: formData
+          description: Longitude sub-induk
+          required: true
+          type: double
+    delete:
+      tags:
+        - Sub-induk
+      summary: Delete sub-induk by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Sub-induk id
+          required: true
+  "/equipment":
+    get:
+      tags:
+        - Equipment
+      summary: Get equipment that have been registered.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: subinduk_id
+          in: query
+          description: Sub-induk id
+    post:
+      tags:
+        - Equipment
+      summary: Create new equipment
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: parent_id
+          in: formData
+          description: Parent sub-induk id
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Equipment name
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: Telp number equipment
+          type: string
+        - name: address
+          in: formData
+          description: Address equipment
+          type: string
+        - name: latitude
+          in: formData
+          description: Latitude equipment
+          type: double
+        - name: longitude
+          in: formData
+          description: Longitude equipment
+          type: double
+  "/equipment/:id":
+    get:
+      tags:
+        - Equipment
+      summary: Get equipment by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Equipment id
+          required: true
+    put:
+      tags:
+        - Equipment
+      summary: Update equipment by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Equipment id
+          required: true
+        - name: parent_id
+          in: formData
+          description: Parent sub-induk id
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Equipment name
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: Telp number equipment
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: Address equipment
+          required: true
+          type: string
+        - name: latitude
+          in: formData
+          description: Latitude equipment
+          required: true
+          type: double
+        - name: longitude
+          in: formData
+          description: Longitude equipment
+          required: true
+          type: double
+    delete:
+      tags:
+        - Equipment
+      summary: Delete equipment by id.
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Equipment id
+          required: true
+  "/types":
+    get:
+      tags:
+        - Types
+      summary: Get all asset types
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+  "/classes":
+    get:
+      tags:
+        - Classes
+      summary: Get all asset classes
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+  "/growth-types":
+    get:
+      tags:
+        - Growth Types
+      summary: Get all asset growth types
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+  "/consumption-types":
+    get:
+      tags:
+        - Consumption Types
+      summary: Get all asset consumption types
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+  "/assets":
+    get:
+      tags:
+        - Assets
+      summary: Get all assets
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters: []
+    post:
+      tags:
+        - Assets
+      summary: Add new asset
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: group_id
+          in: formData
+          description: Group id
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Asset name
+          required: true
+          type: string
+        - name: type_id
+          in: formData
+          description: Type id
+          required: true
+          type: integer
+        - name: growth_type_id
+          in: formData
+          description: Growth type id
+          required: true
+          type: integer
+        - name: growth_rate
+          in: formData
+          description: Growth rate
+          required: true
+          type: double
+        - name: class_id
+          in: formData
+          description: Class id
+          required: true
+          type: integer
+        - name: consumption_type_id
+          in: formData
+          description: Consumption type id
+          required: true
+          type: integer
+        - name: category_id
+          in: formData
+          description: Category id
+          required: true
+          type: integer
+        - name: manufacturer
+          in: formData
+          description: Asset manufacturer
+          required: true
+          type: string
+        - name: capacity
+          in: formData
+          description: Asset capacity
+          required: true
+          type: double
+        - name: capacity_unit
+          in: formData
+          description: Asset capacity unit
+          required: true
+          type: string
+        - name: serial_number
+          in: formData
+          description: Asset serial number
+          required: true
+          type: string
+        - name: price
+          in: formData
+          description: Asset price
+          required: true
+          type: double
+        - name: manufacture_date
+          in: formData
+          description: Asset manufacture date
+          required: true
+          type: date
+        - name: installation_date
+          in: formData
+          description: Asset installation date
+          required: true
+          type: date
+        - name: custom_field
+          in: formData
+          description: Asset custom fields
+          required: true
+          type: json
+        - name: start_date
+          in: formData
+          description: Service plan start date
+          required: true
+          type: date
+        - name: long
+          in: formData
+          description: Service plan long
+          required: true
+          type: integer
+        - name: periodic
+          in: formData
+          description: Service plan periodic
+          required: true
+          type: integer
+  "/assets/csv":
+    get:
+      tags:
+        - Assets
+      summary: Download asset template
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+    post:
+      tags:
+        - Assets
+      summary: Upload csv file
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: csv
+          in: formData
+          type: file
+          description: File csv
+          required: true
+  "/assets/:id":
+    get:
+      tags:
+        - Assets
+      summary: Get asset by id
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Asset id
+          required: true
+    put:
+      tags:
+        - Assets
+      summary: Update asset
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Asset id
+          required: true
+        - name: group_id
+          in: formData
+          description: Group id
+          required: true
+          type: integer
+        - name: name
+          in: formData
+          description: Asset name
+          required: true
+          type: string
+        - name: type_id
+          in: formData
+          description: Type id
+          required: true
+          type: integer
+        - name: growth_type_id
+          in: formData
+          description: Growth type id
+          required: true
+          type: integer
+        - name: growth_rate
+          in: formData
+          description: Growth rate
+          required: true
+          type: double
+        - name: class_id
+          in: formData
+          description: Class id
+          required: true
+          type: integer
+        - name: consumption_type_id
+          in: formData
+          description: Consumption type id
+          required: true
+          type: integer
+        - name: category_id
+          in: formData
+          description: Category id
+          required: true
+          type: integer
+        - name: manufacturer
+          in: formData
+          description: Asset manufacturer
+          required: true
+          type: string
+        - name: capacity
+          in: formData
+          description: Asset capacity
+          required: true
+          type: double
+        - name: capacity_unit
+          in: formData
+          description: Asset capacity unit
+          required: true
+          type: string
+        - name: serial_number
+          in: formData
+          description: Asset serial number
+          required: true
+          type: string
+        - name: price
+          in: formData
+          description: Asset price
+          required: true
+          type: double
+        - name: manufacture_date
+          in: formData
+          description: Asset manufacture date
+          required: true
+          type: date
+        - name: installation_date
+          in: formData
+          description: Asset installation date
+          required: true
+          type: date
+        - name: custom_field
+          in: formData
+          description: Asset custom fields
+          required: true
+          type: json
+    delete:
+      tags:
+        - Assets
+      summary: Delete asset by id
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Asset id
+          required: true
+  "/assets/:id/service-plan":
+    post:
+      tags:
+        - Assets
+      summary: Set service plan by id
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: id
+          in: path
+          description: Asset id
+          required: true
+        - name: start_date
+          in: formData
+          description: Start date
+          required: true
+          type: date
+        - name: long
+          in: formData
+          description: Long in day
+          required: true
+          type: integer
+        - name: periodic
+          in: formData
+          description: Periodic in day
+          required: true
+          type: integer
+  "/services/unplanned":
+    get:
+      tags:
+        - Services
+      summary: Get Unplanned Asset
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/unplanned/csv":
+    get:
+      tags:
+        - Services
+      summary: Download service plan template
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+    post:
+      tags:
+        - Services
+      summary: Upload csv file
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: csv
+          in: formData
+          type: file
+          description: File csv
+          required: true
+  "/services/revision/csv":
+    get:
+      tags:
+        - Services
+      summary: Download revision service plan template
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/ready":
+    get:
+      tags:
+        - Services
+      summary: Get Ready service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/released":
+    get:
+      tags:
+        - Services
+      summary: Get Released service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/process":
+    get:
+      tags:
+        - Services
+      summary: Get Process service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/complete":
+    get:
+      tags:
+        - Services
+      summary: Get Complete service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/finish":
+    get:
+      tags:
+        - Services
+      summary: Get Finish service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/backlog":
+    get:
+      tags:
+        - Services
+      summary: Get Backlog service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/tipac":
+    get:
+      tags:
+        - Services
+      summary: Get Tipe AC
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/kategoripekerjaan":
+    get:
+      tags:
+        - Services
+      summary: Get Kategori Pekerjaan
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+  "/services/order":
+    post:
+      tags:
+        - Services
+      summary: Order Service
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: service_id
+          in: formData
+          description: Service ID
+          required: true
+          type: array
+          items:
+            type: integer
+        - name: kategori_pekerjaan_id
+          in: formData
+          description: Kategori Pekerjaan ID
+          required: true
+        - name: tipe_ac_id
+          in: formData
+          description: Kategori pekerjaan ID
+          required: true
+        - name: date
+          in: formData
+          description: Service date
+          required: true
+  "/settings/password":
+    post:
+      tags:
+        - Settings
+      summary: Update Password
+      responses:
+        "200":
+          description: Request success
+        "400":
+          description: Bad request
+      parameters:
+        - name: old_password
+          in: formData
+          description: Old Password
+          required: true
+        - name: password
+          in: formData
+          description: New Password
+          required: true
+        - name: password_confirmation
+          in: formData
+          description: New Password Confirmation
+          required: true
+securityDefinitions:
+  auth_token:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
