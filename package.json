@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rizanw/fp_apl.git"
+    "url": "git+https://github.com/rizanw/asman-fp-apl"
   },
   "keywords": [
     "apl"
@@ -61,7 +61,7 @@
     "yamljs": "^0.3.0"
   },
   "bugs": {
-    "url": "https://github.com/rizanw/fp_apl/issues"
+    "url": "https://github.com/rizanw/asman-fp-apl/issues"
   },
-  "homepage": "https://github.com/rizanw/fp_apl#readme"
+  "homepage": "https://github.com/rizanw/asman-fp-apl#readme"
 }
