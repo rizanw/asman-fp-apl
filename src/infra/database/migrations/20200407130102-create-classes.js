@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
-    return queryInterface.createTable("types", {
+    return queryInterface.createTable("classes", {
       id: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
@@ -20,6 +20,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("types");
+    return queryInterface.dropTable("classes");
   },
 };
