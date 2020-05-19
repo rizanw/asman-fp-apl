@@ -36,6 +36,10 @@ module.exports = {
         type: DataTypes.STRING(20),
         allowNull: false
       },
+      blacklisted: {
+        type: DataTypes.SMALLINT,
+        allowNull: true
+      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE
     });
