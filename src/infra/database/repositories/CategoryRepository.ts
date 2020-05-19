@@ -1,13 +1,10 @@
 import { injectable } from "inversify";
-import { IConsumptionTypeRepository } from "../../../domain/repositories/IConsumptionTypeRepository";
-import { ConsumptionTypeMapper } from '../mappers/ConsumptionTypesMapper';
-import ConsumptionType from '../../../domain/models/ConsumptionType';
+
 import CategoryEntity from '../entities/category';
 import { ICategoryRepository } from '../../../domain/repositories/ICategoryRepository';
 import { CategoryMapper } from '../mappers/CategoryMapper';
-import Category from "../entities/category";
 import Category from '../../../domain/models/Category';
-import { CategoryRequest } from '../../../application/category/CategoryRequest';
+import { CategoryRequest } from '../../../application/category/AddCategoryRequest';
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {
