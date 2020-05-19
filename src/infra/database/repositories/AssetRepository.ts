@@ -60,13 +60,13 @@ export class AssetRepository implements IAssetRepository {
     return dataEntity.map((data) => this._dataMapper.get(data));
   }
 
-  async findById(id: number): Promise<Asset> {
+  async findById(company_id: number, id: number): Promise<Asset> {
     const dataEntity = await AssetEntity.findByPk(id, {
       include: [
         {
           association: AssetEntity.associations.group,
           where: {
-            company_id: id,
+            company_id: company_id,
           },
           include: [
             {
@@ -96,6 +96,10 @@ export class AssetRepository implements IAssetRepository {
         },
       ],
     });
+
+    if (!dataEntity) {
+      return;
+    }
 
     return this._dataMapper.get(dataEntity);
   }

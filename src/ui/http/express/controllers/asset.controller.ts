@@ -13,7 +13,7 @@ import {
 import { GetAllCategoryService } from "../../../../application/category/GetAllCategoryService";
 import { AddCategoryService } from "../../../../application/category/AddCategoryService";
 import { CategoryRequest } from "../../../../application/category/AddCategoryRequest";
-import { sendSuccessResponse } from "../utils/response";
+import { sendSuccessResponse, sendErrorResponse } from "../utils/response";
 import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
 import { GetAllAssetService } from "../../../../application/asset/GetAllAssetService";
@@ -44,10 +44,14 @@ export class AssetController implements interfaces.Controller {
   @httpGet("/:id", role(Role.company))
   public async list(@request() req: Request, @response() res: Response) {
     let params = req.params as GetByIdParams;
-    const data = await this._findAssetByIdService.execute(params.id);
+    const { company } = req.user;
+    const data = await this._findAssetByIdService.execute(
+      company.id,
+      params.id
+    );
 
     if (!data) {
-      throw new Error("No data");
+      sendErrorResponse(res, "Asset not found.", 404);
     }
 
     sendSuccessResponse(res, "", data);

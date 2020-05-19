@@ -9,7 +9,7 @@ export class FindAssetByIdService {
     private readonly _assetRepository: IAssetRepository
   ) {}
 
-  async execute(id: number) {
-    return await this._assetRepository.findById(id);
+  async execute(company_id: number, id: number) {
+    return await this._assetRepository.findById(company_id, id);
   }
 }
