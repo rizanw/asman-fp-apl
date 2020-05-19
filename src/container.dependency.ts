@@ -70,6 +70,8 @@ import { UpdateStatusRequest } from "./application/reservation/UpdateStatusReque
 import { GetReservationByBorrowerService } from "./application/reservation/GetReservationByBorrowerService";
 import { UpdateIssueDateService } from "./application/reservation/UpdateIssueDateService";
 import { UpdateIssueDateRequest } from "./application/reservation/UpdateIssueDateRequest";
+import { GetReservationById } from "./application/reservation/GetReservationById";
+import { GetAssetByAvailabilityService } from "./application/asset/GetAssetByAvailabilityService";
 
 let container = new Container();
 
@@ -83,6 +85,9 @@ container.bind<AddReservationService>(AddReservationService).toSelf();
 container.bind<UpdateStatusService>(UpdateStatusService).toSelf();
 container.bind<GetReservationByBorrowerService>(GetReservationByBorrowerService).toSelf();
 container.bind<UpdateIssueDateService>(UpdateIssueDateService).toSelf();
+container.bind<GetReservationById>(GetReservationById).toSelf();
+
+container.bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService).toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container

@@ -9,7 +9,7 @@ export class GetAssetByAvailabilityService {
     private readonly _assetRepository: IAssetRepository
   ) {}
 
-  async execute(id: number) {
-    return await this._assetRepository.findById(id);
+  async execute() {
+    return await this._assetRepository.getByAvailability();
   }
 }

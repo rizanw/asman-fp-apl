@@ -11,6 +11,12 @@ export class UpdateIssueDateService {
     ){}
 
     async execute(reservation: UpdateIssueDateRequest) {
+        const reservationModel = await this._reservationRepository.getById(reservation.id);
+        
+        if (!reservationModel.isStatusPending()){
+            throw new Error("No Update!");
+        }
+
         const data = await this._reservationRepository.updateIssueDate(reservation);
 
         return data;

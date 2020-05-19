@@ -20,6 +20,9 @@ import { UpdateStatusRequest } from "src/application/reservation/UpdateStatusReq
 import { GetReservationByBorrowerService } from "src/application/reservation/GetReservationByBorrowerService";
 import { UpdateIssueDateService } from "src/application/reservation/UpdateIssueDateService";
 import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueDateRequest";
+import { GetReservationById } from "src/application/reservation/GetReservationById";
+import database from "src/infra/database/database";
+import { GetAssetByAvailabilityService } from "src/application/asset/GetAssetByAvailabilityService";
 
 @controller("/reservation")
 export class ReservationController implements interfaces.Controller {
@@ -29,6 +32,7 @@ export class ReservationController implements interfaces.Controller {
     protected readonly _updateStatusService: UpdateStatusService,
     protected readonly _updateIssueDateService: UpdateIssueDateService,
     protected readonly _getReservationByBorrowerService: GetReservationByBorrowerService,
+    protected readonly _getAvailableAsset: GetAssetByAvailabilityService,
     protected readonly _jwtUtil: JWTToken
   ) {}
 
@@ -45,7 +49,6 @@ export class ReservationController implements interfaces.Controller {
   public async confirm(@request() req: Request, @response() res: Response) {
     const user = req.user;
     const { id, status } = req.body;
-    const now = moment();
     const data = await this._updateStatusService.execute(
       new UpdateStatusRequest(id, user.id, status)
     );
@@ -85,4 +88,12 @@ export class ReservationController implements interfaces.Controller {
 
     sendSuccessResponse(res, "update status success", data);
   }
+
+  @httpGet("/list", role(Role.company))
+  public async id(@request() req: Request, @response() res: Response) {
+    const data = await this._getAvailableAsset.execute();
+    console.log(data.values())
+    return data;
+  }
+
 }

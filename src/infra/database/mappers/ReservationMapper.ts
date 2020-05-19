@@ -4,9 +4,8 @@ import Reservation from "src/domain/models/Reservation";
 import ReservationEntity from "../entities/reservation";
 
 @injectable()
-export class ReservationMapper
-  implements IMapper<Reservation, ReservationEntity> {
-  get(entity: Reservation): Reservation {
+export class ReservationMapper implements IMapper<Reservation, ReservationEntity> {
+  get(entity: ReservationEntity): Reservation {
     const consumtionType = new Reservation(
       entity.id,
       entity.asset_id,

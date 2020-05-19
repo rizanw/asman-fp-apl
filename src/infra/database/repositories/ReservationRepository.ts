@@ -6,7 +6,8 @@ import Reservation from "src/domain/models/Reservation";
 import ReservationEntity from "../entities/reservation";
 import { AddReservationRequest } from "src/application/reservation/AddReservationRequest";
 import { UpdateStatusRequest } from "src/application/reservation/UpdateStatusRequest";
-import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueDateRequest";
+import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueDateRequest"; 
+import moment from "moment";
 
 @injectable()
 export class ReservationRepository implements IReservationRepository {
@@ -26,8 +27,26 @@ export class ReservationRepository implements IReservationRepository {
     return dataEntity.map((data) => this._dataMapper.get(data));
   }
 
-  async getById(id: number): Promise<Reservation[]> {
-    const dataEntity = await ReservationEntity.findByPk<ReservationEntity>(id);
+  async getById(id: number): Promise<Reservation> {
+    const dataEntity = await ReservationEntity.findOne({
+      where: {
+        id: id,
+      }
+    });
+
+    if (!dataEntity) {
+      throw new Error("data not found.");
+    }
+
+    return this._dataMapper.get(dataEntity);
+  }
+
+  async getByBorrower(id: number): Promise<Reservation[]> {
+    const dataEntity = await ReservationEntity.findAll<ReservationEntity>({
+      where: {
+        borrower_id: id,
+      },
+    });
 
     if (!dataEntity) {
       throw new Error("data not found.");
@@ -36,10 +55,10 @@ export class ReservationRepository implements IReservationRepository {
     return dataEntity.map((data) => this._dataMapper.get(data));
   }
 
-  async getByBorrower(id: number): Promise<Reservation[]> {
+  async getByAsset(id: number): Promise<Reservation[]> {
     const dataEntity = await ReservationEntity.findAll<ReservationEntity>({
       where: {
-        borrower_id: id,
+        asset_id: id,
       },
     });
 
@@ -63,18 +82,34 @@ export class ReservationRepository implements IReservationRepository {
     return this._dataMapper.get(dataEntity);
   }
 
-  async updateStatus(reservation: UpdateStatusRequest): Promise<Reservation> {
-    const dataEntity = await ReservationEntity.update<ReservationEntity>(
-      {
-        admin_id: reservation.admin_id,
-        status: reservation.status,
-      },
-      {
-        where: {
-          id: reservation.id,
+  async updateStatus(reservation: Reservation, request: UpdateStatusRequest): Promise<Reservation> {
+    const now = moment(); 
+    if(reservation.isStatusReturned(request.status)){
+      var dataEntity = await ReservationEntity.update<ReservationEntity>(
+        {
+          admin_id: request.admin_id,
+          return_date: now,
+          status: request.status,
         },
-      }
-    );
+        {
+          where: {
+            id: reservation.id,
+          },
+        }
+      );
+    }else{
+      var dataEntity = await ReservationEntity.update<ReservationEntity>(
+        {
+          admin_id: request.admin_id,
+          status: request.status,
+        },
+        {
+          where: {
+            id: reservation.id,
+          },
+        }
+      );
+    }
 
     return this._dataMapper.get(dataEntity);
   }
@@ -83,7 +118,7 @@ export class ReservationRepository implements IReservationRepository {
     reservation: UpdateIssueDateRequest
   ): Promise<Reservation> {
     const dataEntity = await ReservationEntity.update<ReservationEntity>(
-      { 
+      {
         issue_date: reservation.issue_date,
       },
       {
