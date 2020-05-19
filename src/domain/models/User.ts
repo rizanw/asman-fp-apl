@@ -1,8 +1,8 @@
-import Company from "domain/models/Company";
+import Company from "src/domain/models/Company";
 
 export default class User {
   constructor(
-    public readonly id: number,
+    public readonly id: number | null,
     public readonly name: string,
     public readonly username: string,
     public readonly role: string,

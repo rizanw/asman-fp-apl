@@ -3,7 +3,6 @@ import {
   interfaces,
   controller,
   httpPost,
-  httpGet,
   request,
   response,
 } from "inversify-express-utils";
@@ -11,6 +10,7 @@ import {
 import { AuthenticationService } from "src/application/authentication/AuthenticationService";
 import { AuthenticationRequest } from "src/application/authentication/AuthenticationRequest";
 import { JWTToken } from "../utils/JWTToken";
+import { sendSuccessResponse } from "../utils/response";
 
 @controller("")
 export class AuthController implements interfaces.Controller {
@@ -30,12 +30,18 @@ export class AuthController implements interfaces.Controller {
       throw new Error("Credentials not match");
     }
 
-    return this._jwtUtil.generateToken(
+    const token = this._jwtUtil.generateToken(
       {},
-      user.id.toString(),
+      user.id!.toString(),
       "asset_management",
       0,
       "7d"
     );
+
+    sendSuccessResponse(res, "Login success", {
+      token: token,
+      token_type: "Bearer",
+      user: user,
+    });
   }
 }
