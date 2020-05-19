@@ -13,7 +13,13 @@ export class UserRepository implements IUserRepository {
   }
 
   async findById(id: number): Promise<User> {
-    const userEntity = await UserEntity.findByPk(id);
+    const userEntity = await UserEntity.findByPk(id, {
+      include: [
+        {
+          association: UserEntity.associations.company,
+        },
+      ],
+    });
 
     if (!userEntity) {
       throw new Error("User not found.");

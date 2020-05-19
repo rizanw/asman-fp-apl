@@ -4,7 +4,7 @@ import {
   HasManyGetAssociationsMixin,
   HasManyAddAssociationMixin,
   HasManyCreateAssociationMixin,
-  Association
+  Association,
 } from "sequelize";
 import sequelize from "../database";
 import Group from "./group";
@@ -44,7 +44,7 @@ Company.init(
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING(50),
@@ -53,9 +53,8 @@ Company.init(
       validate: {
         notNull: true,
         notEmpty: true,
-        isAlpha: true,
-        len: [3, 50]
-      }
+        len: [3, 50],
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -65,8 +64,8 @@ Company.init(
         notNull: true,
         notEmpty: true,
         isEmail: true,
-        len: [6, 255]
-      }
+        len: [6, 255],
+      },
     },
     tel: {
       type: DataTypes.STRING(15),
@@ -76,26 +75,26 @@ Company.init(
         notNull: true,
         notEmpty: true,
         isNumeric: true,
-        len: [9, 15]
-      }
+        len: [9, 15],
+      },
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     latitude: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
     },
     longitude: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
   },
   {
     sequelize: sequelize,
-    tableName: "companies"
+    tableName: "companies",
   }
 );
