@@ -1,7 +1,7 @@
 import { injectable, inject } from "inversify";
 import TYPES from "src/types.dependency";
 import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
-import { CategoryRequest } from './CategoryRequest';
+import { CategoryRequest } from './AddCategoryRequest';
 
 @injectable()
 export class AddCategoryService {

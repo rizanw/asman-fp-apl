@@ -10,7 +10,13 @@ module.exports = {
         username: "super_admin",
         role: "super_admin",
         password: pass
-      }
+      },
+      {
+        name: "User Borrower",
+        username: "borrower",
+        role: "company",
+        password: pass
+      },
     ]);
   },
 

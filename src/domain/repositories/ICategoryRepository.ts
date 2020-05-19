@@ -1,5 +1,5 @@
 import Category from '../models/Category';
-import { CategoryRequest } from '../../application/category/CategoryRequest';
+import { CategoryRequest } from '../../application/category/AddCategoryRequest';
 
 export interface ICategoryRepository {
   add(category: CategoryRequest): Promise<Category>;

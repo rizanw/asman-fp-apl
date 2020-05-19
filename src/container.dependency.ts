@@ -31,9 +31,15 @@ import { GetReadyServicesService } from "./application/service/GetReadyServicesS
 import { GetProcessedServicesService } from "./application/service/GetProcessedServicesService";
 import { GetFinishedServicesService } from "./application/service/GetFinishedServicesService";
 import { GetBacklogServicesService } from "./application/service/GetBacklogServicesService";
+import { IGroupRepository } from "./domain/repositories/IGroupRepository";
+import { GroupRepository } from "./infra/database/repositories/GroupRepository";
+import { GroupMapper } from "./infra/database/mappers/GroupMapper";
+import { RegisterGroupIndukService } from "./application/group/RegisterGroupIndukService";
+import { GetAllIndukService } from "./application/group/GetAllIndukService";
 
 let container = new Container();
 
+container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container
   .bind<ICategoryRepository>(TYPES.CategoryRepository)
   .to(CategoryRepository);
@@ -48,6 +54,10 @@ container
   .bind<IServiceRepository>(TYPES.ServiceRepository)
   .to(ServiceRepository);
 container.bind<IServer>(TYPES.Server).to(ExpressServer);
+
+container.bind<GroupMapper>(GroupMapper).toSelf();
+container.bind<RegisterGroupIndukService>(RegisterGroupIndukService).toSelf();
+container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
 
 container.bind<ConsumptionTypeMapper>(ConsumptionTypeMapper).toSelf();
 container

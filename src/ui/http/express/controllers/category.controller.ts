@@ -11,7 +11,7 @@ import {
 import { JWTToken } from "../utils/JWTToken";
 import { GetAllCategoryService } from '../../../../application/category/GetAllCategoryService';
 import { AddCategoryService } from '../../../../application/category/AddCategoryService';
-import { CategoryRequest } from "../../../../application/category/CategoryRequest";
+import { CategoryRequest } from "../../../../application/category/AddCategoryRequest";
 import { sendSuccessResponse } from '../utils/response';
 import role from "../middlewares/role";
 import { Role } from '../../../../domain/models/Role';
