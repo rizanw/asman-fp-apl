@@ -2,7 +2,7 @@ import {
   Model,
   DataTypes,
   BelongsToGetAssociationMixin,
-  Association
+  Association,
 } from "sequelize";
 import bcrypt from "bcrypt";
 import sequelize from "../database";
@@ -10,7 +10,7 @@ import Company from "./company";
 
 export const Role = {
   super_admin: "super_admin",
-  company: "company"
+  company: "company",
 };
 
 export default class User extends Model {
@@ -19,7 +19,7 @@ export default class User extends Model {
   public name!: string;
   public username!: string;
   public role!: string;
-  private password!: string;
+  public password!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -42,38 +42,38 @@ User.init(
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     company_id: {
-      type: DataTypes.BIGINT.UNSIGNED
+      type: DataTypes.BIGINT.UNSIGNED,
     },
     name: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: false,
     },
     username: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     role: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: false,
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
   },
   {
     sequelize: sequelize,
-    tableName: "users"
+    tableName: "users",
   }
 );
 
-User.prototype.toJSON = function() {
+User.prototype.toJSON = function () {
   let values: { [key: string]: string } = Object.assign({}, this.get());
 
   delete values.password;
@@ -82,11 +82,11 @@ User.prototype.toJSON = function() {
 
 Company.hasMany(User, {
   foreignKey: "company_id",
-  as: "users"
+  as: "users",
 });
 
 User.belongsTo(Company, {
   foreignKey: "company_id",
   as: "company",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
