@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, DataTypes) => {
@@ -7,44 +7,44 @@ module.exports = {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       asset_id: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
         references: {
           model: {
-            tableName: "assets"
+            tableName: "assets",
           },
-          key: "id"
+          key: "id",
         },
-        onDelete: 'cascade',
+        onDelete: "cascade",
       },
-      order_id: {
-        type: DataTypes.STRING,
+      order_detail: {
+        type: DataTypes.JSONB,
       },
       start_date: {
         type: DataTypes.DATEONLY,
-        allowNull: false
+        allowNull: false,
       },
       end_date: {
         type: DataTypes.DATEONLY,
-        allowNull: false
+        allowNull: false,
       },
       service_date: {
-        type: DataTypes.DATEONLY
+        type: DataTypes.DATEONLY,
       },
       status: {
         type: DataTypes.SMALLINT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
       },
       createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE
+      updatedAt: DataTypes.DATE,
     });
   },
 
   down: (queryInterface, DataTypes) => {
     return queryInterface.dropTable("services");
-  }
+  },
 };

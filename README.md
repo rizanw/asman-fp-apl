@@ -8,9 +8,10 @@ Implementing Clean Architecture and DDD in Asset management (AsMan) study case, 
 2. config the dotenv file
 3. Migrate the database  
 ``npx sequelize db:migrate``
-4. Seeding data to the database
+4. Seeding data to the database  
 ``npx sequelize db:seed:all``
-
+5. Start app
+``npm run start``
   
 
 ## Contributor  

@@ -24,6 +24,13 @@ import { ICompanyRepository } from "src/domain/repositories/ICompanyRepository";
 import { CompanyRepository } from "src/infra/database/repositories/CompanyRepository";
 import { GetAllCompanyService } from "./application/company/GetAllCompanyService";
 import { RegisterCompanyService } from "./application/company/RegisterCompanyService";
+import { ServiceMapper } from "./infra/database/mappers/ServiceMapper";
+import { IServiceRepository } from "src/domain/repositories/IServiceRepository";
+import { ServiceRepository } from "./infra/database/repositories/ServiceRepository";
+import { GetReadyServicesService } from "./application/service/GetReadyServicesService";
+import { GetProcessedServicesService } from "./application/service/GetProcessedServicesService";
+import { GetFinishedServicesService } from "./application/service/GetFinishedServicesService";
+import { GetBacklogServicesService } from "./application/service/GetBacklogServicesService";
 import { IGroupRepository } from "./domain/repositories/IGroupRepository";
 import { GroupRepository } from "./infra/database/repositories/GroupRepository";
 import { GroupMapper } from "./infra/database/mappers/GroupMapper";
@@ -64,6 +71,9 @@ container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
 container
   .bind<ICompanyRepository>(TYPES.CompanyRepository)
   .to(CompanyRepository);
+container
+  .bind<IServiceRepository>(TYPES.ServiceRepository)
+  .to(ServiceRepository);
 container.bind<IServer>(TYPES.Server).to(ExpressServer);
 
 container.bind<GroupMapper>(GroupMapper).toSelf();
@@ -103,6 +113,14 @@ container.bind<GetUserService>(GetUserService).toSelf();
 container.bind<CompanyMapper>(CompanyMapper).toSelf();
 container.bind<GetAllCompanyService>(GetAllCompanyService).toSelf();
 container.bind<RegisterCompanyService>(RegisterCompanyService).toSelf();
+
+container.bind<ServiceMapper>(ServiceMapper).toSelf();
+container.bind<GetReadyServicesService>(GetReadyServicesService).toSelf();
+container
+  .bind<GetProcessedServicesService>(GetProcessedServicesService)
+  .toSelf();
+container.bind<GetFinishedServicesService>(GetFinishedServicesService).toSelf();
+container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)

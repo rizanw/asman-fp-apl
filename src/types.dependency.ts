@@ -7,6 +7,7 @@ const TYPES = {
   GrowthTypeRepository: Symbol("GrowthTypeRepository"),
   ClassRepository: Symbol("ClassRepository"),
   CompanyRepository: Symbol("CompanyRepository"),
+  ServiceRepository: Symbol("ServiceRepository"),
   Server: Symbol("Server"),
 };
 
