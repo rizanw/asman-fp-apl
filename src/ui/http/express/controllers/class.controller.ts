@@ -13,7 +13,7 @@ import { Role } from "../../../../domain/models/Role";
 import { GetAllClassService } from "../../../../application/class/GetAllClassService";
 import { sendSuccessResponse } from "../utils/response";
 
-@controller("/class")
+@controller("/classes")
 export class ClassController implements interfaces.Controller {
   constructor(protected readonly _classController: GetAllClassService) {}
 

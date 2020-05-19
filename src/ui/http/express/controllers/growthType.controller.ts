@@ -13,7 +13,7 @@ import { Role } from "../../../../domain/models/Role";
 import { GetAllGrowthTypeService } from "../../../../application/growthType/GetAllGrowthTypeService";
 import { sendSuccessResponse } from "../utils/response";
 
-@controller("/growth-type")
+@controller("/growth-types")
 export class GrowthTypeController implements interfaces.Controller {
   constructor(protected readonly _growthTypeService: GetAllGrowthTypeService) {}
 

@@ -13,7 +13,7 @@ import { Role } from "../../../../domain/models/Role";
 import { GetAllTypeService } from "../../../../application/type/GetAllTypeService";
 import { sendSuccessResponse } from "../utils/response";
 
-@controller("/type")
+@controller("/types")
 export class TypeController implements interfaces.Controller {
   constructor(protected readonly _typeService: GetAllTypeService) {}
 

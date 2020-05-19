@@ -65,6 +65,9 @@ import { ReservationMapper } from "./infra/database/mappers/ReservationMapper";
 import { ReleaseServicesService } from "./application/service/ReleaseServicesService";
 import { FinishServicesService } from "./application/service/FinishServicesService";
 import { AddReservationService } from "./application/reservation/AddReservationService";
+import { DeleteAssetService } from "./application/asset/DeleteAssetService";
+import { EditAssetService } from "./application/asset/EditAssetService";
+import { SetServicePlanAssetService } from "./application/asset/SetServicePlanAssetService";
 
 let container = new Container();
 
@@ -75,6 +78,8 @@ container
 container.bind<GetAllReservationService>(GetAllReservationService).toSelf();
 container.bind<ReservationMapper>(ReservationMapper).toSelf();
 container.bind<AddReservationService>(AddReservationService).toSelf();
+container.bind<EditAssetService>(EditAssetService).toSelf();
+container.bind<SetServicePlanAssetService>(SetServicePlanAssetService).toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container
@@ -106,6 +111,7 @@ container.bind<AssetMapper>(AssetMapper).toSelf();
 container.bind<RegisterAssetService>(RegisterAssetService).toSelf();
 container.bind<FindAssetByIdService>(FindAssetByIdService).toSelf();
 container.bind<GetAllAssetService>(GetAllAssetService).toSelf();
+container.bind<DeleteAssetService>(DeleteAssetService).toSelf();
 
 container
   .bind<RegisterGroupSubIndukService>(RegisterGroupSubIndukService)
