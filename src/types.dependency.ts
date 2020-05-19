@@ -1,9 +1,6 @@
 const TYPES = {
-<<<<<<< HEAD
   AssetRepository: Symbol("AssetRepository"),
-=======
   ReservationRepository: Symbol("ReservationRepository"),
->>>>>>> c266d6a9dbfda56c36cff1bb45a12dc6ae3f6f4b
   GroupRepository: Symbol("GroupRepository"),
   CategoryRepository: Symbol("CategoryRepository"),
   UserRepository: Symbol("UserRepository"),
