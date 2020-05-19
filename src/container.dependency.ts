@@ -79,10 +79,12 @@ container.bind<IServer>(TYPES.Server).to(ExpressServer);
 container.bind<GroupMapper>(GroupMapper).toSelf();
 container.bind<RegisterGroupIndukService>(RegisterGroupIndukService).toSelf();
 container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
+
 container
   .bind<RegisterGroupSubIndukService>(RegisterGroupSubIndukService)
   .toSelf();
 container.bind<GetAllSubIndukService>(GetAllSubIndukService).toSelf();
+
 container
   .bind<RegisterGroupEquipmentService>(RegisterGroupEquipmentService)
   .toSelf();

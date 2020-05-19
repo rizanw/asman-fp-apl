@@ -31,49 +31,57 @@ export class GroupController implements interfaces.Controller {
   ) {}
 
   @httpGet("/induk", role(Role.company))
-  public async index(req: Request, res: Response) {
-    const { company_id } = req.user;
-    const data = await this.getAllIndukService.execute(company_id);
+  public async indexInduk(req: Request, res: Response) {
+    const { company } = req.user;
+    const data = await this.getAllIndukService.execute(company.id);
+
+    sendSuccessResponse(res, "", data);
+  }
+
+  @httpGet("/subinduk", role(Role.company))
+  public async indexSubinduk(req: Request, res: Response) {
+    const { company } = req.user;
+    const data = await this.getAllSubIndukService.execute(company.id);
+
+    sendSuccessResponse(res, "", data);
+  }
+
+  @httpGet("/equipment", role(Role.company))
+  public async indexEquipment(req: Request, res: Response) {
+    const { company } = req.user;
+    const data = await this.getAllEquipmentService.execute(company.id);
 
     sendSuccessResponse(res, "", data);
   }
 
   @httpPost("/induk", role(Role.company))
-  public async create(req: Request, res: Response) {
-    const { company_id } = req.user;
-    const { parent_id, name, tel, address, latitude, longitude } = req.body;
+  public async createInduk(req: Request, res: Response) {
+    const { company } = req.user;
+    const { name, tel, address, latitude, longitude } = req.body;
 
     const data = await this.registerGroupIndukService.execute(
       new RegisterGroupRequest(
-        company_id,
+        company.id,
         name,
         tel,
         address,
         latitude,
         longitude,
-        parent_id
+        null
       )
     );
 
     sendSuccessResponse(res, "Register induk success", data);
   }
 
-  @httpGet("/subinduk", role(Role.company))
-  public async index(req: Request, res: Response) {
-    const { company_id } = req.user;
-    const data = await this.getAllSubIndukService.execute(company_id);
-
-    sendSuccessResponse(res, "", data);
-  }
-
   @httpPost("/subinduk", role(Role.company))
-  public async create(req: Request, res: Response) {
-    const { company_id } = req.user;
+  public async createSubinduk(req: Request, res: Response) {
+    const { company } = req.user;
     const { parent_id, name, tel, address, latitude, longitude } = req.body;
 
     const data = await this.registerGroupSubIndukService.execute(
       new RegisterGroupRequest(
-        company_id,
+        company.id,
         name,
         tel,
         address,
@@ -85,22 +93,15 @@ export class GroupController implements interfaces.Controller {
 
     sendSuccessResponse(res, "Register induk success", data);
   }
-  @httpGet("/equipment", role(Role.company))
-  public async index(req: Request, res: Response) {
-    const { company_id } = req.user;
-    const data = await this.getAllSubIndukService.execute(company_id);
-
-    sendSuccessResponse(res, "", data);
-  }
 
   @httpPost("/equipment", role(Role.company))
-  public async create(req: Request, res: Response) {
-    const { company_id } = req.user;
+  public async createEquipment(req: Request, res: Response) {
+    const { company } = req.user;
     const { parent_id, name, tel, address, latitude, longitude } = req.body;
 
     const data = await this.registerGroupEquipmentService.execute(
       new RegisterGroupRequest(
-        company_id,
+        company.id,
         name,
         tel,
         address,

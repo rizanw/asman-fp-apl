@@ -8,20 +8,18 @@ import {
   response,
 } from "inversify-express-utils";
 
-import { JWTToken } from "../utils/JWTToken";
-import { GetAllCategoryService } from '../../../../application/category/GetAllCategoryService';
-import { AddCategoryService } from '../../../../application/category/AddCategoryService';
+import { GetAllCategoryService } from "../../../../application/category/GetAllCategoryService";
+import { AddCategoryService } from "../../../../application/category/AddCategoryService";
 import { CategoryRequest } from "../../../../application/category/AddCategoryRequest";
-import { sendSuccessResponse } from '../utils/response';
+import { sendSuccessResponse } from "../utils/response";
 import role from "../middlewares/role";
-import { Role } from '../../../../domain/models/Role';
+import { Role } from "../../../../domain/models/Role";
 
 @controller("/category")
 export class CategoryController implements interfaces.Controller {
   constructor(
     protected readonly _categoryService: GetAllCategoryService,
-    protected readonly _addCategoryService: AddCategoryService,
-    protected readonly _jwtUtil: JWTToken
+    protected readonly _addCategoryService: AddCategoryService
   ) {}
 
   @httpGet("/", role(Role.company))
@@ -32,14 +30,15 @@ export class CategoryController implements interfaces.Controller {
       throw new Error("No data");
     }
 
-    return data
+    return data;
   }
 
-  @httpPost("/",role(Role.company))
+  @httpPost("/", role(Role.company))
   public async add(@request() req: Request, @response() res: Response) {
-    const { company_id,name } = req.body;
+    const { company } = req.user;
+    const { name } = req.body;
     const data = await this._addCategoryService.execute(
-      new CategoryRequest(company_id, name)
+      new CategoryRequest(company.id, name)
     );
 
     sendSuccessResponse(res, "Register category success", data);
