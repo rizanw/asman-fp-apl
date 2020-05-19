@@ -11,17 +11,18 @@ import {
 import { JWTToken } from "../utils/JWTToken";
 import role from "../middlewares/role";
 import { Role } from '../../../../domain/models/Role';
+import { GetAllReservationService } from "../../../../application/reservation/GetAllReservationService";
 
-
-@controller("/category")
-export class CategoryController implements interfaces.Controller {
+@controller("/reservation")
+export class ReservationController implements interfaces.Controller {
   constructor( 
+    protected readonly _reservationService: GetAllReservationService,
     protected readonly _jwtUtil: JWTToken
   ) {}
 
-  @httpGet("/", role(Role.company))
+  @httpGet("/", role(Role.super_admin))
   public async index(@request() req: Request, @response() res: Response) {
-    const data = await this._categoryService.execute();
+    const data = await this._reservationService.execute();
 
     if (!data) {
       throw new Error("No data");
