@@ -12,6 +12,7 @@ import { JWTToken } from "../utils/JWTToken";
 import { GetAllCategoryService } from '../../../../application/category/GetAllCategoryService';
 import { AddCategoryService } from '../../../../application/category/AddCategoryService';
 import { CategoryRequest } from "../../../../application/category/CategoryRequest";
+import { sendSuccessResponse } from '../utils/response';
 
 @controller("")
 export class CategoryController implements interfaces.Controller {
@@ -23,7 +24,6 @@ export class CategoryController implements interfaces.Controller {
 
   @httpGet("/category")
   public async index(@request() req: Request, @response() res: Response) {
-    const { username, password } = req.body;
     const data = await this._categoryService.execute();
 
     if (!data) {
@@ -35,15 +35,11 @@ export class CategoryController implements interfaces.Controller {
 
   @httpPost("/category")
   public async add(@request() req: Request, @response() res: Response) {
-    const { name, company_id } = req.body;
+    const { company_id,name } = req.body;
     const data = await this._addCategoryService.execute(
-      new CategoryRequest(name, company_id)
+      new CategoryRequest(company_id, name)
     );
 
-    if (!data) {
-      throw new Error("Validation Error");
-    }
-
-    return data
+    sendSuccessResponse(res, "Register category success", data);
   }
 }

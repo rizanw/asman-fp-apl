@@ -7,6 +7,7 @@ import { ICategoryRepository } from '../../../domain/repositories/ICategoryRepos
 import { CategoryMapper } from '../mappers/CategoryMapper';
 import Category from "../entities/category";
 import Category from '../../../domain/models/Category';
+import { CategoryRequest } from '../../../application/category/CategoryRequest';
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {
@@ -26,7 +27,7 @@ export class CategoryRepository implements ICategoryRepository {
     return dataEntity.map(data => this._dataMapper.get(data));
   }
 
-  async add(user: Category): Promise<Category> {
+  async add(user: CategoryRequest): Promise<Category> {
     const dataEntity = await CategoryEntity.create<CategoryEntity>({
       name: user.name,
       company_id: user.company_id,

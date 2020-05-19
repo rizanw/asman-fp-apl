@@ -13,10 +13,6 @@ export class AddCategoryService {
   async execute(category: CategoryRequest) {
     const data = await this._categoryRepository.add(category)
 
-    if (!data) {
-      return undefined;
-    }
-
     return data;
   }
 }
