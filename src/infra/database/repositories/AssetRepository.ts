@@ -97,10 +97,6 @@ export class AssetRepository implements IAssetRepository {
       ],
     });
 
-    if (!dataEntity) {
-      throw new Error("Asset not found");
-    }
-
     return this._dataMapper.get(dataEntity);
   }
 

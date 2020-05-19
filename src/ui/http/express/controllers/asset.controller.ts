@@ -42,8 +42,9 @@ export class AssetController implements interfaces.Controller {
   }
 
   @httpGet("/:id", role(Role.company))
-  public async list(@requestParam("id") id: number, @response() res: Response) {
-    const data = await this._findAssetByIdService.execute(id);
+  public async list(@request() req: Request, @response() res: Response) {
+    let params = req.params as GetByIdParams;
+    const data = await this._findAssetByIdService.execute(params.id);
 
     if (!data) {
       throw new Error("No data");

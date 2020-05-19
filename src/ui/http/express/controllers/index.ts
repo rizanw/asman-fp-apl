@@ -1,5 +1,4 @@
 import { fromCallback } from "bluebird";
-
 export { AuthController } from "src/ui/http/express/controllers/auth.controller";
 export { AssetController } from "./asset.controller";
 export { ConsumptionTypeController } from "./consumptionType.controller";
