@@ -18,16 +18,16 @@ export class CategoryRepository implements ICategoryRepository {
     const dataEntity = await CategoryEntity.findAll();
 
     if (!dataEntity) {
-      throw new Error("User not found.");
+      throw new Error("Category not found.");
     }
 
     return dataEntity.map(data => this._dataMapper.get(data));
   }
 
-  async add(user: CategoryRequest): Promise<Category> {
+  async add(category: CategoryRequest): Promise<Category> {
     const dataEntity = await CategoryEntity.create<CategoryEntity>({
-      name: user.name,
-      company_id: user.company_id,
+      company_id: category.company_id,
+      name: category.name,
     });
 
     return this._dataMapper.get(dataEntity);
