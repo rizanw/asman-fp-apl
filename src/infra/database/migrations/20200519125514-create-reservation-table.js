@@ -13,6 +13,7 @@ module.exports = {
       id: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true
       },
       asset_id: {
@@ -43,6 +44,7 @@ module.exports = {
           },
           key: "id"
         }, 
+        allowNull: true,
         onDelete: 'cascade',
       },
       issue_date: {

@@ -1,4 +1,4 @@
-export class ReservationRequest {
+export class AddReservationRequest {
     constructor(
       public readonly asset_id: number,
       public readonly borrower_id: number,
