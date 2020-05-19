@@ -1,7 +1,7 @@
 {
     "development": {
       "username": "root",
-      "password": "alamalam",
+      "password": "secret",
       "database": "asset_management",
       "host": "127.0.0.1",
       "dialect": "postgres",
