@@ -10,31 +10,56 @@ import { UserMapper } from "src/infra/database/mappers/UserMapper";
 import { AuthenticationService } from "src/application/authentication/AuthenticationService";
 import { JWTToken } from "./ui/http/express/utils/JWTToken";
 import { GetUserService } from "./application/user/GetUserService";
-import { IConsumptionTypeRepository } from './domain/repositories/IConsumptionTypeRepository';
-import { ConsumptionTypeRepository } from './infra/database/repositories/ConsumptionTypeRepository';
-import { ConsumptionTypeMapper } from './infra/database/mappers/ConsumptionTypesMapper';
-import { GetAllConsumptionTypeService } from './application/consumptionType/GetAllConsumptionTypeService';
-import { CategoryRepository } from './infra/database/repositories/CategoryRepository';
-import { ICategoryRepository } from './domain/repositories/ICategoryRepository';
-import { GetAllCategoryService } from './application/category/GetAllCategoryService';
-import { CategoryMapper } from './infra/database/mappers/CategoryMapper';
-import { AddCategoryService } from './application/category/AddCategoryService';
+import { IConsumptionTypeRepository } from "./domain/repositories/IConsumptionTypeRepository";
+import { ConsumptionTypeRepository } from "./infra/database/repositories/ConsumptionTypeRepository";
+import { ConsumptionTypeMapper } from "./infra/database/mappers/ConsumptionTypesMapper";
+import { GetAllConsumptionTypeService } from "./application/consumptionType/GetAllConsumptionTypeService";
+import { CategoryRepository } from "./infra/database/repositories/CategoryRepository";
+import { ICategoryRepository } from "./domain/repositories/ICategoryRepository";
+import { GetAllCategoryService } from "./application/category/GetAllCategoryService";
+import { CategoryMapper } from "./infra/database/mappers/CategoryMapper";
+import { AddCategoryService } from "./application/category/AddCategoryService";
 import { CompanyMapper } from "src/infra/database/mappers/CompanyMapper";
 import { ICompanyRepository } from "src/domain/repositories/ICompanyRepository";
 import { CompanyRepository } from "src/infra/database/repositories/CompanyRepository";
 import { GetAllCompanyService } from "./application/company/GetAllCompanyService";
 import { RegisterCompanyService } from "./application/company/RegisterCompanyService";
-import { IGroupRepository } from './domain/repositories/IGroupRepository';
-import { GroupRepository } from './infra/database/repositories/GroupRepository';
-import { GroupMapper } from './infra/database/mappers/GroupMapper';
-import { RegisterGroupIndukService } from './application/group/RegisterGroupIndukService';
-import { GetAllIndukService } from './application/group/GetAllIndukService';
+import { IGroupRepository } from "./domain/repositories/IGroupRepository";
+import { GroupRepository } from "./infra/database/repositories/GroupRepository";
+import { GroupMapper } from "./infra/database/mappers/GroupMapper";
+import { RegisterGroupIndukService } from "./application/group/RegisterGroupIndukService";
+import { GetAllIndukService } from "./application/group/GetAllIndukService";
+import { RegisterGroupSubIndukService } from "./application/group/RegisterGroupSubIndukService";
+import { GetAllSubIndukService } from "./application/group/GetAllSubIndukService";
+import { RegisterGroupEquipmentService } from "./application/group/RegisterGroupEquipmentService";
+import { GetAllEquipmentService } from "./application/group/GetAllEquipmentService";
+import { IClassRepository } from "./domain/repositories/IClassRepository";
+import { ClassRepository } from "./infra/database/repositories/ClassRepository";
+import { IGrowthTypeRepository } from "./domain/repositories/IGrowthTypeRepository";
+import { GrowthTypeRepository } from "./infra/database/repositories/GrowthTypeRepository";
+import { ITypeRepository } from "./domain/repositories/ITypeRepository";
+import { TypeRepository } from "./infra/database/repositories/TypeRepository";
+import { ClassMapper } from "./infra/database/mappers/ClassMapper";
+import { GetAllClassService } from "./application/class/GetAllClassService";
+import { GrowthTypeMapper } from "./infra/database/mappers/GrowthTypeMapper";
+import { GetAllGrowthTypeService } from "./application/growthType/GetAllGrowthTypeService";
+import { TypeMapper } from "./infra/database/mappers/TypeMapper";
+import { GetAllTypeService } from "./application/type/GetAllTypeService";
 
 let container = new Container();
 
-container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository)
-container.bind<ICategoryRepository>(TYPES.CategoryRepository).to(CategoryRepository)
-container.bind<IConsumptionTypeRepository>(TYPES.ConsumptionTypeRepository).to(ConsumptionTypeRepository)
+container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
+container
+  .bind<ICategoryRepository>(TYPES.CategoryRepository)
+  .to(CategoryRepository);
+container
+  .bind<IConsumptionTypeRepository>(TYPES.ConsumptionTypeRepository)
+  .to(ConsumptionTypeRepository);
+container.bind<IClassRepository>(TYPES.ClassRepository).to(ClassRepository);
+container
+  .bind<IGrowthTypeRepository>(TYPES.GrowthTypeRepository)
+  .to(GrowthTypeRepository);
+container.bind<ITypeRepository>(TYPES.TypeRepository).to(TypeRepository);
 container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
 container
   .bind<ICompanyRepository>(TYPES.CompanyRepository)
@@ -44,9 +69,28 @@ container.bind<IServer>(TYPES.Server).to(ExpressServer);
 container.bind<GroupMapper>(GroupMapper).toSelf();
 container.bind<RegisterGroupIndukService>(RegisterGroupIndukService).toSelf();
 container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
+container
+  .bind<RegisterGroupSubIndukService>(RegisterGroupSubIndukService)
+  .toSelf();
+container.bind<GetAllSubIndukService>(GetAllSubIndukService).toSelf();
+container
+  .bind<RegisterGroupEquipmentService>(RegisterGroupEquipmentService)
+  .toSelf();
+container.bind<GetAllEquipmentService>(GetAllEquipmentService).toSelf();
 
 container.bind<ConsumptionTypeMapper>(ConsumptionTypeMapper).toSelf();
-container.bind<GetAllConsumptionTypeService>(GetAllConsumptionTypeService).toSelf();
+container
+  .bind<GetAllConsumptionTypeService>(GetAllConsumptionTypeService)
+  .toSelf();
+
+container.bind<ClassMapper>(ClassMapper).toSelf();
+container.bind<GetAllClassService>(GetAllClassService).toSelf();
+
+container.bind<GrowthTypeMapper>(GrowthTypeMapper).toSelf();
+container.bind<GetAllGrowthTypeService>(GetAllGrowthTypeService).toSelf();
+
+container.bind<TypeMapper>(TypeMapper).toSelf();
+container.bind<GetAllTypeService>(GetAllTypeService).toSelf();
 
 container.bind<CategoryMapper>(CategoryMapper).toSelf();
 container.bind<GetAllCategoryService>(GetAllCategoryService).toSelf();

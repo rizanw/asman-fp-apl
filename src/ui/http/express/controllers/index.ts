@@ -1,5 +1,8 @@
 export { AuthController } from "src/ui/http/express/controllers/auth.controller";
-export { ConsumptionTypeController } from "../controllers/consumptionType.controller";
-export { CategoryController } from "../controllers/category.controller";
-export { GroupController } from "../controllers/group.controller";
+export { ConsumptionTypeController } from "./consumptionType.controller";
+export { GrowthTypeController } from "./growthType.controller";
+export { ClassController } from "./class.controller";
+export { TypeController } from "./type.controller";
+export { CategoryController } from "./category.controller";
+export { GroupController } from "./group.controller";
 export { CompanyController } from "src/ui/http/express/controllers/company.controller";

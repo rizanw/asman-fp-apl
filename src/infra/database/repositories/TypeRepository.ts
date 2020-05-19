@@ -2,18 +2,21 @@ import { injectable } from "inversify";
 import { IConsumptionTypeRepository } from "../../../domain/repositories/IConsumptionTypeRepository";
 import { ConsumptionTypeMapper } from "../mappers/ConsumptionTypesMapper";
 import ConsumptionType from "../../../domain/models/ConsumptionType";
-import ConsumptionTypeEntity from "../entities/consumptionType";
+import TypeEntity from "../entities/type";
+import { ITypeRepository } from "../../../domain/repositories/ITypeRepository";
+import { TypeMapper } from "../mappers/TypeMapper";
+import Type from "../../../domain/models/Type";
 
 @injectable()
-export class ConsumptionTypeRepository implements IConsumptionTypeRepository {
-  private readonly _dataMapper: ConsumptionTypeMapper;
+export class TypeRepository implements ITypeRepository {
+  private readonly _dataMapper: TypeMapper;
 
-  constructor(dataMapper: ConsumptionTypeMapper) {
+  constructor(dataMapper: TypeMapper) {
     this._dataMapper = dataMapper;
   }
 
-  async getAll(): Promise<ConsumptionType[]> {
-    const dataEntity = await ConsumptionTypeEntity.findAll();
+  async getAll(): Promise<Type[]> {
+    const dataEntity = await TypeEntity.findAll();
 
     if (!dataEntity) {
       throw new Error("User not found.");
