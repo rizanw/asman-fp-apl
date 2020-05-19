@@ -41,7 +41,7 @@ export class ReservationController implements interfaces.Controller {
 
   @httpPost("/create", role(Role.company))
   public async add(@request() req: Request, @response() res: Response) {
-    const company = req.user;
+    const { company } = req.user;
     const { asset_id } = req.body; 
     const now = moment() 
     const data = await this._addReservationService.execute(
