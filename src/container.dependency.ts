@@ -52,6 +52,7 @@ import { GrowthTypeMapper } from "./infra/database/mappers/GrowthTypeMapper";
 import { GetAllGrowthTypeService } from "./application/growthType/GetAllGrowthTypeService";
 import { TypeMapper } from "./infra/database/mappers/TypeMapper";
 import { GetAllTypeService } from "./application/type/GetAllTypeService";
+import { ReleaseServicesService } from "./application/service/ReleaseServicesService";
 
 let container = new Container();
 
@@ -121,6 +122,7 @@ container
   .toSelf();
 container.bind<GetFinishedServicesService>(GetFinishedServicesService).toSelf();
 container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
+container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)
