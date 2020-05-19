@@ -17,6 +17,7 @@ import { AddReservationService } from "src/application/reservation/AddReservatio
 import { AddReservationRequest } from "src/application/reservation/AddReservationRequest";
 import { UpdateStatusService } from "src/application/reservation/UpdateStatusService";
 import { UpdateStatusRequest } from "src/application/reservation/UpdateStatusRequest";
+import { GetReservationByBorrowerService } from "src/application/reservation/GetReservationByBorrowerService";
 
 @controller("/reservation")
 export class ReservationController implements interfaces.Controller {
@@ -24,6 +25,7 @@ export class ReservationController implements interfaces.Controller {
     protected readonly _reservationService: GetAllReservationService,
     protected readonly _addReservationService: AddReservationService,
     protected readonly _updateStatusService: UpdateStatusService,
+    protected readonly _getReservationByBorrowerService: GetReservationByBorrowerService,
     protected readonly _jwtUtil: JWTToken
   ) {}
 
@@ -59,5 +61,17 @@ export class ReservationController implements interfaces.Controller {
     );
 
     sendSuccessResponse(res, "create reservation success", data);
+  }
+
+  @httpGet("/status", role(Role.company))
+  public async list(@request() req: Request, @response() res: Response) {
+    const user = req.user;
+    const data = await this._getReservationByBorrowerService.execute(user.id);
+
+    if (!data) {
+      throw new Error("No data");
+    }
+
+    sendSuccessResponse(res, "", data);
   }
 }

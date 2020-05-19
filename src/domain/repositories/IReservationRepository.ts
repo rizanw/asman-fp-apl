@@ -4,7 +4,7 @@ import { UpdateStatusRequest } from 'src/application/reservation/UpdateStatusReq
 
 export interface IReservationRepository {
     getAll(): Promise<Reservation[]>
-    getReservationByUser(): Promise<Reservation[]>
+    getByBorrower(id: number): Promise<Reservation[]>
     add(reservation: AddReservationRequest): Promise<Reservation>;
     updateStatus(reservation: UpdateStatusRequest): Promise<Reservation>
 }
