@@ -58,8 +58,21 @@ import { IAssetRepository } from "./domain/repositories/IAssetRepository";
 import { AssetRepository } from "./infra/database/repositories/AssetRepository";
 import { RegisterAssetService } from "./application/asset/RegisterAssetService";
 import { FindAssetByIdService } from "./application/asset/FindAssetByIdService";
+import { IReservationRepository } from "./domain/repositories/IReservationRepository";
+import { ReservationRepository } from "./infra/database/repositories/ReservationRepository";
+import { GetAllReservationService } from "./application/reservation/GetAllReservationService";
+import { ReservationMapper } from "./infra/database/mappers/ReservationMapper";
+import { ReleaseServicesService } from "./application/service/ReleaseServicesService";
+import { FinishServicesService } from "./application/service/FinishServicesService";
 
 let container = new Container();
+
+// Reservation Module
+container
+  .bind<IReservationRepository>(TYPES.ReservationRepository)
+  .to(ReservationRepository);
+container.bind<GetAllReservationService>(GetAllReservationService).toSelf();
+container.bind<ReservationMapper>(ReservationMapper).toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container
@@ -135,6 +148,8 @@ container
   .toSelf();
 container.bind<GetFinishedServicesService>(GetFinishedServicesService).toSelf();
 container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
+container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
+container.bind<FinishServicesService>(FinishServicesService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)
