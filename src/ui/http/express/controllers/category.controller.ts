@@ -14,6 +14,7 @@ import { CategoryRequest } from "../../../../application/category/AddCategoryReq
 import { sendSuccessResponse } from "../utils/response";
 import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
+import { removeTicks } from "sequelize/types/lib/utils";
 
 @controller("/categories")
 export class CategoryController implements interfaces.Controller {
@@ -37,7 +38,7 @@ export class CategoryController implements interfaces.Controller {
   @httpPost("/", role(Role.company))
   public async add(@request() req: Request, @response() res: Response) {
     const { company } = req.user;
-    const { name } = req.body;
+    const { name } = req.body; 
     const data = await this._addCategoryService.execute(
       new CategoryRequest(company.id, name)
     );

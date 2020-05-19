@@ -59,11 +59,7 @@ Reservation.init(
     },
     admin_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: false,
-      validate: {
-        notNull: true,
-        notEmpty: true,
-      },
+      allowNull: true,
     },
     issue_date: {
       type: DataTypes.DATEONLY,

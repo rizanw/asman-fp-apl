@@ -68,6 +68,11 @@ import { AddReservationService } from "./application/reservation/AddReservationS
 import { DeleteAssetService } from "./application/asset/DeleteAssetService";
 import { EditAssetService } from "./application/asset/EditAssetService";
 import { SetServicePlanAssetService } from "./application/asset/SetServicePlanAssetService";
+import { UpdateStatusService } from "./application/reservation/UpdateStatusService";
+import { UpdateStatusRequest } from "./application/reservation/UpdateStatusRequest";
+import { GetReservationByBorrowerService } from "./application/reservation/GetReservationByBorrowerService";
+import { UpdateIssueDateService } from "./application/reservation/UpdateIssueDateService";
+import { UpdateIssueDateRequest } from "./application/reservation/UpdateIssueDateRequest";
 
 let container = new Container();
 
@@ -80,6 +85,11 @@ container.bind<ReservationMapper>(ReservationMapper).toSelf();
 container.bind<AddReservationService>(AddReservationService).toSelf();
 container.bind<EditAssetService>(EditAssetService).toSelf();
 container.bind<SetServicePlanAssetService>(SetServicePlanAssetService).toSelf();
+container.bind<UpdateStatusService>(UpdateStatusService).toSelf();
+container
+  .bind<GetReservationByBorrowerService>(GetReservationByBorrowerService)
+  .toSelf();
+container.bind<UpdateIssueDateService>(UpdateIssueDateService).toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container
