@@ -1,10 +1,11 @@
-import Type from "./Type";
-import GrowthType from "./GrowthType";
-import Class from "./Class";
-import ConsumptionType from "../../infra/database/entities/consumptionType";
-import Category from "../../infra/database/entities/category";
-import Service from "../../infra/database/entities/service";
-import Group from "./Group";
+import Type from "src/domain/models/Type";
+import GrowthType from "src/domain/models/GrowthType";
+import Class from "src/domain/models/Class";
+import ConsumptionType from "src/domain/models/ConsumptionType";
+import Category from "src/domain/models/Category";
+import Service from "src/domain/models/Service";
+import Group from "src/domain/models/Group";
+
 export default class Asset {
   constructor(
     public readonly id: number,
@@ -18,13 +19,13 @@ export default class Asset {
     public readonly manufacture_date: Date,
     public readonly installation_date: Date,
     public readonly service_plan: Object,
-    public readonly group: Group,
-    public readonly type: Type,
-    public readonly growth_type: GrowthType,
-    public readonly kelas: Class,
-    public readonly consumption_type: ConsumptionType,
-    public readonly category: Category,
-    public readonly services: Service,
+    public readonly group: Group | null,
+    public readonly type: Type | null,
+    public readonly growth_type: GrowthType | null,
+    public readonly kelas: Class | null,
+    public readonly consumption_type: ConsumptionType | null,
+    public readonly category: Category | null,
+    public readonly services: Service[],
     public readonly custom_fields: Object | null
   ) {}
 }

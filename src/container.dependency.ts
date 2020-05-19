@@ -73,6 +73,7 @@ import { UpdateStatusRequest } from "./application/reservation/UpdateStatusReque
 import { GetReservationByBorrowerService } from "./application/reservation/GetReservationByBorrowerService";
 import { UpdateIssueDateService } from "./application/reservation/UpdateIssueDateService";
 import { UpdateIssueDateRequest } from "./application/reservation/UpdateIssueDateRequest";
+import { GetUnplannedAssetsService } from "./application/service/GetUnplannedAssetsService";
 
 let container = new Container();
 
@@ -168,6 +169,7 @@ container.bind<GetFinishedServicesService>(GetFinishedServicesService).toSelf();
 container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
 container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
 container.bind<FinishServicesService>(FinishServicesService).toSelf();
+container.bind<GetUnplannedAssetsService>(GetUnplannedAssetsService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)

@@ -15,12 +15,14 @@ import { Role } from "src/domain/models/Role";
 import role from "src/ui/http/express/middlewares/role";
 import { ReleaseServicesService } from "src/application/service/ReleaseServicesService";
 import { FinishServicesService } from "src/application/service/FinishServicesService";
+import { GetUnplannedAssetsService } from "src/application/service/GetUnplannedAssetsService";
 
 @controller("/services")
 export class ServiceController implements interfaces.Controller {
   constructor(
     protected readonly releaseServicesService: ReleaseServicesService,
     protected readonly finishServicesService: FinishServicesService,
+    protected readonly getUnplannedAssetsService: GetUnplannedAssetsService,
     protected readonly getReadyServicesService: GetReadyServicesService,
     protected readonly getProcessedServicesService: GetProcessedServicesService,
     protected readonly getFinishedServicesService: GetFinishedServicesService,
@@ -47,6 +49,15 @@ export class ServiceController implements interfaces.Controller {
     );
 
     sendSuccessResponse(res, `${numOfReleasedServices} services finished`);
+  }
+
+  @httpGet("/unplanned", role(Role.company))
+  public async getUnplanned(req: Request, res: Response) {
+    const user = req.user as User;
+
+    const assets = await this.getUnplannedAssetsService.execute(user);
+
+    sendSuccessResponse(res, "", assets);
   }
 
   @httpGet("/ready", role(Role.company))

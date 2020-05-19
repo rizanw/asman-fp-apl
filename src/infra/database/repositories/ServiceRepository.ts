@@ -9,13 +9,17 @@ import GroupEntity from "src/infra/database/entities/group";
 import { Op } from "sequelize";
 import moment from "moment";
 import { ServiceStatus } from "src/domain/models/ServiceStatus";
+import Asset from "src/domain/models/Asset";
+import { AssetMapper } from "../mappers/AssetMapper";
 
 @injectable()
 export class ServiceRepository implements IServiceRepository {
   private readonly _serviceMapper: ServiceMapper;
+  private readonly _assetMapper: AssetMapper;
 
-  constructor(serviceMapper: ServiceMapper) {
+  constructor(serviceMapper: ServiceMapper, assetMapper: AssetMapper) {
     this._serviceMapper = serviceMapper;
+    this._assetMapper = assetMapper;
   }
 
   async releaseServices(services: Service[]): Promise<void> {
@@ -58,6 +62,34 @@ export class ServiceRepository implements IServiceRepository {
     });
 
     return services.map((e) => this._serviceMapper.get(e));
+  }
+
+  async getUnplannedAssets(companyId: number): Promise<Asset[]> {
+    const assets = await AssetEntity.findAll({
+      where: {
+        service_plan: null,
+      },
+      include: [
+        {
+          association: AssetEntity.associations.group,
+          where: {
+            company_id: companyId,
+          },
+          include: [
+            {
+              association: GroupEntity.associations.parent,
+              include: [
+                {
+                  association: GroupEntity.associations.parent,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    return assets.map((e) => this._assetMapper.get(e));
   }
 
   async getReadyServicesByUser(user: User): Promise<Service[]> {
