@@ -42,7 +42,7 @@ module.exports = {
             tableName: "users"
           },
           key: "id"
-        },
+        }, 
         onDelete: 'cascade',
       },
       issue_date: {

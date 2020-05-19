@@ -2,10 +2,7 @@ import {
   Model,
   DataTypes,
   BelongsToGetAssociationMixin,
-  Association,
-  HasManyGetAssociationsMixin,
-  HasManyAddAssociationMixin,
-  HasManyCreateAssociationMixin,
+  Association
 } from "sequelize";
 import sequelize from "../database";
 import User from "./user";
@@ -18,7 +15,7 @@ export default class Reservation extends Model {
   public admin_id!: number;
   public issue_date!: Date;
   public return_date!: Date;
-  public status!: string;
+  public status!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
