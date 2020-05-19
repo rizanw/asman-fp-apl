@@ -29,6 +29,36 @@ export class GroupRepository implements IGroupRepository {
     return groupEntities.map((data) => this._dataMapper.get(data));
   }
 
+  async findAllSubIndukByUser(id: number): Promise<Group[]> {
+    const groupEntities = await GroupEntity.findAll<GroupEntity>({
+      where: {
+        company_id: {
+          [Op.eq]: id,
+        },
+        level: {
+          [Op.eq]: 2,
+        },
+      },
+    });
+
+    return groupEntities.map((data) => this._dataMapper.get(data));
+  }
+
+  async findAllEquipmentByUser(id: number): Promise<Group[]> {
+    const groupEntities = await GroupEntity.findAll<GroupEntity>({
+      where: {
+        company_id: {
+          [Op.eq]: id,
+        },
+        level: {
+          [Op.eq]: 3,
+        },
+      },
+    });
+
+    return groupEntities.map((data) => this._dataMapper.get(data));
+  }
+
   async registerInduk({
     company_id,
     name,
@@ -48,21 +78,6 @@ export class GroupRepository implements IGroupRepository {
     });
 
     return this._dataMapper.get(groupEntity);
-  }
-
-  async findAllSubIndukByUser(id: number): Promise<Group[]> {
-    const groupEntities = await GroupEntity.findAll<GroupEntity>({
-      where: {
-        company_id: {
-          [Op.eq]: id,
-        },
-        level: {
-          [Op.eq]: 2,
-        },
-      },
-    });
-
-    return groupEntities.map((data) => this._dataMapper.get(data));
   }
 
   async registerSubInduk({
@@ -86,21 +101,6 @@ export class GroupRepository implements IGroupRepository {
     });
 
     return this._dataMapper.get(groupEntity);
-  }
-
-  async findAllEquipmentByUser(id: number): Promise<Group[]> {
-    const groupEntities = await GroupEntity.findAll<GroupEntity>({
-      where: {
-        company_id: {
-          [Op.eq]: id,
-        },
-        level: {
-          [Op.eq]: 3,
-        },
-      },
-    });
-
-    return groupEntities.map((data) => this._dataMapper.get(data));
   }
 
   async registerEquipment({
