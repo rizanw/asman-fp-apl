@@ -52,6 +52,12 @@ import { GrowthTypeMapper } from "./infra/database/mappers/GrowthTypeMapper";
 import { GetAllGrowthTypeService } from "./application/growthType/GetAllGrowthTypeService";
 import { TypeMapper } from "./infra/database/mappers/TypeMapper";
 import { GetAllTypeService } from "./application/type/GetAllTypeService";
+import { AssetMapper } from "./infra/database/mappers/AssetMapper";
+import { GetAllAssetService } from "./application/asset/GetAllAssetService";
+import { IAssetRepository } from "./domain/repositories/IAssetRepository";
+import { AssetRepository } from "./infra/database/repositories/AssetRepository";
+import { RegisterAssetService } from "./application/asset/RegisterAssetService";
+import { FindAssetByIdService } from "./application/asset/FindAssetByIdService";
 
 let container = new Container();
 
@@ -71,6 +77,7 @@ container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
 container
   .bind<ICompanyRepository>(TYPES.CompanyRepository)
   .to(CompanyRepository);
+container.bind<IAssetRepository>(TYPES.AssetRepository).to(AssetRepository);
 container
   .bind<IServiceRepository>(TYPES.ServiceRepository)
   .to(ServiceRepository);
@@ -79,6 +86,11 @@ container.bind<IServer>(TYPES.Server).to(ExpressServer);
 container.bind<GroupMapper>(GroupMapper).toSelf();
 container.bind<RegisterGroupIndukService>(RegisterGroupIndukService).toSelf();
 container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
+
+container.bind<AssetMapper>(AssetMapper).toSelf();
+container.bind<RegisterAssetService>(RegisterAssetService).toSelf();
+container.bind<FindAssetByIdService>(FindAssetByIdService).toSelf();
+container.bind<GetAllAssetService>(GetAllAssetService).toSelf();
 
 container
   .bind<RegisterGroupSubIndukService>(RegisterGroupSubIndukService)

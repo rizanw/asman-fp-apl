@@ -30,7 +30,7 @@ export class CategoryController implements interfaces.Controller {
       throw new Error("No data");
     }
 
-    return data;
+    sendSuccessResponse(res, "", data);
   }
 
   @httpPost("/", role(Role.company))

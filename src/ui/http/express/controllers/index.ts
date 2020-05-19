@@ -1,4 +1,5 @@
 export { AuthController } from "src/ui/http/express/controllers/auth.controller";
+export { AssetController } from "./asset.controller";
 export { ConsumptionTypeController } from "./consumptionType.controller";
 export { GrowthTypeController } from "./growthType.controller";
 export { ClassController } from "./class.controller";

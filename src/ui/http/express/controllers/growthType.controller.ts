@@ -11,6 +11,7 @@ import {
 import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
 import { GetAllGrowthTypeService } from "../../../../application/growthType/GetAllGrowthTypeService";
+import { sendSuccessResponse } from "../utils/response";
 
 @controller("/growth-type")
 export class GrowthTypeController implements interfaces.Controller {
@@ -23,7 +24,6 @@ export class GrowthTypeController implements interfaces.Controller {
     if (!data) {
       throw new Error("No data");
     }
-
-    return data;
+    sendSuccessResponse(res, "", data);
   }
 }

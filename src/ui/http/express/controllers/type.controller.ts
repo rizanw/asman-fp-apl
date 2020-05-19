@@ -11,6 +11,7 @@ import {
 import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
 import { GetAllTypeService } from "../../../../application/type/GetAllTypeService";
+import { sendSuccessResponse } from "../utils/response";
 
 @controller("/type")
 export class TypeController implements interfaces.Controller {
@@ -23,7 +24,6 @@ export class TypeController implements interfaces.Controller {
     if (!data) {
       throw new Error("No data");
     }
-
-    return data;
+    sendSuccessResponse(res, "", data);
   }
 }

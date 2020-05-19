@@ -11,6 +11,7 @@ import {
 import { GetAllConsumptionTypeService } from "../../../../application/consumptionType/GetAllConsumptionTypeService";
 import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
+import { sendSuccessResponse } from "../utils/response";
 
 @controller("/consumption-type")
 export class ConsumptionTypeController implements interfaces.Controller {
@@ -25,7 +26,6 @@ export class ConsumptionTypeController implements interfaces.Controller {
     if (!data) {
       throw new Error("No data");
     }
-
-    return data;
+    sendSuccessResponse(res, "", data);
   }
 }

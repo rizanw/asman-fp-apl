@@ -5,7 +5,6 @@ import { GroupMapper } from "../mappers/GroupMapper";
 import Group from "../../../domain/models/Group";
 import { RegisterGroupRequest } from "../../../application/group/RegisterGroupRequest";
 import { Op, Association } from "sequelize";
-import ServiceEntity from "src/infra/database/entities/service";
 import GroupEntity from "src/infra/database/entities/group";
 
 @injectable()
