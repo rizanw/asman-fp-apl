@@ -174,4 +174,14 @@ export class AssetRepository implements IAssetRepository {
 
     return this._dataMapper.get(dataEntity);
   }
+
+  async getByAvailability(): Promise<Asset[]> {
+    const dataEntity = await AssetEntity.findAll();
+
+    if (!dataEntity) {
+      throw new Error("No Asset.");
+    }
+
+    return dataEntity.map((data) => this._dataMapper.get(data));
+  }
 }

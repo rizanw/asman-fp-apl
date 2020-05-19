@@ -17,8 +17,8 @@ export default class Reservation extends Model {
   public return_date!: Date;
   public status!: number;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  // public readonly createdAt!: Date;
+  // public readonly updatedAt!: Date;
   public readonly asset?: Asset;
   public readonly borrower?: User;
   public readonly admin?: User;

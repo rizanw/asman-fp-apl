@@ -10,8 +10,10 @@ export class UpdateStatusService {
         private readonly _reservationRepository: IReservationRepository
     ){}
 
-    async execute(reservation: UpdateStatusRequest) {
-        const data = await this._reservationRepository.updateStatus(reservation);
+    async execute(request: UpdateStatusRequest) {
+
+        const reservation = await this._reservationRepository.getById(request.id)
+        const data = await this._reservationRepository.updateStatus(reservation, request);
 
         return data;
     }
