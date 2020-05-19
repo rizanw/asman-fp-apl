@@ -24,9 +24,15 @@ import { ICompanyRepository } from "src/domain/repositories/ICompanyRepository";
 import { CompanyRepository } from "src/infra/database/repositories/CompanyRepository";
 import { GetAllCompanyService } from "./application/company/GetAllCompanyService";
 import { RegisterCompanyService } from "./application/company/RegisterCompanyService";
+import { IGroupRepository } from './domain/repositories/IGroupRepository';
+import { GroupRepository } from './infra/database/repositories/GroupRepository';
+import { GroupMapper } from './infra/database/mappers/GroupMapper';
+import { RegisterGroupIndukService } from './application/group/RegisterGroupIndukService';
+import { GetAllIndukService } from './application/group/GetAllIndukService';
 
 let container = new Container();
 
+container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository)
 container.bind<ICategoryRepository>(TYPES.CategoryRepository).to(CategoryRepository)
 container.bind<IConsumptionTypeRepository>(TYPES.ConsumptionTypeRepository).to(ConsumptionTypeRepository)
 container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
@@ -34,6 +40,10 @@ container
   .bind<ICompanyRepository>(TYPES.CompanyRepository)
   .to(CompanyRepository);
 container.bind<IServer>(TYPES.Server).to(ExpressServer);
+
+container.bind<GroupMapper>(GroupMapper).toSelf();
+container.bind<RegisterGroupIndukService>(RegisterGroupIndukService).toSelf();
+container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
 
 container.bind<ConsumptionTypeMapper>(ConsumptionTypeMapper).toSelf();
 container.bind<GetAllConsumptionTypeService>(GetAllConsumptionTypeService).toSelf();
