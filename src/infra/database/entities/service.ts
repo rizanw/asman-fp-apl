@@ -1,13 +1,16 @@
-import { Model, DataTypes, BelongsToGetAssociationMixin, Association } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  BelongsToGetAssociationMixin,
+  Association,
+} from "sequelize";
 import sequelize from "../database";
 import Asset from "./asset";
-
-
 
 export default class Service extends Model {
   public id!: number;
   public asset_id!: number;
-  public order_id!: string;
+  public order_detail!: Object;
   public start_date!: Date;
   public end_date!: Date;
   public service_date!: Date;
@@ -22,11 +25,11 @@ export default class Service extends Model {
   public readonly updatedAt!: Date;
   public readonly asset?: Asset;
 
-  public getAsset!:  BelongsToGetAssociationMixin<Asset>;
+  public getAsset!: BelongsToGetAssociationMixin<Asset>;
 
   public static associations: {
     asset: Association<Asset, Service>;
-  }
+  };
 }
 
 Service.init(
@@ -35,47 +38,47 @@ Service.init(
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     asset_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: false
+      allowNull: false,
     },
-    order_id: {
-      type: DataTypes.STRING,
+    order_detail: {
+      type: DataTypes.JSONB,
     },
     start_date: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
     },
     end_date: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
     },
     service_date: {
-      type: DataTypes.DATEONLY
+      type: DataTypes.DATEONLY,
     },
     status: {
       type: DataTypes.SMALLINT,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
   },
   {
     sequelize: sequelize,
-    tableName: "services"
+    tableName: "services",
   }
 );
 
 Asset.hasMany(Service, {
   foreignKey: "asset_id",
-  as: "services"
+  as: "services",
 });
 
 Service.belongsTo(Asset, {
   foreignKey: "asset_id",
   as: "asset",
-  onDelete: "cascade"
-})
+  onDelete: "cascade",
+});

@@ -3,6 +3,7 @@ const TYPES = {
   UserRepository: Symbol("UserRepository"),
   ConsumptionTypeRepository: Symbol("ConsumptionTypeRepository"),
   CompanyRepository: Symbol("CompanyRepository"),
+  ServiceRepository: Symbol("ServiceRepository"),
   Server: Symbol("Server"),
 };
 
