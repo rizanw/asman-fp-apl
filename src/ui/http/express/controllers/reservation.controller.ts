@@ -18,6 +18,8 @@ import { AddReservationRequest } from "src/application/reservation/AddReservatio
 import { UpdateStatusService } from "src/application/reservation/UpdateStatusService";
 import { UpdateStatusRequest } from "src/application/reservation/UpdateStatusRequest";
 import { GetReservationByBorrowerService } from "src/application/reservation/GetReservationByBorrowerService";
+import { UpdateIssueDateService } from "src/application/reservation/UpdateIssueDateService";
+import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueDateRequest";
 
 @controller("/reservation")
 export class ReservationController implements interfaces.Controller {
@@ -25,6 +27,7 @@ export class ReservationController implements interfaces.Controller {
     protected readonly _reservationService: GetAllReservationService,
     protected readonly _addReservationService: AddReservationService,
     protected readonly _updateStatusService: UpdateStatusService,
+    protected readonly _updateIssueDateService: UpdateIssueDateService,
     protected readonly _getReservationByBorrowerService: GetReservationByBorrowerService,
     protected readonly _jwtUtil: JWTToken
   ) {}
@@ -38,17 +41,16 @@ export class ReservationController implements interfaces.Controller {
     return data;
   }
 
-  @httpPost("/update", role(Role.super_admin))
-  public async update(@request() req: Request, @response() res: Response) {
+  @httpPost("/status", role(Role.super_admin))
+  public async confirm(@request() req: Request, @response() res: Response) {
     const user = req.user;
-    const {id, status} = req.body;
+    const { id, status } = req.body;
     const now = moment();
     const data = await this._updateStatusService.execute(
       new UpdateStatusRequest(id, user.id, status)
     );
 
     sendSuccessResponse(res, "update status success", data);
-
   }
 
   @httpPost("/create", role(Role.company))
@@ -71,7 +73,16 @@ export class ReservationController implements interfaces.Controller {
     if (!data) {
       throw new Error("No data");
     }
+    return data;
+  }
 
-    sendSuccessResponse(res, "", data);
+  @httpPost("/update", role(Role.company))
+  public async update(@request() req: Request, @response() res: Response) {
+    const { id, issue_date } = req.body;
+    const data = await this._updateIssueDateService.execute(
+      new UpdateIssueDateRequest(id, issue_date)
+    );
+
+    sendSuccessResponse(res, "update status success", data);
   }
 }

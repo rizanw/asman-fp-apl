@@ -6,6 +6,7 @@ import Reservation from "src/domain/models/Reservation";
 import ReservationEntity from "../entities/reservation";
 import { AddReservationRequest } from "src/application/reservation/AddReservationRequest";
 import { UpdateStatusRequest } from "src/application/reservation/UpdateStatusRequest";
+import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueDateRequest";
 
 @injectable()
 export class ReservationRepository implements IReservationRepository {
@@ -17,6 +18,16 @@ export class ReservationRepository implements IReservationRepository {
 
   async getAll(): Promise<Reservation[]> {
     const dataEntity = await ReservationEntity.findAll();
+
+    if (!dataEntity) {
+      throw new Error("data not found.");
+    }
+
+    return dataEntity.map((data) => this._dataMapper.get(data));
+  }
+
+  async getById(id: number): Promise<Reservation[]> {
+    const dataEntity = await ReservationEntity.findByPk<ReservationEntity>(id);
 
     if (!dataEntity) {
       throw new Error("data not found.");
@@ -57,6 +68,23 @@ export class ReservationRepository implements IReservationRepository {
       {
         admin_id: reservation.admin_id,
         status: reservation.status,
+      },
+      {
+        where: {
+          id: reservation.id,
+        },
+      }
+    );
+
+    return this._dataMapper.get(dataEntity);
+  }
+
+  async updateIssueDate(
+    reservation: UpdateIssueDateRequest
+  ): Promise<Reservation> {
+    const dataEntity = await ReservationEntity.update<ReservationEntity>(
+      { 
+        issue_date: reservation.issue_date,
       },
       {
         where: {
