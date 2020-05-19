@@ -4,7 +4,9 @@ import { IGroupRepository } from "../../../domain/repositories/IGroupRepository"
 import { GroupMapper } from "../mappers/GroupMapper";
 import Group from "../../../domain/models/Group";
 import { RegisterGroupRequest } from "../../../application/group/RegisterGroupRequest";
-import { Op } from "sequelize";
+import { Op, Association } from "sequelize";
+import ServiceEntity from "src/infra/database/entities/service";
+import GroupEntity from "src/infra/database/entities/group";
 
 @injectable()
 export class GroupRepository implements IGroupRepository {
@@ -39,6 +41,11 @@ export class GroupRepository implements IGroupRepository {
           [Op.eq]: 2,
         },
       },
+      include: [
+        {
+          association: GroupEntity.associations.parent,
+        },
+      ],
     });
 
     return groupEntities.map((data) => this._dataMapper.get(data));
@@ -54,6 +61,11 @@ export class GroupRepository implements IGroupRepository {
           [Op.eq]: 3,
         },
       },
+      include: [
+        {
+          association: GroupEntity.associations.parent,
+        },
+      ],
     });
 
     return groupEntities.map((data) => this._dataMapper.get(data));

@@ -1,6 +1,6 @@
 import GroupEntity from "../entities/group";
 import { injectable } from "inversify";
-import Group from '../../../domain/models/Group';
+import Group from "../../../domain/models/Group";
 
 @injectable()
 export class GroupMapper implements IMapper<Group, GroupEntity> {
@@ -14,7 +14,8 @@ export class GroupMapper implements IMapper<Group, GroupEntity> {
       entity.address,
       entity.latitude,
       entity.longitude,
-      entity.level
+      entity.level,
+      entity.parent
     );
   }
 }
