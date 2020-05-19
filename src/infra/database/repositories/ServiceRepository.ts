@@ -1,4 +1,4 @@
-import { injectable } from "inversify";
+import { injectable, id } from "inversify";
 import { IServiceRepository } from "src/domain/repositories/IServiceRepository";
 import { ServiceMapper } from "../mappers/ServiceMapper";
 import User from "src/domain/models/User";
@@ -16,6 +16,33 @@ export class ServiceRepository implements IServiceRepository {
 
   constructor(serviceMapper: ServiceMapper) {
     this._serviceMapper = serviceMapper;
+  }
+
+  async releaseServices(services: Service[]): Promise<void> {
+    const serviceIds = services.map((service) => service.id);
+
+    await ServiceEntity.update(
+      { status: ServiceStatus.PROCESSED },
+      {
+        where: {
+          id: {
+            [Op.in]: serviceIds,
+          },
+        },
+      }
+    );
+  }
+
+  async findServicesByIds(ids: number[]): Promise<Service[]> {
+    const services = await ServiceEntity.findAll({
+      where: {
+        id: {
+          [Op.in]: ids,
+        },
+      },
+    });
+
+    return services.map((e) => this._serviceMapper.get(e));
   }
 
   async getReadyServicesByUser(user: User): Promise<Service[]> {

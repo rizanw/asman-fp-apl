@@ -56,6 +56,7 @@ import { IReservationRepository } from "./domain/repositories/IReservationReposi
 import { ReservationRepository } from "./infra/database/repositories/ReservationRepository";
 import { GetAllReservationService } from "./application/reservation/GetAllReservationService";
 import { ReservationMapper } from "./infra/database/mappers/ReservationMapper";
+import { ReleaseServicesService } from "./application/service/ReleaseServicesService";
 
 let container = new Container();
 
@@ -88,10 +89,12 @@ container.bind<IServer>(TYPES.Server).to(ExpressServer);
 container.bind<GroupMapper>(GroupMapper).toSelf();
 container.bind<RegisterGroupIndukService>(RegisterGroupIndukService).toSelf();
 container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
+
 container
   .bind<RegisterGroupSubIndukService>(RegisterGroupSubIndukService)
   .toSelf();
 container.bind<GetAllSubIndukService>(GetAllSubIndukService).toSelf();
+
 container
   .bind<RegisterGroupEquipmentService>(RegisterGroupEquipmentService)
   .toSelf();
@@ -130,6 +133,7 @@ container
   .toSelf();
 container.bind<GetFinishedServicesService>(GetFinishedServicesService).toSelf();
 container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
+container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)
