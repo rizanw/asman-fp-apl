@@ -49,10 +49,13 @@ module.exports = {
         type: DataTypes.DATEONLY
       },
       return_date: {
-        type: DataTypes.DATEONLY
+        type: DataTypes.DATEONLY,
+        allowNull: true,
       },
       status: {
-        type: DataTypes.STRING
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        defaultValue: 0,
       }
     })
   },

@@ -1,3 +1,4 @@
+
 export default class Reservation {
     constructor(
       public readonly id: number,
@@ -6,6 +7,6 @@ export default class Reservation {
       public readonly admin_id: number,
       public readonly issue_date: Date,
       public readonly return_date: Date,
-      public readonly status: string
+      public readonly status: number
     ) {}
   }

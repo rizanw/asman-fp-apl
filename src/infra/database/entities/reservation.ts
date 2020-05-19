@@ -23,14 +23,16 @@ export default class Reservation extends Model {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly asset?: Asset;
-  public readonly user?: User;
+  public readonly borrower?: User;
+  public readonly admin?: User;
 
   public getAsset!: BelongsToGetAssociationMixin<Asset>;
   public getUser!: BelongsToGetAssociationMixin<User>;
 
   public static associations: {
       asset: Association<Reservation, Asset>;
-      user: Association<Reservation, User>;
+      borrower: Association<Reservation, User>;
+      admin: Association<Reservation, User>;
   }
 }
 
@@ -81,12 +83,13 @@ Reservation.init(
       }
     },
     status: {
-      type: DataTypes.STRING
+      type: DataTypes.SMALLINT
     },
   },
   {
     sequelize: sequelize,
     tableName: "reservations",
+    timestamps: false,
   }
 );
 
@@ -98,13 +101,13 @@ Reservation.belongsTo(Asset, {
 
 Reservation.belongsTo(User, {
     foreignKey: "borrower_id",
-    as: "user",
+    as: "borrower",
     onDelete: 'cascade'
 });
 
 Reservation.belongsTo(User, {
     foreignKey: "admin_id",
-    as: "user",
+    as: "admin",
     onDelete: 'cascade'
 });
 

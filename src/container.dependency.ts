@@ -52,8 +52,17 @@ import { GrowthTypeMapper } from "./infra/database/mappers/GrowthTypeMapper";
 import { GetAllGrowthTypeService } from "./application/growthType/GetAllGrowthTypeService";
 import { TypeMapper } from "./infra/database/mappers/TypeMapper";
 import { GetAllTypeService } from "./application/type/GetAllTypeService";
+import { IReservationRepository } from "./domain/repositories/IReservationRepository";
+import { ReservationRepository } from "./infra/database/repositories/ReservationRepository";
+import { GetAllReservationService } from "./application/reservation/GetAllReservationService";
+import { ReservationMapper } from "./infra/database/mappers/ReservationMapper";
 
 let container = new Container();
+
+// Reservation Module
+container.bind<IReservationRepository>(TYPES.ReservationRepository).to(ReservationRepository);
+container.bind<GetAllReservationService>(GetAllReservationService).toSelf();
+container.bind<ReservationMapper>(ReservationMapper).toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container
