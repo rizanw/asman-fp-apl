@@ -5,7 +5,7 @@ import {
   Association,
   HasManyGetAssociationsMixin,
   HasManyAddAssociationMixin,
-  HasManyCreateAssociationMixin
+  HasManyCreateAssociationMixin,
 } from "sequelize";
 import sequelize from "../database";
 import Group from "./group";
@@ -79,15 +79,15 @@ Asset.init(
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     group_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     name: {
       type: DataTypes.STRING(50),
@@ -95,139 +95,139 @@ Asset.init(
       validate: {
         notNull: true,
         notEmpty: true,
-        len: [3, 50]
-      }
+        len: [3, 50],
+      },
     },
     type_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     growth_type_id: {
-      type: DataTypes.BIGINT.UNSIGNED
+      type: DataTypes.BIGINT.UNSIGNED,
     },
     growth_rate: {
       type: DataTypes.FLOAT,
       allowNull: true,
       validate: {
-        isDecimal: true
-      }
+        isDecimal: true,
+      },
     },
     class_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     consumption_type_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     category_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true
-      }
+        notEmpty: true,
+      },
     },
     manufacturer: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     capacity: {
       type: DataTypes.DOUBLE,
       allowNull: true,
       validate: {
-        isDecimal: true
-      }
+        isDecimal: true,
+      },
     },
     capacity_unit: {
       type: DataTypes.STRING(20),
       allowNull: true,
       validate: {
-        len: [1, 20]
-      }
+        len: [1, 20],
+      },
     },
     serial_number: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     price: {
       type: DataTypes.DOUBLE,
       allowNull: true,
       validate: {
-        isDecimal: true
-      }
+        isDecimal: true,
+      },
     },
     manufacture_date: {
       type: DataTypes.DATEONLY,
       allowNull: true,
       validate: {
-        isDate: true
-      }
+        isDate: true,
+      },
     },
     installation_date: {
       type: DataTypes.DATEONLY,
       allowNull: true,
       validate: {
-        isDate: true
-      }
+        isDate: true,
+      },
     },
     custom_fields: {
-      type: DataTypes.JSONB
+      type: DataTypes.JSONB,
     },
     service_plan: {
-      type: DataTypes.JSONB
+      type: DataTypes.JSONB,
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
   },
   {
     sequelize: sequelize,
-    tableName: "assets"
+    tableName: "assets",
   }
 );
 
 Asset.belongsTo(Group, {
   foreignKey: "group_id",
   as: "group",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
 
 Asset.belongsTo(Type, {
   foreignKey: "type_id",
   as: "type",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
 
 Asset.belongsTo(GrowthType, {
   foreignKey: "growth_type_id",
   as: "growth_type",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
 
 Asset.belongsTo(Class, {
   foreignKey: "class_id",
   as: "class",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
 
 Asset.belongsTo(ConsumptionType, {
   foreignKey: "consumption_type_id",
   as: "consumption_type",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
 
 Asset.belongsTo(Category, {
   foreignKey: "category_id",
   as: "category",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });

@@ -2,7 +2,7 @@ import {
   Model,
   DataTypes,
   BelongsToGetAssociationMixin,
-  Association
+  Association,
 } from "sequelize";
 import sequelize from "../database";
 import Company from "./company";
@@ -38,62 +38,62 @@ Group.init(
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     company_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: false
+      allowNull: false,
     },
     parent_id: {
-      type: DataTypes.BIGINT.UNSIGNED
+      type: DataTypes.BIGINT.UNSIGNED,
     },
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     tel: {
       type: DataTypes.STRING(15),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     latitude: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
     },
     longitude: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
     },
     level: {
-      type: DataTypes.SMALLINT
+      type: DataTypes.SMALLINT,
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
   },
   {
     sequelize: sequelize,
-    tableName: "groups"
+    tableName: "groups",
   }
 );
 
 Company.hasMany(Group, {
   foreignKey: "company_id",
-  as: "groups"
+  as: "groups",
 });
 
 Group.belongsTo(Company, {
   foreignKey: "company_id",
   as: "company",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });
 
 Group.belongsTo(Group, {
   foreignKey: "parent_id",
   as: "parent",
-  onDelete: 'cascade'
+  onDelete: "cascade",
 });

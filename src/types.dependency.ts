@@ -1,4 +1,5 @@
 const TYPES = {
+  AssetRepository: Symbol("AssetRepository"),
   ReservationRepository: Symbol("ReservationRepository"),
   GroupRepository: Symbol("GroupRepository"),
   CategoryRepository: Symbol("CategoryRepository"),

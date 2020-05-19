@@ -9,5 +9,6 @@ export default class Group {
     public readonly latitude: number,
     public readonly longitude: number,
     public readonly level: number,
+    public readonly parent: Group | null
   ) {}
 }
