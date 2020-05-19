@@ -18,6 +18,7 @@ export class AssetMapper implements IMapper<Asset, AssetEntity> {
       entity.price,
       entity.manufacture_date,
       entity.installation_date,
+      entity.service_plan,
       entity.group,
       entity.type,
       entity.growth_type,
