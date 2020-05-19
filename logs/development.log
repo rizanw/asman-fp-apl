@@ -1,0 +1,59 @@
+[2020-05-18T19:55:43.332] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-18T19:55:43.341] [INFO] default - [p 12600] Listening at port 3000
+[2020-05-18T19:55:43.326] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T11:59:41.592] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T11:59:41.599] [INFO] default - [p 14092] Listening at port 3000
+[2020-05-19T12:00:55.504] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:00:55.512] [INFO] default - [p 4612] Listening at port 3000
+[2020-05-19T12:01:34.425] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:01:34.432] [INFO] default - [p 10588] Listening at port 3000
+[2020-05-19T12:02:48.147] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:02:48.155] [INFO] default - [p 1476] Listening at port 3000
+[2020-05-19T12:04:33.006] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:04:33.013] [INFO] default - [p 6060] Listening at port 3000
+[2020-05-19T12:10:41.236] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:10:41.243] [INFO] default - [p 9836] Listening at port 3000
+[2020-05-19T12:10:47.001] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:10:47.011] [INFO] default - [p 8160] Listening at port 3000
+[2020-05-19T12:11:21.813] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:11:21.820] [INFO] default - [p 10608] Listening at port 3000
+[2020-05-19T12:11:23.768] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:11:23.775] [INFO] default - [p 5672] Listening at port 3000
+[2020-05-19T12:17:14.895] [INFO] default - Executing (default): SELECT 1+1 AS result { plain: true,
+  raw: true,
+  logging: [Function: bound ],
+  type: 'SELECT' }
+[2020-05-19T12:17:14.901] [INFO] default - [p 11028] Listening at port 3000
