@@ -14,11 +14,13 @@ import { GetProcessedServicesService } from "src/application/service/GetProcesse
 import { Role } from "src/domain/models/Role";
 import role from "src/ui/http/express/middlewares/role";
 import { ReleaseServicesService } from "src/application/service/ReleaseServicesService";
+import { FinishServicesService } from "src/application/service/FinishServicesService";
 
 @controller("/services")
 export class ServiceController implements interfaces.Controller {
   constructor(
     protected readonly releaseServicesService: ReleaseServicesService,
+    protected readonly finishServicesService: FinishServicesService,
     protected readonly getReadyServicesService: GetReadyServicesService,
     protected readonly getProcessedServicesService: GetProcessedServicesService,
     protected readonly getFinishedServicesService: GetFinishedServicesService,
@@ -34,6 +36,17 @@ export class ServiceController implements interfaces.Controller {
     );
 
     sendSuccessResponse(res, `${numOfReleasedServices} services released`);
+  }
+
+  @httpPost("/finish", role(Role.company))
+  public async finishServices(req: Request, res: Response) {
+    const service_ids: number[] = req.body.service_id;
+
+    const numOfReleasedServices = await this.finishServicesService.execute(
+      service_ids
+    );
+
+    sendSuccessResponse(res, `${numOfReleasedServices} services finished`);
   }
 
   @httpGet("/ready", role(Role.company))

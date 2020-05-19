@@ -33,6 +33,21 @@ export class ServiceRepository implements IServiceRepository {
     );
   }
 
+  async finishServices(services: Service[]): Promise<void> {
+    const serviceIds = services.map((service) => service.id);
+
+    await ServiceEntity.update(
+      { status: ServiceStatus.FINISHED },
+      {
+        where: {
+          id: {
+            [Op.in]: serviceIds,
+          },
+        },
+      }
+    );
+  }
+
   async findServicesByIds(ids: number[]): Promise<Service[]> {
     const services = await ServiceEntity.findAll({
       where: {
