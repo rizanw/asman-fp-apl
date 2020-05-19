@@ -122,7 +122,7 @@ class Index extends React.Component {
                       </Button>
                     </Link>
                   </div>
-                  <div className="px-2">
+                  {/* <div className="px-2">
                     <CSVLink
                       data={dataFilter}
                       headers={AssetCSVHeader}
@@ -132,7 +132,7 @@ class Index extends React.Component {
                         Download Data
                       </Button>
                     </CSVLink>
-                  </div>
+                  </div> */}
                   <div className="pr-2">
                     <ButtonGroup>
                       <Button
@@ -189,11 +189,11 @@ class Index extends React.Component {
                         pill
                         outline
                         style={{
-                          color: item.class.color,
-                          borderColor: item.class.color
+                          color: item.kelas.color,
+                          borderColor: item.kelas.color
                         }}
                       >
-                        {item.class.name}
+                        {item.kelas.name}
                       </Badge>
                     </td>
                     <td>
@@ -201,11 +201,11 @@ class Index extends React.Component {
                         pill
                         outline
                         style={{
-                          color: item.class.color,
-                          borderColor: item.class.color
+                          color: item.type.color,
+                          borderColor: item.type.color
                         }}
                       >
-                        {item.class.name}
+                        {item.type.name}
                       </Badge>
                     </td>
                   </tr>
