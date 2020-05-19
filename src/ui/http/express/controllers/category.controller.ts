@@ -13,8 +13,10 @@ import { GetAllCategoryService } from '../../../../application/category/GetAllCa
 import { AddCategoryService } from '../../../../application/category/AddCategoryService';
 import { CategoryRequest } from "../../../../application/category/CategoryRequest";
 import { sendSuccessResponse } from '../utils/response';
+import role from "../middlewares/role";
+import { Role } from '../../../../domain/models/Role';
 
-@controller("")
+@controller("/category")
 export class CategoryController implements interfaces.Controller {
   constructor(
     protected readonly _categoryService: GetAllCategoryService,
@@ -22,7 +24,7 @@ export class CategoryController implements interfaces.Controller {
     protected readonly _jwtUtil: JWTToken
   ) {}
 
-  @httpGet("/category")
+  @httpGet("/", role(Role.company))
   public async index(@request() req: Request, @response() res: Response) {
     const data = await this._categoryService.execute();
 
@@ -33,7 +35,7 @@ export class CategoryController implements interfaces.Controller {
     return data
   }
 
-  @httpPost("/category")
+  @httpPost("/",role(Role.company))
   public async add(@request() req: Request, @response() res: Response) {
     const { company_id,name } = req.body;
     const data = await this._addCategoryService.execute(

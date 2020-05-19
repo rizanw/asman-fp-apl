@@ -10,15 +10,17 @@ import {
 
 import { JWTToken } from "../utils/JWTToken";
 import { GetAllConsumptionTypeService } from '../../../../application/consumptionType/GetAllConsumptionTypeService';
+import role from "../middlewares/role";
+import { Role } from '../../../../domain/models/Role';
 
-@controller("")
+@controller("/consumption")
 export class ConsumptionTypeController implements interfaces.Controller {
   constructor(
     protected readonly _consumptionTypeService: GetAllConsumptionTypeService,
     protected readonly _jwtUtil: JWTToken
   ) {}
 
-  @httpGet("/consumption")
+  @httpGet("/",role(Role.company))
   public async index(@request() req: Request, @response() res: Response) {
     const { username, password } = req.body;
     const data = await this._consumptionTypeService.execute();
