@@ -13,7 +13,7 @@ import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
 import { sendSuccessResponse } from "../utils/response";
 
-@controller("/consumption-type")
+@controller("/consumption-types")
 export class ConsumptionTypeController implements interfaces.Controller {
   constructor(
     protected readonly _consumptionTypeService: GetAllConsumptionTypeService

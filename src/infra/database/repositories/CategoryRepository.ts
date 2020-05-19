@@ -14,8 +14,10 @@ export class CategoryRepository implements ICategoryRepository {
     this._dataMapper = dataMapper;
   }
 
-  async getAll(): Promise<Category[]> {
-    const dataEntity = await CategoryEntity.findAll();
+  async getAll(id: number): Promise<Category[]> {
+    const dataEntity = await CategoryEntity.findAll({
+      where: { company_id: id },
+    });
 
     if (!dataEntity) {
       throw new Error("Category not found.");

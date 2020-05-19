@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
 import TYPES from "src/types.dependency";
-import { ICategoryRepository } from '../../domain/repositories/ICategoryRepository';
+import { ICategoryRepository } from "../../domain/repositories/ICategoryRepository";
 
 @injectable()
 export class GetAllCategoryService {
@@ -9,8 +9,8 @@ export class GetAllCategoryService {
     private readonly _categoryRepository: ICategoryRepository
   ) {}
 
-  async execute() {
-    const data = await this._categoryRepository.getAll()
+  async execute(id: number) {
+    const data = await this._categoryRepository.getAll(id);
 
     if (!data) {
       return undefined;

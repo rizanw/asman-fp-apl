@@ -7,6 +7,7 @@ import { IAssetRepository } from "../../../domain/repositories/IAssetRepository"
 import { AssetMapper } from "../mappers/AssetMapper";
 import Asset from "../../../domain/models/Asset";
 import RegisterAssetRequest from "../../../application/asset/RegisterAssetRequest";
+import SetServicePlanAssetRequest from "../../../application/asset/SetServicePlanAssetRequest";
 
 @injectable()
 export class AssetRepository implements IAssetRepository {
@@ -60,13 +61,13 @@ export class AssetRepository implements IAssetRepository {
     return dataEntity.map((data) => this._dataMapper.get(data));
   }
 
-  async findById(id: number): Promise<Asset> {
+  async findById(company_id: number, id: number): Promise<Asset> {
     const dataEntity = await AssetEntity.findByPk(id, {
       include: [
         {
           association: AssetEntity.associations.group,
           where: {
-            company_id: id,
+            company_id: company_id,
           },
           include: [
             {
@@ -97,7 +98,53 @@ export class AssetRepository implements IAssetRepository {
       ],
     });
 
+    if (!dataEntity) {
+      return;
+    }
+
     return this._dataMapper.get(dataEntity);
+  }
+
+  async setServicePlan(params: SetServicePlanAssetRequest): Promise<Asset> {
+    const dataEntity = await AssetEntity.findByPk(params.asset_id);
+
+    if (!dataEntity) {
+      return;
+    }
+
+    await dataEntity.update({
+      service_plan: {
+        start_date: params.start_date,
+        long: params.long,
+        periodic: params.periodic,
+      },
+    });
+
+    return true;
+  }
+
+  async editAsset(id: number, params: RegisterAssetRequest): Promise<Asset> {
+    const dataEntity = await AssetEntity.findByPk(id);
+
+    if (!dataEntity) {
+      return;
+    }
+
+    await dataEntity.update(params);
+
+    return true;
+  }
+
+  async deleteAsset(id: number): Promise<Asset> {
+    const dataEntity = await AssetEntity.findByPk(id);
+
+    if (!dataEntity) {
+      return;
+    }
+
+    const dataDestroy = await dataEntity.destroy();
+
+    return true;
   }
 
   async registerAsset(asset: RegisterAssetRequest): Promise<Asset> {

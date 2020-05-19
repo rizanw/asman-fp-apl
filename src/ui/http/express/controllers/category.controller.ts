@@ -16,7 +16,7 @@ import role from "../middlewares/role";
 import { Role } from "../../../../domain/models/Role";
 import { removeTicks } from "sequelize/types/lib/utils";
 
-@controller("/category")
+@controller("/categories")
 export class CategoryController implements interfaces.Controller {
   constructor(
     protected readonly _categoryService: GetAllCategoryService,
@@ -25,7 +25,8 @@ export class CategoryController implements interfaces.Controller {
 
   @httpGet("/", role(Role.company))
   public async index(@request() req: Request, @response() res: Response) {
-    const data = await this._categoryService.execute();
+    const { company } = req.user;
+    const data = await this._categoryService.execute(company.id);
 
     if (!data) {
       throw new Error("No data");

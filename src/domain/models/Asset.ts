@@ -17,6 +17,7 @@ export default class Asset {
     public readonly price: number,
     public readonly manufacture_date: Date,
     public readonly installation_date: Date,
+    public readonly service_plan: Object,
     public readonly group: Group,
     public readonly type: Type,
     public readonly growth_type: GrowthType,
