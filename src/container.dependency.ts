@@ -76,6 +76,7 @@ import { UpdateIssueDateRequest } from "./application/reservation/UpdateIssueDat
 import { GetUnplannedAssetsService } from "./application/service/GetUnplannedAssetsService";
 import { GetReservationById } from "./application/reservation/GetReservationById";
 import { GetAssetByAvailabilityService } from "./application/asset/GetAssetByAvailabilityService";
+import { SetServicePlanService } from "./application/service/SetServicePlanService";
 
 let container = new Container();
 
@@ -177,6 +178,7 @@ container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
 container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
 container.bind<FinishServicesService>(FinishServicesService).toSelf();
 container.bind<GetUnplannedAssetsService>(GetUnplannedAssetsService).toSelf();
+container.bind<SetServicePlanService>(SetServicePlanService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)
