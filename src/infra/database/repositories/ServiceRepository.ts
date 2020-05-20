@@ -9,17 +9,22 @@ import GroupEntity from "src/infra/database/entities/group";
 import { Op } from "sequelize";
 import moment from "moment";
 import { ServiceStatus } from "src/domain/models/ServiceStatus";
+import Asset from "src/domain/models/Asset";
+import { AssetMapper } from "../mappers/AssetMapper";
+import SetServicePlanRequest from "src/application/service/SetServicePlanRequest";
 
 @injectable()
 export class ServiceRepository implements IServiceRepository {
   private readonly _serviceMapper: ServiceMapper;
+  private readonly _assetMapper: AssetMapper;
 
-  constructor(serviceMapper: ServiceMapper) {
+  constructor(serviceMapper: ServiceMapper, assetMapper: AssetMapper) {
     this._serviceMapper = serviceMapper;
+    this._assetMapper = assetMapper;
   }
 
   async releaseServices(services: Service[]): Promise<void> {
-    const serviceIds = services.map((service) => service.id);
+    const serviceIds = services.map((service) => service.id as number);
 
     await ServiceEntity.update(
       { status: ServiceStatus.PROCESSED },
@@ -34,7 +39,7 @@ export class ServiceRepository implements IServiceRepository {
   }
 
   async finishServices(services: Service[]): Promise<void> {
-    const serviceIds = services.map((service) => service.id);
+    const serviceIds = services.map((service) => service.id as number);
 
     await ServiceEntity.update(
       { status: ServiceStatus.FINISHED },
@@ -58,6 +63,34 @@ export class ServiceRepository implements IServiceRepository {
     });
 
     return services.map((e) => this._serviceMapper.get(e));
+  }
+
+  async getUnplannedAssets(companyId: number): Promise<Asset[]> {
+    const assets = await AssetEntity.findAll({
+      where: {
+        service_plan: null,
+      },
+      include: [
+        {
+          association: AssetEntity.associations.group,
+          where: {
+            company_id: companyId,
+          },
+          include: [
+            {
+              association: GroupEntity.associations.parent,
+              include: [
+                {
+                  association: GroupEntity.associations.parent,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    return assets.map((e) => this._assetMapper.get(e));
   }
 
   async getReadyServicesByUser(user: User): Promise<Service[]> {
@@ -229,5 +262,69 @@ export class ServiceRepository implements IServiceRepository {
     });
 
     return services.map((e) => this._serviceMapper.get(e));
+  }
+
+  async setServicePlan({
+    asset_id,
+    start_date,
+    long,
+    periodic,
+  }: SetServicePlanRequest): Promise<Asset | null> {
+    const asset = await AssetEntity.findByPk(asset_id, {
+      include: [
+        {
+          association: AssetEntity.associations.services,
+        },
+      ],
+    });
+
+    if (!asset) {
+      return null;
+    }
+
+    const updatedAsset = await asset.update({
+      service_plan: {
+        start_date: start_date,
+        long: long,
+        periodic: periodic,
+      },
+    });
+
+    return this._assetMapper.get(updatedAsset);
+  }
+
+  async addServices(services: Service[]): Promise<number | null> {
+    try {
+      for (const service of services) {
+        const { asset, start_date, end_date } = service;
+        await ServiceEntity.create({
+          asset_id: asset?.id,
+          start_date: start_date,
+          end_date: end_date,
+        });
+      }
+
+      return services.length;
+    } catch {
+      return null;
+    }
+  }
+
+  async deleteServices(services: Service[]): Promise<number | null> {
+    try {
+      const serviceIds = services.map((service) => service.id as number);
+
+      await ServiceEntity.destroy({
+        where: {
+          id: {
+            [Op.in]: serviceIds,
+          },
+        },
+      });
+
+      return services.length;
+    } catch {
+      return null;
+    }
   }
 }

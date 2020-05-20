@@ -7,7 +7,7 @@ import {
 import { GetReadyServicesService } from "src/application/service/GetReadyServicesService";
 import { Request, Response } from "express";
 import User from "src/domain/models/User";
-import { sendSuccessResponse } from "../utils/response";
+import { sendSuccessResponse, sendErrorResponse } from "../utils/response";
 import { GetBacklogServicesService } from "src/application/service/GetBacklogServicesService";
 import { GetFinishedServicesService } from "src/application/service/GetFinishedServicesService";
 import { GetProcessedServicesService } from "src/application/service/GetProcessedServicesService";
@@ -15,16 +15,21 @@ import { Role } from "src/domain/models/Role";
 import role from "src/ui/http/express/middlewares/role";
 import { ReleaseServicesService } from "src/application/service/ReleaseServicesService";
 import { FinishServicesService } from "src/application/service/FinishServicesService";
+import { GetUnplannedAssetsService } from "src/application/service/GetUnplannedAssetsService";
+import { SetServicePlanService } from "src/application/service/SetServicePlanService";
+import SetServicePlanRequest from "src/application/service/SetServicePlanRequest";
 
 @controller("/services")
 export class ServiceController implements interfaces.Controller {
   constructor(
     protected readonly releaseServicesService: ReleaseServicesService,
     protected readonly finishServicesService: FinishServicesService,
+    protected readonly getUnplannedAssetsService: GetUnplannedAssetsService,
     protected readonly getReadyServicesService: GetReadyServicesService,
     protected readonly getProcessedServicesService: GetProcessedServicesService,
     protected readonly getFinishedServicesService: GetFinishedServicesService,
-    protected readonly getBacklogServicesService: GetBacklogServicesService
+    protected readonly getBacklogServicesService: GetBacklogServicesService,
+    protected readonly setServicePlanService: SetServicePlanService
   ) {}
 
   @httpPost("/release", role(Role.company))
@@ -47,6 +52,15 @@ export class ServiceController implements interfaces.Controller {
     );
 
     sendSuccessResponse(res, `${numOfReleasedServices} services finished`);
+  }
+
+  @httpGet("/unplanned", role(Role.company))
+  public async getUnplanned(req: Request, res: Response) {
+    const user = req.user as User;
+
+    const assets = await this.getUnplannedAssetsService.execute(user);
+
+    sendSuccessResponse(res, "", assets);
   }
 
   @httpGet("/ready", role(Role.company))
@@ -99,5 +113,19 @@ export class ServiceController implements interfaces.Controller {
     const services = await this.getBacklogServicesService.execute(user);
 
     sendSuccessResponse(res, "", services);
+  }
+
+  @httpPost("/plan", role(Role.company))
+  public async setServicePlan(req: Request, res: Response) {
+    try {
+      const { asset_id, start_date, long, periodic } = req.body;
+      await this.setServicePlanService.execute(
+        new SetServicePlanRequest(asset_id, start_date, long, periodic)
+      );
+
+      sendSuccessResponse(res, "Service plan updated");
+    } catch (error) {
+      sendErrorResponse(res, error.message);
+    }
   }
 }

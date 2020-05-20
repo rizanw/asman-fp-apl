@@ -2,7 +2,6 @@ import { injectable, inject } from "inversify";
 import TYPES from "src/types.dependency";
 import { IServiceRepository } from "src/domain/repositories/IServiceRepository";
 import { ServiceStatus } from "src/domain/models/ServiceStatus";
-import moment from "moment";
 
 @injectable()
 export class FinishServicesService {

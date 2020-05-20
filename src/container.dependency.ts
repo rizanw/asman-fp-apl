@@ -73,10 +73,12 @@ import { UpdateStatusRequest } from "./application/reservation/UpdateStatusReque
 import { GetReservationByBorrowerService } from "./application/reservation/GetReservationByBorrowerService";
 import { UpdateIssueDateService } from "./application/reservation/UpdateIssueDateService";
 import { UpdateIssueDateRequest } from "./application/reservation/UpdateIssueDateRequest";
+import { GetUnplannedAssetsService } from "./application/service/GetUnplannedAssetsService";
 import { GetReservationById } from "./application/reservation/GetReservationById";
 import { GetAssetByAvailabilityService } from "./application/asset/GetAssetByAvailabilityService";
 import { UpdateBlacklistedService } from "./application/user/UpdateBlacklistedService";
 import { UpdateAvailabilityService } from "./application/asset/UpdateAvailabilityService";
+import { SetServicePlanService } from "./application/service/SetServicePlanService";
 
 let container = new Container();
 
@@ -99,6 +101,9 @@ container.bind<GetReservationById>(GetReservationById).toSelf();
 container.bind<UpdateAvailabilityService>(UpdateAvailabilityService).toSelf();
 container.bind<UpdateBlacklistedService>(UpdateBlacklistedService).toSelf();
 container.bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService).toSelf();
+container
+  .bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService)
+  .toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container
@@ -177,6 +182,8 @@ container.bind<GetFinishedServicesService>(GetFinishedServicesService).toSelf();
 container.bind<GetBacklogServicesService>(GetBacklogServicesService).toSelf();
 container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
 container.bind<FinishServicesService>(FinishServicesService).toSelf();
+container.bind<GetUnplannedAssetsService>(GetUnplannedAssetsService).toSelf();
+container.bind<SetServicePlanService>(SetServicePlanService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)
