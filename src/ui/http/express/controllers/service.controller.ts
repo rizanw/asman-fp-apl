@@ -43,85 +43,113 @@ export class ServiceController implements interfaces.Controller {
 
   @httpPost("/release", role(Role.company))
   public async releaseServices(req: Request, res: Response) {
-    const service_ids: number[] = req.body.service_id;
+    try {
+      const service_ids: number[] = req.body.service_id;
 
-    const numOfReleasedServices = await this.releaseServicesService.execute(
-      service_ids
-    );
+      const numOfReleasedServices = await this.releaseServicesService.execute(
+        service_ids
+      );
 
-    sendSuccessResponse(res, `${numOfReleasedServices} services released`);
+      sendSuccessResponse(res, `${numOfReleasedServices} services released`);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
+    }
   }
 
   @httpPost("/finish", role(Role.company))
   public async finishServices(req: Request, res: Response) {
-    const service_ids: number[] = req.body.service_id;
+    try {
+      const service_ids: number[] = req.body.service_id;
 
-    const numOfReleasedServices = await this.finishServicesService.execute(
-      service_ids
-    );
+      const numOfReleasedServices = await this.finishServicesService.execute(
+        service_ids
+      );
 
-    sendSuccessResponse(res, `${numOfReleasedServices} services finished`);
+      sendSuccessResponse(res, `${numOfReleasedServices} services finished`);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
+    }
   }
 
   @httpGet("/unplanned", role(Role.company))
   public async getUnplanned(req: Request, res: Response) {
-    const user = req.user as User;
+    try {
+      const user = req.user as User;
 
-    const assets = await this.getUnplannedAssetsService.execute(user);
+      const assets = await this.getUnplannedAssetsService.execute(user);
 
-    sendSuccessResponse(res, "", assets);
+      sendSuccessResponse(res, "", assets);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
+    }
   }
 
   @httpGet("/ready", role(Role.company))
   public async getReady(req: Request, res: Response) {
-    const user = req.user as User;
+    try {
+      const user = req.user as User;
 
-    if (!user) {
-      throw new Error("Unauthenticated");
+      if (!user) {
+        throw new Error("Unauthenticated");
+      }
+
+      const services = await this.getReadyServicesService.execute(user);
+
+      sendSuccessResponse(res, "", services);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
     }
-
-    const services = await this.getReadyServicesService.execute(user);
-
-    sendSuccessResponse(res, "", services);
   }
 
   @httpGet("/process", role(Role.company))
   public async getProcess(req: Request, res: Response) {
-    const user = req.user as User;
+    try {
+      const user = req.user as User;
 
-    if (!user) {
-      throw new Error("Unauthenticated");
+      if (!user) {
+        throw new Error("Unauthenticated");
+      }
+
+      const services = await this.getProcessedServicesService.execute(user);
+
+      sendSuccessResponse(res, "", services);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
     }
-
-    const services = await this.getProcessedServicesService.execute(user);
-
-    sendSuccessResponse(res, "", services);
   }
 
   @httpGet("/finish", role(Role.company))
   public async getFinish(req: Request, res: Response) {
-    const user = req.user as User;
+    try {
+      const user = req.user as User;
 
-    if (!user) {
-      throw new Error("Unauthenticated");
+      if (!user) {
+        throw new Error("Unauthenticated");
+      }
+
+      const services = await this.getFinishedServicesService.execute(user);
+
+      sendSuccessResponse(res, "", services);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
     }
-
-    const services = await this.getFinishedServicesService.execute(user);
-
-    sendSuccessResponse(res, "", services);
   }
 
   @httpGet("/backlog", role(Role.company))
   public async getBacklog(req: Request, res: Response) {
-    const user = req.user as User;
+    try {
+      const user = req.user as User;
 
-    if (!user) {
-      throw new Error("Unauthenticated");
+      if (!user) {
+        throw new Error("Unauthenticated");
+      }
+
+      const services = await this.getBacklogServicesService.execute(user);
+
+      sendSuccessResponse(res, "", services);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
     }
-
-    const services = await this.getBacklogServicesService.execute(user);
-
-    sendSuccessResponse(res, "", services);
   }
 
   @httpPost("/plan", role(Role.company))
