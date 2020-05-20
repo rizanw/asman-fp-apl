@@ -88,7 +88,8 @@ class ServisReadyContainer extends React.Component {
         checkAll: false
       });
     } else if (name === "checkAll") {
-      const { data, checkAll } = this.state;
+      const { servisReadyData: data } = this.props;
+      const { checkAll } = this.state;
       var checkedArray = [];
       if (!checkAll) {
         data.forEach(item => checkedArray.push(item.id));

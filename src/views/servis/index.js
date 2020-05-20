@@ -25,8 +25,8 @@ export default class Index extends React.Component {
         </Row>
         <ServisUnplannedContainer />
         <ServisReadyContainer />
-        <ServisReleaseContainer />
-        <ServisProcessedContainer />
+        {/* <ServisReleaseContainer /> */}
+        {/* <ServisProcessedContainer /> */}
         <ServisCompletedContainer />
         <ServisFinishedContainer />
         <ServisBacklogContainer />

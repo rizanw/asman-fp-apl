@@ -120,7 +120,7 @@ class FormAsset extends React.Component {
           showAlert(resp.messageNotification || resp, "success")
         );
         this.setState({
-          assetId: resp.data.id,
+          asset_id: resp.data.id,
           assetName: resp.data.name
         });
         this.handleStep();
@@ -136,7 +136,7 @@ class FormAsset extends React.Component {
     event.preventDefault();
     request({
       method: "POST",
-      url: `/assets/${this.state.assetId}/service-plan`,
+      url: `/services/plan`,
       data: this.state
     })
       .then(resp => {
@@ -187,8 +187,8 @@ class FormAsset extends React.Component {
   };
 
   handleSkip = () => {
-    const { assetId, assetName } = this.state;
-    return this.props.history.push(`/${assetName}/${assetId}`);
+    const { asset_id, assetName } = this.state;
+    return this.props.history.push(`/${assetName}/${asset_id}`);
   };
 
   customFieldToJSON = () => {

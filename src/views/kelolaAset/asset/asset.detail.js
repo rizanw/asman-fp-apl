@@ -103,7 +103,7 @@ class AssetDetails extends React.Component {
                         <FormGroup>
                           <h6>Tanggal Servis</h6>
                           <h5>
-                            {item.service_plan
+                            {"start_date" in item.service_plan
                               ? toLocaleDateString(item.service_plan.start_date)
                               : "Belum ada jadwal"}
                           </h5>
@@ -113,7 +113,7 @@ class AssetDetails extends React.Component {
                         <FormGroup>
                           <h6>Lama Waktu Servis</h6>
                           <h5>
-                            {item.service_plan
+                            {"long" in item.service_plan
                               ? `${item.service_plan.long} Hari`
                               : "-"}
                           </h5>
@@ -125,7 +125,7 @@ class AssetDetails extends React.Component {
                         <FormGroup>
                           <h6>Jadwal Periodik Servis</h6>
                           <h5>
-                            {item.service_plan
+                            {"periodic" in item.service_plan
                               ? `${item.service_plan.periodic} Hari`
                               : "-"}
                           </h5>

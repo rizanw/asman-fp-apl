@@ -22,7 +22,8 @@ import ModalForm from "../../components/Modal";
 import { connect } from "react-redux";
 import {
   fetchCompletedServiceData,
-  fetchFinishedServiceData
+  fetchFinishedServiceData,
+  fetchProcessedServicesData
 } from "../../redux/servis/fetchServis";
 import { showAlert, dismissAlert } from "../../redux/alert/actions";
 
@@ -54,7 +55,7 @@ class ServisCompletedContainer extends React.Component {
         isLoading: true
       });
     this.props.dispatch(
-      fetchCompletedServiceData(),
+      fetchProcessedServicesData(),
       this.setState({ isLoading: false })
     );
     // request({
@@ -112,7 +113,8 @@ class ServisCompletedContainer extends React.Component {
         checkAll: false
       });
     } else if (name === "checkAll") {
-      const { data, checkAll } = this.state;
+      const { servisCompletedData: data } = this.props;
+      const { checkAll } = this.state;
       var checkedArray = [];
       if (!checkAll) {
         data.forEach(item => checkedArray.push(item.id));
@@ -139,7 +141,7 @@ class ServisCompletedContainer extends React.Component {
           <Card>
             <CardHeader>
               <div className="d-flex align-items-center">
-                <div className="mr-auto">Selesai</div>
+                <div className="mr-auto">Processed</div>
                 <div className="px-2">
                   <InputGroup seamless>
                     <InputGroupAddon type="prepend">
@@ -211,7 +213,7 @@ class ServisCompletedContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  servisCompletedData: state.servis.completed
+  servisCompletedData: state.servis.processed
 });
 
 export default connect(mapStateToProps)(ServisCompletedContainer);
