@@ -24,7 +24,6 @@ import { GetServicePlanCsvService } from "src/application/service/GetServicePlan
 
 import * as csv from "fast-csv";
 import multer from "multer";
-import { UpdateServicePlanByCsvService } from "src/application/service/UpdateServicePlanByCsvService";
 
 const upload = multer({ dest: "uploads" });
 
@@ -39,8 +38,7 @@ export class ServiceController implements interfaces.Controller {
     protected readonly getFinishedServicesService: GetFinishedServicesService,
     protected readonly getBacklogServicesService: GetBacklogServicesService,
     protected readonly setServicePlanService: SetServicePlanService,
-    protected readonly getServicePlanCsvService: GetServicePlanCsvService,
-    protected readonly updateServicePlanByCsvService: UpdateServicePlanByCsvService
+    protected readonly getServicePlanCsvService: GetServicePlanCsvService
   ) {}
 
   @httpPost("/release", role(Role.company))
