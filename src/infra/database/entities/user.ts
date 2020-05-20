@@ -20,6 +20,7 @@ export default class User extends Model {
   public username!: string;
   public role!: string;
   public password!: string;
+  public blacklisted!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

@@ -108,6 +108,10 @@ module.exports = {
       service_plan: {
         type: DataTypes.JSONB
       },
+      availability: {
+        type: DataTypes.SMALLINT,
+        defaultValue: 1
+      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE
     });

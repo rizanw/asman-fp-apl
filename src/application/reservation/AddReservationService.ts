@@ -3,6 +3,7 @@ import TYPES from "src/types.dependency";
 import { IReservationRepository } from "src/domain/repositories/IReservationRepository";
 import { AddReservationRequest } from "./AddReservationRequest";
 import { IUserRepository } from "src/domain/repositories/IUserRepository";
+import { IAssetRepository } from "src/domain/repositories/IAssetRepository";
 
 @injectable()
 export class AddReservationService {
@@ -10,7 +11,9 @@ export class AddReservationService {
     @inject(TYPES.ReservationRepository)
     private readonly _reservationRepository: IReservationRepository,
     @inject(TYPES.UserRepository)
-    private readonly _userRepository: IUserRepository
+    private readonly _userRepository: IUserRepository,
+    @inject(TYPES.AssetRepository)
+    private readonly _assetRepository: IAssetRepository
   ) {}
 
   async execute(reservation: AddReservationRequest) {
@@ -36,6 +39,7 @@ export class AddReservationService {
 
     if (avail) {
       const data = await this._reservationRepository.add(reservation);
+      await this._assetRepository.updateAvailability(reservation.asset_id, 0);
       return data;
     } else {
       throw new Error("Asset not available!");

@@ -26,6 +26,13 @@ export default class Reservation {
     return true;
   }
 
+  public isStatusAccepted(status: number): boolean {
+    if(status != 1){
+      return false;
+    }
+    return true;
+  }
+
   public isReserved(): boolean {
     if(this.return_date != null){
       return false;

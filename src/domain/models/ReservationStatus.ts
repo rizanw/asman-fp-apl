@@ -10,5 +10,6 @@ export const ReservationStatus = {
     1: "Reservation request Approved",
     2: "Reservation request Rejected",
     3: "Asset Returned",
+    4: "Reservation request Canceled",
   };
   

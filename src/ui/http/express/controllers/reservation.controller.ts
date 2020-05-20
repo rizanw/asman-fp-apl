@@ -23,6 +23,10 @@ import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueD
 import { GetReservationById } from "src/application/reservation/GetReservationById";
 import database from "src/infra/database/database";
 import { GetAssetByAvailabilityService } from "src/application/asset/GetAssetByAvailabilityService";
+import { UpdateBlacklistedService } from "src/application/user/UpdateBlacklistedService";
+import { UpdateBlacklistRequest } from "src/application/user/UpdateBlacklistedRequest";
+import { UpdateAvailabilityService } from "src/application/asset/UpdateAvailabilityService";
+import { UpdateAvailabilityRequest } from "src/application/asset/UpdateAvailabilityRequest";
 
 @controller("/reservation")
 export class ReservationController implements interfaces.Controller {
@@ -33,27 +37,15 @@ export class ReservationController implements interfaces.Controller {
     protected readonly _updateIssueDateService: UpdateIssueDateService,
     protected readonly _getReservationByBorrowerService: GetReservationByBorrowerService,
     protected readonly _getAvailableAsset: GetAssetByAvailabilityService,
+    protected readonly _updateBlacklistedUser: UpdateBlacklistedService,
+    protected readonly _updateAvailabilityAsset: UpdateAvailabilityService,
     protected readonly _jwtUtil: JWTToken
   ) {}
 
-  @httpGet("/", role(Role.super_admin))
-  public async index(@request() req: Request, @response() res: Response) {
-    const data = await this._reservationService.execute();
-    if (!data) {
-      throw new Error("No data");
-    }
+  @httpGet("/list", role(Role.company))
+  public async id(@request() req: Request, @response() res: Response) {
+    const data = await this._getAvailableAsset.execute();
     return data;
-  }
-
-  @httpPost("/status", role(Role.super_admin))
-  public async confirm(@request() req: Request, @response() res: Response) {
-    const user = req.user;
-    const { id, status } = req.body;
-    const data = await this._updateStatusService.execute(
-      new UpdateStatusRequest(id, user.id, status)
-    );
-
-    sendSuccessResponse(res, "update status success", data);
   }
 
   @httpPost("/create", role(Role.company))
@@ -79,7 +71,7 @@ export class ReservationController implements interfaces.Controller {
     return data;
   }
 
-  @httpPost("/update", role(Role.company))
+  @httpPost("/update-date", role(Role.company))
   public async update(@request() req: Request, @response() res: Response) {
     const { id, issue_date } = req.body;
     const data = await this._updateIssueDateService.execute(
@@ -89,11 +81,43 @@ export class ReservationController implements interfaces.Controller {
     sendSuccessResponse(res, "update status success", data);
   }
 
-  @httpGet("/list", role(Role.company))
-  public async id(@request() req: Request, @response() res: Response) {
-    const data = await this._getAvailableAsset.execute();
-    console.log(data.values())
+  @httpPost("/confirm", role(Role.super_admin))
+  public async confirm(@request() req: Request, @response() res: Response) {
+    const user = req.user;
+    const { id, status } = req.body;
+    const data = await this._updateStatusService.execute(
+      new UpdateStatusRequest(id, user.id, status)
+    );
+
+    sendSuccessResponse(res, "update status success", data);
+  }
+
+  @httpGet("/", role(Role.super_admin))
+  public async index(@request() req: Request, @response() res: Response) {
+    const data = await this._reservationService.execute();
+    if (!data) {
+      throw new Error("No data");
+    }
     return data;
   }
 
+  @httpPost("/avail", role(Role.super_admin))
+  public async avail(@request() req: Request, @response() res: Response) {
+    const { id, status } = req.body;
+    const data = await this._updateAvailabilityAsset.execute(
+      new UpdateAvailabilityRequest(id, status)
+    );
+
+    sendSuccessResponse(res, "update status success", data);
+  }
+
+  @httpPost("/block", role(Role.super_admin))
+  public async block(@request() req: Request, @response() res: Response) {
+    const { id, status } = req.body;
+    const data = await this._updateBlacklistedUser.execute(
+      new UpdateBlacklistRequest(id, status)
+    );
+
+    sendSuccessResponse(res, "update status success", data);
+  }
 }

@@ -8,6 +8,7 @@ import { AssetMapper } from "../mappers/AssetMapper";
 import Asset from "../../../domain/models/Asset";
 import RegisterAssetRequest from "../../../application/asset/RegisterAssetRequest";
 import SetServicePlanAssetRequest from "../../../application/asset/SetServicePlanAssetRequest";
+import { UpdateAvailabilityRequest } from "src/application/asset/UpdateAvailabilityRequest";
 
 @injectable()
 export class AssetRepository implements IAssetRepository {
@@ -176,12 +177,31 @@ export class AssetRepository implements IAssetRepository {
   }
 
   async getByAvailability(): Promise<Asset[]> {
-    const dataEntity = await AssetEntity.findAll();
+    const dataEntity = await AssetEntity.findAll({
+      where: {
+        availability: 1
+      }
+    });
 
     if (!dataEntity) {
       throw new Error("No Asset.");
     }
 
     return dataEntity.map((data) => this._dataMapper.get(data));
+  }
+
+  async updateAvailability(request: UpdateAvailabilityRequest): Promise<Asset> {
+    const dataEntity = await AssetEntity.update<AssetEntity>(
+      {
+        availability: request.status,
+      },
+      {
+        where: {
+          id: request.id,
+        },
+      }
+    );
+
+    return this._dataMapper.get(dataEntity);
   }
 }
