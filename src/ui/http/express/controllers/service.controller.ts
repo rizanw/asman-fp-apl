@@ -3,6 +3,8 @@ import {
   interfaces,
   httpGet,
   httpPost,
+  response,
+  request,
 } from "inversify-express-utils";
 import { GetReadyServicesService } from "src/application/service/GetReadyServicesService";
 import { Request, Response } from "express";
@@ -18,6 +20,13 @@ import { FinishServicesService } from "src/application/service/FinishServicesSer
 import { GetUnplannedAssetsService } from "src/application/service/GetUnplannedAssetsService";
 import { SetServicePlanService } from "src/application/service/SetServicePlanService";
 import SetServicePlanRequest from "src/application/service/SetServicePlanRequest";
+import { GetServicePlanCsvService } from "src/application/service/GetServicePlanCsvService";
+
+import * as csv from "fast-csv";
+import multer from "multer";
+import { UpdateServicePlanByCsvService } from "src/application/service/UpdateServicePlanByCsvService";
+
+const upload = multer({ dest: "uploads" });
 
 @controller("/services")
 export class ServiceController implements interfaces.Controller {
@@ -29,7 +38,9 @@ export class ServiceController implements interfaces.Controller {
     protected readonly getProcessedServicesService: GetProcessedServicesService,
     protected readonly getFinishedServicesService: GetFinishedServicesService,
     protected readonly getBacklogServicesService: GetBacklogServicesService,
-    protected readonly setServicePlanService: SetServicePlanService
+    protected readonly setServicePlanService: SetServicePlanService,
+    protected readonly getServicePlanCsvService: GetServicePlanCsvService,
+    protected readonly updateServicePlanByCsvService: UpdateServicePlanByCsvService
   ) {}
 
   @httpPost("/release", role(Role.company))
@@ -122,6 +133,71 @@ export class ServiceController implements interfaces.Controller {
       await this.setServicePlanService.execute(
         new SetServicePlanRequest(asset_id, start_date, long, periodic)
       );
+
+      sendSuccessResponse(res, "Service plan updated");
+    } catch (error) {
+      sendErrorResponse(res, error.message);
+    }
+  }
+
+  @httpGet("/csv", role(Role.company))
+  public async getServicePlanCsv(req: Request, res: Response) {
+    try {
+      const user = req.user as User;
+
+      if (!user) {
+        throw new Error("Unauthenticated");
+      }
+
+      const csvData = await this.getServicePlanCsvService.execute(user);
+
+      res.setHeader("content-type", "text/csv");
+      res.setHeader(
+        "Content-disposition",
+        "attachment; filename=service_plan_template.csv"
+      );
+
+      csv.writeToStream(res, csvData);
+    } catch (error) {
+      sendErrorResponse(res, error.message);
+    }
+  }
+
+  @httpPost("/csv", role(Role.company), upload.single("csv"))
+  public async updateServicePlanCsv(req: Request, res: Response) {
+    try {
+      if (!req.file) throw new Error("CSV not uploaded");
+
+      const header = [
+        "asset_id",
+        "Nama Aset",
+        "Induk",
+        "Sub Induk",
+        "Equipment",
+        "Nomor Seri",
+        "start_date",
+        "long",
+        "periodic",
+      ];
+
+      const reader = csv.parseFile(req.file.path, {
+        headers: header,
+        renameHeaders: true,
+      });
+
+      reader.on("error", (error) => {
+        throw error;
+      });
+
+      reader.on("data", async (row) => {
+        const { asset_id, start_date, long, periodic } = row;
+
+        await this.setServicePlanService.execute(
+          new SetServicePlanRequest(asset_id, start_date, long, periodic)
+        );
+      });
+
+      reader.on("end", async (rowCount: number) => {});
 
       sendSuccessResponse(res, "Service plan updated");
     } catch (error) {

@@ -79,6 +79,7 @@ import { GetAssetByAvailabilityService } from "./application/asset/GetAssetByAva
 import { UpdateBlacklistedService } from "./application/user/UpdateBlacklistedService";
 import { UpdateAvailabilityService } from "./application/asset/UpdateAvailabilityService";
 import { SetServicePlanService } from "./application/service/SetServicePlanService";
+import { GetServicePlanCsvService } from "src/application/service/GetServicePlanCsvService";
 
 let container = new Container();
 
@@ -100,7 +101,6 @@ container.bind<GetReservationById>(GetReservationById).toSelf();
 
 container.bind<UpdateAvailabilityService>(UpdateAvailabilityService).toSelf();
 container.bind<UpdateBlacklistedService>(UpdateBlacklistedService).toSelf();
-container.bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService).toSelf();
 container
   .bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService)
   .toSelf();
@@ -184,6 +184,7 @@ container.bind<ReleaseServicesService>(ReleaseServicesService).toSelf();
 container.bind<FinishServicesService>(FinishServicesService).toSelf();
 container.bind<GetUnplannedAssetsService>(GetUnplannedAssetsService).toSelf();
 container.bind<SetServicePlanService>(SetServicePlanService).toSelf();
+container.bind<GetServicePlanCsvService>(GetServicePlanCsvService).toSelf();
 
 container
   .bind<InversifyExpressServer>(InversifyExpressServer)

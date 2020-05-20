@@ -282,12 +282,17 @@ export class ServiceRepository implements IServiceRepository {
       return null;
     }
 
-    const updatedAsset = await asset.update({
-      service_plan: {
+    let service_plan = null;
+    if (start_date && long && periodic) {
+      service_plan = {
         start_date: start_date,
         long: long,
         periodic: periodic,
-      },
+      };
+    }
+
+    const updatedAsset = await asset.update({
+      service_plan: service_plan,
     });
 
     return this._assetMapper.get(updatedAsset);
