@@ -26,6 +26,11 @@ import { DeleteAssetService } from "../../../../application/asset/DeleteAssetSer
 import { EditAssetService } from "../../../../application/asset/EditAssetService";
 import { SetServicePlanAssetService } from "../../../../application/asset/SetServicePlanAssetService";
 import SetServicePlanAssetRequest from "../../../../application/asset/SetServicePlanAssetRequest";
+import RegisterAssetCSVRequest from "../../../../application/asset/RegisterAssetCSVRequest";
+import { RegisterAssetCSVService } from "../../../../application/asset/RegisterAssetCSVService";
+import multer from "multer";
+
+const upload = multer({ dest: "uploads" });
 
 @controller("/assets")
 export class AssetController implements interfaces.Controller {
@@ -33,6 +38,7 @@ export class AssetController implements interfaces.Controller {
     protected readonly _getAllAssetService: GetAllAssetService,
     protected readonly _findAssetByIdService: FindAssetByIdService,
     protected readonly _addAssetService: RegisterAssetService,
+    protected readonly _addAssetCSVService: RegisterAssetCSVService,
     protected readonly _deleteAssetService: DeleteAssetService,
     protected readonly _editAssetService: EditAssetService,
     protected readonly _editServicePlanAssetService: SetServicePlanAssetService
@@ -64,6 +70,15 @@ export class AssetController implements interfaces.Controller {
     }
 
     sendSuccessResponse(res, "", data);
+  }
+
+  @httpPost("/csv", upload.single("csv"), role(Role.company))
+  public async addByCSV(@request() req: Request, @response() res: Response) {
+    const { csv } = req.body;
+    const data = await this._addAssetCSVService.execute(
+      new RegisterAssetCSVRequest(csv)
+    );
+    sendSuccessResponse(res, "Register asset CSV success", data);
   }
 
   @httpPost("/", role(Role.company))

@@ -1,6 +1,10 @@
 import { injectable } from "inversify";
 
 import AssetEntity from "../entities/asset";
+import ConsumptionTypeEntity from "../entities/consumptionType";
+import ClassEntity from "../entities/class";
+import TypeEntity from "../entities/type";
+import GrowthTypeEntity from "../entities/growthType";
 import GroupEntity from "../entities/group";
 import { Op, Association } from "sequelize";
 import { IAssetRepository } from "../../../domain/repositories/IAssetRepository";
@@ -9,6 +13,9 @@ import Asset from "../../../domain/models/Asset";
 import RegisterAssetRequest from "../../../application/asset/RegisterAssetRequest";
 import SetServicePlanAssetRequest from "../../../application/asset/SetServicePlanAssetRequest";
 import { UpdateAvailabilityRequest } from "src/application/asset/UpdateAvailabilityRequest";
+import RegisterAssetCSVRequest from "../../../application/asset/RegisterAssetCSVRequest";
+import AssetCsv from "../../../domain/models/AssetCsv";
+import * as csv_m from "fast-csv";
 
 @injectable()
 export class AssetRepository implements IAssetRepository {
@@ -176,11 +183,85 @@ export class AssetRepository implements IAssetRepository {
     return this._dataMapper.get(dataEntity);
   }
 
+  async registerAssetCSV(asset: RegisterAssetCSVRequest): Promise<Asset> {
+    let headers = [
+      "group_id",
+      "name",
+      "type_id",
+      "growth_type_id",
+      "growth_rate",
+      "class_id",
+      "consumption_type_id",
+      "category_id",
+      "manufacturer",
+      "capacity",
+      "capacity_unit",
+      "serial_number",
+      "price",
+      "manufacture_date",
+      "installation_date",
+      "custom_fields",
+    ];
+    let types = await TypeEntity.findAll({ raw: true });
+    let growth_types = await GrowthTypeEntity.findAll({ raw: true });
+    let classes = await ClassEntity.findAll({ raw: true });
+    let consumption_types = await ConsumptionTypeEntity.findAll({ raw: true });
+
+    let max = Math.max(
+      types.length,
+      growth_types.length,
+      classes.length,
+      consumption_types.length
+    );
+
+    let reader = csv_m.parseFile(asset.csv.path, {
+      headers: headers,
+      renameHeaders: true,
+      skipLines: max + 2,
+    });
+    let data: object[] = [];
+
+    reader.on("error", (error) => {
+      return error;
+    });
+
+    reader.on("data", async (row) => {
+      try {
+        let customs = row.custom_fields.split(";");
+        let custom_fields: { [key: string]: string } = {};
+
+        for (let field of customs) {
+          let temp = field.split("=");
+          if (temp.length == 2) {
+            custom_fields[temp[0].trim()] = temp[1].trim();
+          }
+        }
+
+        row.custom_fields = custom_fields;
+
+        data.push(row);
+      } catch (error) {
+        return error;
+      }
+    });
+
+    reader.on("end", async (rowCount: number) => {
+      try {
+        await AssetEntity.bulkCreate(data);
+
+        return rowCount;
+      } catch (err) {
+        return err;
+      }
+    });
+    return true;
+  }
+
   async getByAvailability(): Promise<Asset[]> {
     const dataEntity = await AssetEntity.findAll({
       where: {
-        availability: 1
-      }
+        availability: 1,
+      },
     });
 
     if (!dataEntity) {

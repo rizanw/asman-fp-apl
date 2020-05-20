@@ -79,6 +79,7 @@ import { GetAssetByAvailabilityService } from "./application/asset/GetAssetByAva
 import { UpdateBlacklistedService } from "./application/user/UpdateBlacklistedService";
 import { UpdateAvailabilityService } from "./application/asset/UpdateAvailabilityService";
 import { SetServicePlanService } from "./application/service/SetServicePlanService";
+import { RegisterAssetCSVService } from "./application/asset/RegisterAssetCSVService";
 
 let container = new Container();
 
@@ -100,7 +101,6 @@ container.bind<GetReservationById>(GetReservationById).toSelf();
 
 container.bind<UpdateAvailabilityService>(UpdateAvailabilityService).toSelf();
 container.bind<UpdateBlacklistedService>(UpdateBlacklistedService).toSelf();
-container.bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService).toSelf();
 container
   .bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService)
   .toSelf();
@@ -133,6 +133,7 @@ container.bind<GetAllIndukService>(GetAllIndukService).toSelf();
 
 container.bind<AssetMapper>(AssetMapper).toSelf();
 container.bind<RegisterAssetService>(RegisterAssetService).toSelf();
+container.bind<RegisterAssetCSVService>(RegisterAssetCSVService).toSelf();
 container.bind<FindAssetByIdService>(FindAssetByIdService).toSelf();
 container.bind<GetAllAssetService>(GetAllAssetService).toSelf();
 container.bind<DeleteAssetService>(DeleteAssetService).toSelf();
