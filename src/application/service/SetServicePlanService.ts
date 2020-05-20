@@ -33,30 +33,30 @@ export class SetServicePlanService {
       servicesToDelete
     );
 
-    console.log("deleted: ", numOfDeletedService);
-
     if (numOfDeletedService === null) {
       throw new Error("Cannot delete active services");
     }
 
     // buatkan service sesuai service plan
-    const { start_date, long } = request;
-    const edate = moment(start_date).add(long - 1, "days");
-    const serviceToCreate = new Service(
-      null,
-      start_date,
-      edate.toDate(),
-      null,
-      null,
-      updatedAsset
-    );
+    const { start_date, long, periodic } = request;
+    if (start_date && long && periodic) {
+      const edate = moment(start_date).add(long - 1, "days");
+      const serviceToCreate = new Service(
+        null,
+        start_date,
+        edate.toDate(),
+        null,
+        null,
+        updatedAsset
+      );
 
-    const numOfCreatedServce = await this._serviceRepository.addServices([
-      serviceToCreate,
-    ]);
+      const numOfCreatedServce = await this._serviceRepository.addServices([
+        serviceToCreate,
+      ]);
 
-    if (numOfCreatedServce === null) {
-      throw new Error("Cannot add service");
+      if (numOfCreatedServce === null) {
+        throw new Error("Cannot add service");
+      }
     }
   }
 }

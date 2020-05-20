@@ -29,6 +29,11 @@ import SetServicePlanAssetRequest from "../../../../application/asset/SetService
 import RegisterAssetCSVRequest from "../../../../application/asset/RegisterAssetCSVRequest";
 import { RegisterAssetCSVService } from "../../../../application/asset/RegisterAssetCSVService";
 import multer from "multer";
+import * as csv_m from "fast-csv";
+import { GetAllTypeService } from "../../../../application/type/GetAllTypeService";
+import { GetAllClassService } from "../../../../application/class/GetAllClassService";
+import { GetAllGrowthTypeService } from "../../../../application/growthType/GetAllGrowthTypeService";
+import { GetAllConsumptionTypeService } from "../../../../application/consumptionType/GetAllConsumptionTypeService";
 
 const upload = multer({ dest: "uploads" });
 
@@ -36,6 +41,10 @@ const upload = multer({ dest: "uploads" });
 export class AssetController implements interfaces.Controller {
   constructor(
     protected readonly _getAllAssetService: GetAllAssetService,
+    protected readonly _getAllTypeService: GetAllTypeService,
+    protected readonly _getAllClassService: GetAllClassService,
+    protected readonly _getAllGrowthTypeService: GetAllGrowthTypeService,
+    protected readonly _getAllConsumptionTypeService: GetAllConsumptionTypeService,
     protected readonly _findAssetByIdService: FindAssetByIdService,
     protected readonly _addAssetService: RegisterAssetService,
     protected readonly _addAssetCSVService: RegisterAssetCSVService,
@@ -74,10 +83,86 @@ export class AssetController implements interfaces.Controller {
 
   @httpPost("/csv", upload.single("csv"), role(Role.company))
   public async addByCSV(@request() req: Request, @response() res: Response) {
-    const { csv } = req.body;
-    const data = await this._addAssetCSVService.execute(
-      new RegisterAssetCSVRequest(csv)
-    );
+    const { file } = req.body;
+    let headers = [
+      "group_id",
+      "name",
+      "type_id",
+      "growth_type_id",
+      "growth_rate",
+      "class_id",
+      "consumption_type_id",
+      "category_id",
+      "manufacturer",
+      "capacity",
+      "capacity_unit",
+      "serial_number",
+      "price",
+      "manufacture_date",
+      "installation_date",
+      "custom_fields",
+    ];
+
+    let reader = csv_m.parseFile(req.file.path, {
+      headers: headers,
+      renameHeaders: true,
+      skipLines: 5,
+    });
+    const data: object[] = [];
+
+    reader.on("error", (error) => {
+      return error;
+    });
+
+    reader.on("data", async (row) => {
+      const {
+        group_id,
+        name,
+        type_id,
+        growth_type_id,
+        growth_rate,
+        class_id,
+        consumption_type_id,
+        category_id,
+        manufacturer,
+        capacity,
+        capacity_unit,
+        serial_number,
+        price,
+        manufacture_date,
+        installation_date,
+        custom_fields,
+        start_date,
+        long,
+        periodic,
+      } = row;
+      const data = await this._addAssetService.execute(
+        new RegisterAssetRequest(
+          group_id,
+          name,
+          type_id,
+          growth_type_id,
+          growth_rate,
+          class_id,
+          consumption_type_id,
+          category_id,
+          manufacturer,
+          capacity,
+          capacity_unit,
+          serial_number,
+          price,
+          manufacture_date,
+          installation_date,
+          custom_fields,
+          start_date,
+          long,
+          periodic
+        )
+      );
+    });
+
+    reader.on("end", async (rowCount: number) => {});
+
     sendSuccessResponse(res, "Register asset CSV success", data);
   }
 

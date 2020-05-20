@@ -5,8 +5,8 @@ import moment from "moment";
 export default class Service {
   constructor(
     public readonly id: number | null,
-    public readonly start_date: Date,
-    public readonly end_date: Date,
+    public readonly start_date: Date | string,
+    public readonly end_date: Date | string,
     public readonly service_date: Date | null,
     public readonly status: number | null,
     public readonly asset: Asset | null
@@ -15,8 +15,6 @@ export default class Service {
   public isBacklog(): Boolean {
     const now = moment();
 
-    return (
-      this.status === ServiceStatus.READY && now.isAfter(moment(this.end_date))
-    );
+    return this.status === ServiceStatus.READY && now.isAfter(this.end_date);
   }
 }

@@ -3,31 +3,16 @@ import { IMapper } from "src/infra/database/mappers/IMapper";
 import Service from "src/domain/models/Service";
 import ServiceEntity from "src/infra/database/entities/service";
 import Asset from "src/domain/models/Asset";
+import { AssetMapper } from "./AssetMapper";
 
 @injectable()
 export class ServiceMapper implements IMapper<Service, ServiceEntity> {
+  constructor(protected readonly _assetMapper: AssetMapper) {}
+
   get(entity: ServiceEntity): Service {
     let asset = null;
     if (entity.asset) {
-      asset = new Asset(
-        entity.asset.id,
-        entity.asset.group_id,
-        entity.asset.name,
-        entity.asset.type_id,
-        entity.asset.growth_type_id,
-        entity.asset.growth_rate,
-        entity.asset.class_id,
-        entity.asset.consumption_type_id,
-        entity.asset.category_id,
-        entity.asset.manufacturer,
-        entity.asset.capacity,
-        entity.asset.capacity_unit,
-        entity.asset.serial_number,
-        entity.asset.price,
-        entity.asset.manufacture_date,
-        entity.asset.installation_date,
-        entity.asset.custom_fields
-      );
+      asset = this._assetMapper.get(entity.asset);
     }
 
     const service = new Service(
