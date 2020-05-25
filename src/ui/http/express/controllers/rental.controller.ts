@@ -28,7 +28,7 @@ import { UpdateBlacklistRequest } from "src/application/user/UpdateBlacklistedRe
 import { UpdateAvailabilityService } from "src/application/asset/UpdateAvailabilityService";
 import { UpdateAvailabilityRequest } from "src/application/asset/UpdateAvailabilityRequest";
 
-@controller("/reservation")
+@controller("/rental")
 export class ReservationController implements interfaces.Controller {
   constructor(
     protected readonly _reservationService: GetAllReservationService,

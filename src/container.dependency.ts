@@ -61,7 +61,7 @@ import { FindAssetByIdService } from "./application/asset/FindAssetByIdService";
 import { IReservationRepository } from "./domain/repositories/IReservationRepository";
 import { ReservationRepository } from "./infra/database/repositories/ReservationRepository";
 import { GetAllReservationService } from "./application/reservation/GetAllReservationService";
-import { ReservationMapper } from "./infra/database/mappers/ReservationMapper";
+import { ReservationMapper } from "./infra/database/mappers/RentalMapper";
 import { ReleaseServicesService } from "./application/service/ReleaseServicesService";
 import { FinishServicesService } from "./application/service/FinishServicesService";
 import { AddReservationService } from "./application/reservation/AddReservationService";

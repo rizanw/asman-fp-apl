@@ -1,4 +1,4 @@
-import Reservation from '../models/Reservation';
+import Reservation from '../models/Rental';
 import { AddReservationRequest } from 'src/application/reservation/AddReservationRequest';
 import { UpdateStatusRequest } from 'src/application/reservation/UpdateStatusRequest';
 import { UpdateIssueDateRequest } from 'src/application/reservation/UpdateIssueDateRequest';

@@ -12,8 +12,14 @@ module.exports = {
         password: pass
       },
       {
-        name: "User Borrower",
-        username: "borrower",
+        name: "User Tracktor",
+        username: "tracktor",
+        role: "company",
+        password: pass
+      },
+      {
+        name: "User PLN",
+        username: "pln",
         role: "company",
         password: pass
       },

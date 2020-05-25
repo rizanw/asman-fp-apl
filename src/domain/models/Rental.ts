@@ -1,14 +1,11 @@
 import Asset from "src/infra/database/entities/asset";
 import User from "./User";
 
-export default class Reservation {
+export default class Rental {
   constructor(
     public readonly id: number,
-    public readonly asset_id: number,
-    public readonly borrower_id: number,
-    public readonly admin_id: number,
-    public readonly issue_date: Date,
-    public readonly return_date: Date,
+    public readonly asset_id: number, 
+    public readonly owner_id: number,
     public readonly status: number
   ) {}
 
@@ -31,12 +28,5 @@ export default class Reservation {
       return false;
     }
     return true;
-  }
-
-  public isReserved(): boolean {
-    if(this.return_date != null){
-      return false;
-    }
-    return true;
-  }
+  } 
 }

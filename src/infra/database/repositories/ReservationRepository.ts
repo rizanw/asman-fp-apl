@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 
 import { IReservationRepository } from "src/domain/repositories/IReservationRepository";
-import { ReservationMapper } from "../mappers/ReservationMapper";
-import Reservation from "src/domain/models/Reservation";
-import ReservationEntity from "../entities/reservation";
+import { ReservationMapper } from "../mappers/RentalMapper";
+import Reservation from "src/domain/models/Rental";
+import ReservationEntity from "../entities/rental";
 import { AddReservationRequest } from "src/application/reservation/AddReservationRequest";
 import { UpdateStatusRequest } from "src/application/reservation/UpdateStatusRequest";
 import { UpdateIssueDateRequest } from "src/application/reservation/UpdateIssueDateRequest"; 

@@ -5,54 +5,39 @@ module.exports = {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
+
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
 
-    return queryInterface.createTable("reservations", {
+    return queryInterface.createTable("rentals", {
       id: {
         type: DataTypes.BIGINT.UNSIGNED,
-        allowNull: false,
+        allowNull: false, 
         autoIncrement: true,
         primaryKey: true
       },
       asset_id: {
         type: DataTypes.BIGINT.UNSIGNED,
+        allowNullL: false,
         references: {
           model: {
-            tableName: "assets"
+            tableName: "assets",
           },
-          key: "id"
+          key: "id",
         },
-        onDelete: 'cascade',
+        onDelete: "cascade",
       },
-      borrower_id: {
+      owner_id: {
         type: DataTypes.BIGINT.UNSIGNED,
-        references: {
+        allowNull: false,
+        references:{
           model: {
-            tableName: "users"
+            tableName: "users",
           },
-          key: "id"
+          key: "id",
         },
-        onDelete: 'cascade',
-      },
-      admin_id: {
-        type: DataTypes.BIGINT.UNSIGNED,
-        references: {
-          model: {
-            tableName: "users"
-          },
-          key: "id"
-        }, 
-        allowNull: true,
-        onDelete: 'cascade',
-      },
-      issue_date: {
-        type: DataTypes.DATEONLY
-      },
-      return_date: {
-        type: DataTypes.DATEONLY,
-        allowNull: true,
+        onDelete: "cascade",
       },
       status: {
         type: DataTypes.SMALLINT,
@@ -62,7 +47,7 @@ module.exports = {
     })
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, DataTypes) => {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
@@ -70,6 +55,7 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-    return queryInterface.dropTable("reservations");
+
+    return queryInterface.dropTable("rentals")
   }
 };
