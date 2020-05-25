@@ -9,4 +9,4 @@ export { CategoryController } from "./category.controller";
 export { GroupController } from "./group.controller";
 export { CompanyController } from "src/ui/http/express/controllers/company.controller";
 export { ServiceController } from "src/ui/http/express/controllers/service.controller";
-export { ReservationController } from "./rental.controller";
+export { RentalController } from "./rental.controller";

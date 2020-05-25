@@ -26,7 +26,6 @@ export default class Asset {
     public readonly consumption_type: ConsumptionType | null,
     public readonly category: Category | null,
     public readonly services: Service[],
-    public readonly custom_fields: Object | null,
-    public readonly availability: number
+    public readonly custom_fields: Object | null, 
    ) {}
 }

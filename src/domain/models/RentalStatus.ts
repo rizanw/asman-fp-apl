@@ -1,4 +1,4 @@
-export const ReservationStatus = {
+export const RentalStatus = {
     PENDING: 0,
     APPROVED: 1,
     REJECTED: 2,
@@ -7,9 +7,9 @@ export const ReservationStatus = {
   
   export const StatusMap = {
     0: "Waiting for Approval (Pending)",
-    1: "Reservation request Approved",
-    2: "Reservation request Rejected",
+    1: "Rental request Approved",
+    2: "Rental request Rejected",
     3: "Asset Returned",
-    4: "Reservation request Canceled",
+    4: "Rental request Canceled",
   };
   

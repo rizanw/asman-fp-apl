@@ -58,53 +58,36 @@ import { IAssetRepository } from "./domain/repositories/IAssetRepository";
 import { AssetRepository } from "./infra/database/repositories/AssetRepository";
 import { RegisterAssetService } from "./application/asset/RegisterAssetService";
 import { FindAssetByIdService } from "./application/asset/FindAssetByIdService";
-import { IReservationRepository } from "./domain/repositories/IReservationRepository";
-import { ReservationRepository } from "./infra/database/repositories/ReservationRepository";
-import { GetAllReservationService } from "./application/reservation/GetAllReservationService";
-import { ReservationMapper } from "./infra/database/mappers/RentalMapper";
 import { ReleaseServicesService } from "./application/service/ReleaseServicesService";
 import { FinishServicesService } from "./application/service/FinishServicesService";
-import { AddReservationService } from "./application/reservation/AddReservationService";
 import { DeleteAssetService } from "./application/asset/DeleteAssetService";
 import { EditAssetService } from "./application/asset/EditAssetService";
 import { SetServicePlanAssetService } from "./application/asset/SetServicePlanAssetService";
-import { UpdateStatusService } from "./application/reservation/UpdateStatusService";
-import { UpdateStatusRequest } from "./application/reservation/UpdateStatusRequest";
-import { GetReservationByBorrowerService } from "./application/reservation/GetReservationByBorrowerService";
-import { UpdateIssueDateService } from "./application/reservation/UpdateIssueDateService";
-import { UpdateIssueDateRequest } from "./application/reservation/UpdateIssueDateRequest";
 import { GetUnplannedAssetsService } from "./application/service/GetUnplannedAssetsService";
-import { GetReservationById } from "./application/reservation/GetReservationById";
-import { GetAssetByAvailabilityService } from "./application/asset/GetAssetByAvailabilityService";
 import { UpdateBlacklistedService } from "./application/user/UpdateBlacklistedService";
-import { UpdateAvailabilityService } from "./application/asset/UpdateAvailabilityService";
 import { SetServicePlanService } from "./application/service/SetServicePlanService";
 import { RegisterAssetCSVService } from "./application/asset/RegisterAssetCSVService";
 import { GetServicePlanCsvService } from "src/application/service/GetServicePlanCsvService";
+import { RentalMapper } from "./infra/database/mappers/RentalMapper";
+import { IRentalRepository } from "./domain/repositories/IRentalRepository";
+import { RentalRepository } from "./infra/database/repositories/RentalRepository";
+import { AddRentalAssetService } from "./application/rental/AddRentalAssetService";
+import { UpdateRentalAvailabilityService } from "./application/rental/UpdateRentalAvailabilityService";
 
 let container = new Container();
 
-// Reservation Module
-container
-  .bind<IReservationRepository>(TYPES.ReservationRepository)
-  .to(ReservationRepository);
-container.bind<GetAllReservationService>(GetAllReservationService).toSelf();
-container.bind<ReservationMapper>(ReservationMapper).toSelf();
-container.bind<AddReservationService>(AddReservationService).toSelf();
+// Rental Module
+container.bind<RentalMapper>(RentalMapper).toSelf();
+container.bind<IRentalRepository>(TYPES.RentalRepository).to(RentalRepository);
+container.bind<AddRentalAssetService>(AddRentalAssetService).toSelf();
+container.bind<UpdateRentalAvailabilityService>(UpdateRentalAvailabilityService).toSelf();
+
+
 container.bind<EditAssetService>(EditAssetService).toSelf();
 container.bind<SetServicePlanAssetService>(SetServicePlanAssetService).toSelf();
-container.bind<UpdateStatusService>(UpdateStatusService).toSelf();
-container
-  .bind<GetReservationByBorrowerService>(GetReservationByBorrowerService)
-  .toSelf();
-container.bind<UpdateIssueDateService>(UpdateIssueDateService).toSelf();
-container.bind<GetReservationById>(GetReservationById).toSelf();
 
-container.bind<UpdateAvailabilityService>(UpdateAvailabilityService).toSelf();
+
 container.bind<UpdateBlacklistedService>(UpdateBlacklistedService).toSelf();
-container
-  .bind<GetAssetByAvailabilityService>(GetAssetByAvailabilityService)
-  .toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container

@@ -8,7 +8,7 @@ import sequelize from "../database";
 import User from "./user";
 import Asset from "./asset";
 
-export default class Rental extends Model {
+export default class RentalEntitiy extends Model {
   public id!: number;
   public asset_id!: number;
   public owner_id!: number;
@@ -21,12 +21,12 @@ export default class Rental extends Model {
   public getUser!: BelongsToGetAssociationMixin<User>;
 
   public static associations: {
-    asset: Association<Rental, Asset>;
-    owner: Association<Rental, User>;
+    asset: Association<RentalEntitiy, Asset>;
+    owner: Association<RentalEntitiy, User>;
   };
 }
 
-Rental.init(
+RentalEntitiy.init(
   {
     id: {
       type: DataTypes.BIGINT.UNSIGNED,
@@ -61,13 +61,13 @@ Rental.init(
   }
 );
 
-Rental.belongsTo(Asset, {
+RentalEntitiy.belongsTo(Asset, {
   foreignKey: "asset_id",
   as: "asset",
   onDelete: "cascade",
 });
 
-Rental.belongsTo(User, {
+RentalEntitiy.belongsTo(User, {
   foreignKey: "owner_id",
   as: "owner",
   onDelete: "cascade",

@@ -6,14 +6,11 @@ export default class Rental {
     public readonly id: number,
     public readonly asset_id: number, 
     public readonly owner_id: number,
-    public readonly status: number
+    public status: number
   ) {}
 
-  public isStatusPending(): boolean {
-    if(this.status != 0){
-      return false;
-    }
-    return true;
+  public updateStatus(status: number) {
+    this.status = status;
   }
 
   public isStatusReturned(status: number): boolean {

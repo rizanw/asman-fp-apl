@@ -158,8 +158,7 @@ export class AssetMapper implements IMapper<Asset, AssetEntity> {
       consumption_type,
       category,
       services,
-      entity.custom_fields,
-      entity.availability
+      entity.custom_fields, 
     );
 
     return asset;

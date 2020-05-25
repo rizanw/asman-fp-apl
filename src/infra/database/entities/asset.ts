@@ -41,7 +41,6 @@ export default class Asset extends Model {
   public installation_date!: Date;
   public custom_fields!: Object;
   public service_plan!: ServicePlan;
-  public availability!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -187,11 +186,7 @@ Asset.init(
     },
     service_plan: {
       type: DataTypes.JSONB,
-    },
-    availability: {
-      type: DataTypes.SMALLINT,
-      defaultValue: 1
-    },
+    }, 
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   },
