@@ -31,19 +31,32 @@ module.exports = {
       type: DataTypes.BIGINT.UNSIGNED,
       references: {
         model: {
-          tableName: "users"
+          tableName: "companies"
         },
         key: "id"
       },
       onDelete: 'cascade',
     }, 
+    duration: {
+      type: DataTypes.SMALLINT,
+      allowNull: false,
+      defaultValue: 1,
+    },
     issue_date: {
-      type: DataTypes.DATEONLY
+      type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     return_date: {
       type: DataTypes.DATEONLY,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.SMALLINT,
+      allowNull: false,
+      defaultValue: 0
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   })
   },
 

@@ -14,6 +14,7 @@ import Group from "src/domain/models/Group";
 export class AssetMapper implements IMapper<Asset, AssetEntity> {
   get(entity: AssetEntity): Asset {
     let category = null;
+    console.log("======", entity.category)
     if (entity.category) {
       const { id, company_id, name } = entity.category;
       category = new Category(id, company_id, name);

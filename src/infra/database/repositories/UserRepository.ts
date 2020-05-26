@@ -3,7 +3,6 @@ import { IUserRepository } from "src/domain/repositories/IUserRepository";
 import User from "src/domain/models/User";
 import UserEntity from "src/infra/database/entities/user";
 import { UserMapper } from "src/infra/database/mappers/UserMapper";
-import { UpdateBlacklistRequest } from "src/application/user/UpdateBlacklistedRequest";
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -56,21 +55,6 @@ export class UserRepository implements IUserRepository {
       role: user.role,
       company_id: user.company?.id,
     });
-
-    return this._dataMapper.get(userEntity);
-  }
-
-  async updateBlacklisted(user: UpdateBlacklistRequest): Promise<User> {
-    const userEntity = await UserEntity.update<UserEntity>(
-      {
-        blacklisted: user.status,
-      },
-      {
-        where: {
-          id: user.id,
-        },
-      }
-    );
 
     return this._dataMapper.get(userEntity);
   }

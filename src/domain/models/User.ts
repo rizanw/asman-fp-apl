@@ -9,13 +9,5 @@ export default class User {
     public readonly role: string,
     public readonly password: string,
     public readonly company: Company | null, 
-    public readonly blacklisted: number
-  ) {}
-
-  isBlacklisted() : boolean {
-    if(this.blacklisted==1){
-      return true;
-    }
-    return false;
-  }
+  ) {} 
 }

@@ -33,17 +33,24 @@ module.exports = {
         allowNull: false,
         references:{
           model: {
-            tableName: "users",
+            tableName: "companies",
           },
           key: "id",
         },
         onDelete: "cascade",
       },
-      status: {
-        type: DataTypes.SMALLINT,
+      price: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
-      }
+      },
+      availability: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        defaultValue: 1,
+      }, 
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE
     })
   },
 

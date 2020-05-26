@@ -19,8 +19,7 @@ export default class User extends Model {
   public name!: string;
   public username!: string;
   public role!: string;
-  public password!: string;
-  public blacklisted!: number;
+  public password!: string; 
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -64,11 +63,7 @@ User.init(
     role: {
       type: DataTypes.STRING(20),
       allowNull: false,
-    },
-    blacklisted: {
-      type: DataTypes.SMALLINT, 
-      allowNull: true
-    },
+    }, 
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   },

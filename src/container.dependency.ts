@@ -64,7 +64,6 @@ import { DeleteAssetService } from "./application/asset/DeleteAssetService";
 import { EditAssetService } from "./application/asset/EditAssetService";
 import { SetServicePlanAssetService } from "./application/asset/SetServicePlanAssetService";
 import { GetUnplannedAssetsService } from "./application/service/GetUnplannedAssetsService";
-import { UpdateBlacklistedService } from "./application/user/UpdateBlacklistedService";
 import { SetServicePlanService } from "./application/service/SetServicePlanService";
 import { RegisterAssetCSVService } from "./application/asset/RegisterAssetCSVService";
 import { GetServicePlanCsvService } from "src/application/service/GetServicePlanCsvService";
@@ -72,7 +71,15 @@ import { RentalMapper } from "./infra/database/mappers/RentalMapper";
 import { IRentalRepository } from "./domain/repositories/IRentalRepository";
 import { RentalRepository } from "./infra/database/repositories/RentalRepository";
 import { AddRentalAssetService } from "./application/rental/AddRentalAssetService";
-import { UpdateRentalAvailabilityService } from "./application/rental/UpdateRentalAvailabilityService";
+import { GetRentalAssetExceptOwnerService } from "./application/rental/GetRentalAssetExceptOwnerService";
+import { CreateRentalTransactionService } from "./application/rental/CreateRentalTransactionService";
+import { RentalTransactionMapper } from "./infra/database/mappers/RentalTransactionMapper";
+import { IRentalTransactionRepository } from "./domain/repositories/IRentalTransactionRepository";
+import { RentalTransactionRepository } from "./infra/database/repositories/RentalTransactionRepository";
+import { GetRentalTransactionByRenterService } from "./application/rental/GetRentalTransactionByRenterService";
+import { UpdateRentalTransactionDateService } from "./application/rental/UpdateRentalTransactionDateService";
+import { DeleteRentalAssetService } from "./application/rental/DeleteRentalAssetService";
+import { UpdateRentalTransactionStatusService } from "./application/rental/UpdateRentalTransactionStatusService";
 
 let container = new Container();
 
@@ -80,14 +87,18 @@ let container = new Container();
 container.bind<RentalMapper>(RentalMapper).toSelf();
 container.bind<IRentalRepository>(TYPES.RentalRepository).to(RentalRepository);
 container.bind<AddRentalAssetService>(AddRentalAssetService).toSelf();
-container.bind<UpdateRentalAvailabilityService>(UpdateRentalAvailabilityService).toSelf();
+container.bind<GetRentalAssetExceptOwnerService>(GetRentalAssetExceptOwnerService).toSelf();
 
+container.bind<RentalTransactionMapper>(RentalTransactionMapper).toSelf();
+container.bind<IRentalTransactionRepository>(TYPES.RentalTransactionRepository).to(RentalTransactionRepository);
+container.bind<CreateRentalTransactionService>(CreateRentalTransactionService).toSelf();
+container.bind<GetRentalTransactionByRenterService>(GetRentalTransactionByRenterService).toSelf();
+container.bind<UpdateRentalTransactionDateService>(UpdateRentalTransactionDateService).toSelf();
+container.bind<DeleteRentalAssetService>(DeleteRentalAssetService).toSelf();
+container.bind<UpdateRentalTransactionStatusService>(UpdateRentalTransactionStatusService).toSelf();
 
 container.bind<EditAssetService>(EditAssetService).toSelf();
 container.bind<SetServicePlanAssetService>(SetServicePlanAssetService).toSelf();
-
-
-container.bind<UpdateBlacklistedService>(UpdateBlacklistedService).toSelf();
 
 container.bind<IGroupRepository>(TYPES.GroupRepository).to(GroupRepository);
 container

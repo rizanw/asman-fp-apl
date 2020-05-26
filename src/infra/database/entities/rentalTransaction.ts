@@ -5,29 +5,33 @@ import {
   Association,
 } from "sequelize";
 import sequelize from "../database";
-import User from "./user";
 import Rental from "./rental";
+import Company from "./company";
 
-export default class RentalTransaction extends Model {
+export default class RentalTransactionEntity extends Model {
   public id!: number;
   public rental_id!: number;
   public renter_id!: number;
+  public duration!: number;
   public issue_date!: Date;
   public return_date!: Date;
+  public status!: number;
 
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
   public readonly rental?: Rental;
-  public readonly renter?: User;
+  public readonly renter?: Company;
 
   public getRental!: BelongsToGetAssociationMixin<Rental>;
-  public getUser!: BelongsToGetAssociationMixin<User>;
+  public getRenter!: BelongsToGetAssociationMixin<Company>;
 
   public static associations: {
-    rental: Association<RentalTransaction, Rental>;
-    renter: Association<RentalTransaction, User>;
+    rental: Association<RentalTransactionEntity, Rental>;
+    renter: Association<RentalTransactionEntity, Company>;
   };
 }
 
-Rental.init(
+RentalTransactionEntity.init(
   {
     id: {
       type: DataTypes.BIGINT.UNSIGNED,
@@ -51,6 +55,11 @@ Rental.init(
         notEmpty: true,
       },
     }, 
+    duration: {
+      type: DataTypes.SMALLINT,
+      allowNull: false,
+      defaultValue: 1
+    },
     issue_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
@@ -64,6 +73,11 @@ Rental.init(
       validate: {
         isDate: true
       }
+    },
+    status: {
+      type: DataTypes.SMALLINT,
+      allowNull: false,
+      defaultValue: 0
     }
   },
   {
@@ -73,13 +87,13 @@ Rental.init(
   }
 );
 
-Rental.belongsTo(Rental, {
+RentalTransactionEntity.belongsTo(Rental, {
   foreignKey: "rental_id",
   as: "rental",
   onDelete: "cascade",
 });
 
-Rental.belongsTo(User, {
+RentalTransactionEntity.belongsTo(Company, {
   foreignKey: "renter_id",
   as: "renter",
   onDelete: "cascade",

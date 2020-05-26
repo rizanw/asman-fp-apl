@@ -1,27 +1,21 @@
-import Asset from "src/infra/database/entities/asset";
-import User from "./User";
+import Asset from "./Asset";
+import Company from "./Company";
 
 export default class Rental {
   constructor(
     public readonly id: number,
-    public readonly asset_id: number, 
-    public readonly owner_id: number,
-    public status: number
+    public readonly asset: Asset | null, 
+    public readonly owner: Company | null,
+    public readonly price: number,
+    public availability: number,
   ) {}
 
-  public updateStatus(status: number) {
-    this.status = status;
+  public updateAvailability(status: number) {
+    this.availability = status;
   }
 
-  public isStatusReturned(status: number): boolean {
-    if(status != 3){
-      return false;
-    }
-    return true;
-  }
-
-  public isStatusAccepted(status: number): boolean {
-    if(status != 1){
+  public isAvailable(): boolean {
+    if(this.availability != 1){
       return false;
     }
     return true;

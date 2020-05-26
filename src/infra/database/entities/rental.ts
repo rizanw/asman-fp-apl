@@ -5,24 +5,27 @@ import {
   Association,
 } from "sequelize";
 import sequelize from "../database";
-import User from "./user";
 import Asset from "./asset";
+import Company from "./company";
 
 export default class RentalEntitiy extends Model {
   public id!: number;
   public asset_id!: number;
   public owner_id!: number;
-  public status!: number;
+  public price!: number;
+  public availability!: number;
 
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
   public readonly asset?: Asset;
-  public readonly owner?: User;
+  public readonly owner?: Company;
 
   public getAsset!: BelongsToGetAssociationMixin<Asset>;
-  public getUser!: BelongsToGetAssociationMixin<User>;
+  public getOwner!: BelongsToGetAssociationMixin<Company>;
 
   public static associations: {
     asset: Association<RentalEntitiy, Asset>;
-    owner: Association<RentalEntitiy, User>;
+    owner: Association<RentalEntitiy, Company>;
   };
 }
 
@@ -50,14 +53,18 @@ RentalEntitiy.init(
         notEmpty: true,
       },
     },
-    status: {
+    price: {
+      type: DataTypes.INTEGER,
+    },
+    availability: {
       type: DataTypes.SMALLINT,
+      defaultValue: 1
     },
   },
   {
     sequelize: sequelize,
     tableName: "rentals",
-    timestamps: false,
+    timestamps: true,
   }
 );
 
@@ -67,7 +74,7 @@ RentalEntitiy.belongsTo(Asset, {
   onDelete: "cascade",
 });
 
-RentalEntitiy.belongsTo(User, {
+RentalEntitiy.belongsTo(Company, {
   foreignKey: "owner_id",
   as: "owner",
   onDelete: "cascade",

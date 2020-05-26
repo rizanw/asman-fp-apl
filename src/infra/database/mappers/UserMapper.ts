@@ -27,7 +27,6 @@ export class UserMapper implements IMapper<User, UserEntity> {
       entity.role,
       entity.password,
       company,
-      entity.blacklisted
     );
 
     return user;
