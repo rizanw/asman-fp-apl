@@ -63,3 +63,43 @@ export const statusServisReadyHeader = [
   { name: "Status Servis", width: "12%" },
   { name: "Tanggal Servis", width: "auto" }
 ];
+
+export const statusRentalForRentHeader = [
+  { name: "#", width: "5%" },
+  { name: "Nama Aset", width: "25%" },
+  { name: "Pemilik Aset", width: "25%" },
+  { name: "Harga Sewa", width: "25%" },
+  { name: "Ketersediaan", width: "25%" },
+]
+
+export const statusRentalInHeader = [
+  { name: "#", width: "5%" },
+  { name: "Nama Aset", width: "15%" },
+  { name: "Pemilik Aset", width: "15%" },
+  { name: "Harga Sewa", width: "15%" },
+  { name: "Status", width: "10%" },
+  { name: "Durasi", width: "5%" },
+  { name: "Diambil", width: "15%" },
+  { name: "Dikembalikan", width: "15%" }, 
+]
+
+export const statusRentalOutHeader = [
+  { name: "#", width: "5%" },
+  { name: "Nama Aset", width: "15%" },
+  { name: "Pemilik Aset", width: "15%" },
+  { name: "Harga Sewa", width: "15%" },
+  { name: "Status", width: "10%" },
+  { name: "Durasi", width: "5%" },
+  { name: "Diambil", width: "15%" },
+  { name: "Dikembalikan", width: "15%" },
+  { name: "Aksi", width: "15%" },
+]
+
+export const statusMyRentalHeader = [
+  { name: "#", width: "5%" },
+  { name: "Nama Aset", width: "25%" }, 
+  { name: "Harga Sewa", width: "25%" },
+  { name: "Status", width: "20%" },
+  { name: "Aksi", width: "20%" },
+]
+

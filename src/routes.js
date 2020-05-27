@@ -11,6 +11,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import StrukturIndex from "./views/strukturAset/index";
 import ServisIndex from "./views/servis/index";
+import RentalIndex from "./views/rental/index";
 
 import role from "./data/roleConst";
 import AssetForm from "./views/kelolaAset/asset/asset.form.container";
@@ -39,6 +40,14 @@ export default [
     component: AssetForm,
     protected: true,
     allowedRole: [role.COMPANY]
+  },
+  {
+    path: "/rental",
+    exact: true,
+    layout: DefaultLayout,
+    protected: true,
+    allowedRole: [role.COMPANY],
+    component: RentalIndex
   },
   {
     path: "/struktur",

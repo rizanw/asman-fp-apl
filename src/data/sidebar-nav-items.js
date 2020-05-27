@@ -24,6 +24,12 @@ export const data = [
     to: "/servis",
     icon: "clipboard-list",
     allowedRole: [role.COMPANY]
+  },
+  {
+    title: "Rental",
+    to: "/rental",
+    icon: "",
+    allowedRole: [role.COMPANY]
   }
   // {
   //   title: "Blog Dashboard",

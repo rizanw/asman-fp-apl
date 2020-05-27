@@ -6,6 +6,7 @@ import selectOptionsReducers from "./selectForm/reducers";
 import strukturAsetReducers from "./strukturAset/reducers";
 import servisReducers from "./servis/reducers";
 import authReducers from "./auth/reducers";
+import rentalReducers from "./rental/reducers";
 
 export default combineReducers({
   auth: authReducers,
@@ -14,5 +15,6 @@ export default combineReducers({
   breadcrumbs: breadcrumbsReducers,
   selectOptions: selectOptionsReducers,
   strukturAset: strukturAsetReducers,
-  servis: servisReducers
+  servis: servisReducers,
+  rental: rentalReducers
 });

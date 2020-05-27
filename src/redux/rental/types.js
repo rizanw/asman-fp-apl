@@ -1,0 +1,3 @@
+export const FETCH_RENTAL = "FETCH_RENTAL";
+export const FETCH_RENTAL_ERROR = "FETCH_RENTAL_ERROR";
+export const UPDATE_RENTAL = "UPDATE_RENTAL";
