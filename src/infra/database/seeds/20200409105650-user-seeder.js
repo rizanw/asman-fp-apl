@@ -12,12 +12,14 @@ module.exports = {
         password: pass
       },
       {
+        company_id: 1,
         name: "User Tracktor",
         username: "tracktor",
         role: "company",
         password: pass
       },
       {
+        company_id: 2,
         name: "User PLN",
         username: "pln",
         role: "company",

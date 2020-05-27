@@ -21,12 +21,12 @@ export class RentalRepository implements IRentalRepository {
       where: {
         [Op.and]: [
           {
-            owner_id: { [Op.not]: id }
+            owner_id: { [Op.not]: id },
           },
           {
-            availability: 1
-          }
-        ]
+            availability: 1,
+          },
+        ],
       },
       include: [
         {
@@ -36,7 +36,7 @@ export class RentalRepository implements IRentalRepository {
           association: RentalEntitiy.associations.asset,
           include: [
             {
-              association: AssetEntity.associations.type
+              association: AssetEntity.associations.type,
             },
             {
               association: AssetEntity.associations.category,
@@ -51,7 +51,7 @@ export class RentalRepository implements IRentalRepository {
               association: AssetEntity.associations.growth_type,
             },
             {
-              association: AssetEntity.associations.group, 
+              association: AssetEntity.associations.group,
               include: [
                 {
                   association: GroupEntity.associations.parent,
@@ -63,7 +63,59 @@ export class RentalRepository implements IRentalRepository {
                 },
               ],
             },
-          ]
+          ],
+        },
+      ],
+    });
+
+    if (!dataEntities) {
+      return null;
+    }
+
+    return dataEntities.map((data) => this._dataMapper.get(data));
+  }
+
+  async getAllByOwner(id: number): Promise<Rental[]> {
+    const dataEntities = await RentalEntitiy.findAll<RentalEntitiy>({
+      where: {
+        owner_id: id,
+      },
+      include: [
+        {
+          association: RentalEntitiy.associations.owner,
+        },
+        {
+          association: RentalEntitiy.associations.asset,
+          include: [
+            {
+              association: AssetEntity.associations.type,
+            },
+            {
+              association: AssetEntity.associations.category,
+            },
+            {
+              association: AssetEntity.associations.class,
+            },
+            {
+              association: AssetEntity.associations.consumption_type,
+            },
+            {
+              association: AssetEntity.associations.growth_type,
+            },
+            {
+              association: AssetEntity.associations.group,
+              include: [
+                {
+                  association: GroupEntity.associations.parent,
+                  include: [
+                    {
+                      association: GroupEntity.associations.parent,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
       ],
     });
@@ -85,7 +137,7 @@ export class RentalRepository implements IRentalRepository {
           association: RentalEntitiy.associations.asset,
           include: [
             {
-              association: AssetEntity.associations.type
+              association: AssetEntity.associations.type,
             },
             {
               association: AssetEntity.associations.category,
@@ -100,7 +152,7 @@ export class RentalRepository implements IRentalRepository {
               association: AssetEntity.associations.growth_type,
             },
             {
-              association: AssetEntity.associations.group, 
+              association: AssetEntity.associations.group,
               include: [
                 {
                   association: GroupEntity.associations.parent,
@@ -112,7 +164,7 @@ export class RentalRepository implements IRentalRepository {
                 },
               ],
             },
-          ]
+          ],
         },
       ],
     });
@@ -158,14 +210,14 @@ export class RentalRepository implements IRentalRepository {
   async delete(rental: Rental): Promise<boolean> {
     const dataEntity = await RentalEntitiy.destroy({
       where: {
-        id: rental.id
-      }
-    })
+        id: rental.id,
+      },
+    });
 
-    if(!dataEntity){
-      return false
+    if (!dataEntity) {
+      return false;
     }
 
-    return true
+    return true;
   }
 }

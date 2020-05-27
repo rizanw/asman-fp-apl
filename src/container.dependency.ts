@@ -80,6 +80,8 @@ import { GetRentalTransactionByRenterService } from "./application/rental/GetRen
 import { UpdateRentalTransactionDateService } from "./application/rental/UpdateRentalTransactionDateService";
 import { DeleteRentalAssetService } from "./application/rental/DeleteRentalAssetService";
 import { UpdateRentalTransactionStatusService } from "./application/rental/UpdateRentalTransactionStatusService";
+import { GetRentalAssetByOwnerService } from "./application/rental/GetRentalAssetByOwnerService";
+import { GetRentalTransactionByOwnerService } from "./application/rental/GetRentalTransactionByOwnerService";
 
 let container = new Container();
 
@@ -88,14 +90,16 @@ container.bind<RentalMapper>(RentalMapper).toSelf();
 container.bind<IRentalRepository>(TYPES.RentalRepository).to(RentalRepository);
 container.bind<AddRentalAssetService>(AddRentalAssetService).toSelf();
 container.bind<GetRentalAssetExceptOwnerService>(GetRentalAssetExceptOwnerService).toSelf();
+container.bind<GetRentalAssetByOwnerService>(GetRentalAssetByOwnerService).toSelf();
 
 container.bind<RentalTransactionMapper>(RentalTransactionMapper).toSelf();
 container.bind<IRentalTransactionRepository>(TYPES.RentalTransactionRepository).to(RentalTransactionRepository);
 container.bind<CreateRentalTransactionService>(CreateRentalTransactionService).toSelf();
 container.bind<GetRentalTransactionByRenterService>(GetRentalTransactionByRenterService).toSelf();
+container.bind<GetRentalTransactionByOwnerService>(GetRentalTransactionByOwnerService).toSelf();
 container.bind<UpdateRentalTransactionDateService>(UpdateRentalTransactionDateService).toSelf();
 container.bind<DeleteRentalAssetService>(DeleteRentalAssetService).toSelf();
-container.bind<UpdateRentalTransactionStatusService>(UpdateRentalTransactionStatusService).toSelf();
+ container.bind<UpdateRentalTransactionStatusService>(UpdateRentalTransactionStatusService).toSelf();
 
 container.bind<EditAssetService>(EditAssetService).toSelf();
 container.bind<SetServicePlanAssetService>(SetServicePlanAssetService).toSelf();

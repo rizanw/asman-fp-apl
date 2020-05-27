@@ -6,6 +6,7 @@ import {
   httpGet,
   request,
   response,
+  httpDelete,
 } from "inversify-express-utils";
 import moment from "moment";
 import { JWTToken } from "../utils/JWTToken";
@@ -24,6 +25,8 @@ import { DeleteRentalAssetService } from "src/application/rental/DeleteRentalAss
 import { DeleteRentalAssetRequest } from "src/application/rental/DeleteRentalAssetRequest";
 import { UpdateRentalTransactionStatusService } from "src/application/rental/UpdateRentalTransactionStatusService";
 import { UpdateRentalTransactionStatusRequest } from "src/application/rental/UpdateRentalTransactionStatusRequest";
+import { GetRentalAssetByOwnerService } from "src/application/rental/GetRentalAssetByOwnerService";
+import { GetRentalTransactionByOwnerService } from "src/application/rental/GetRentalTransactionByOwnerService";
 
 @controller("/rental")
 export class RentalController implements interfaces.Controller {
@@ -32,14 +35,16 @@ export class RentalController implements interfaces.Controller {
     protected readonly _getRentalAssetExceptOwnerService: GetRentalAssetExceptOwnerService,
     protected readonly _createRentalTransactionService: CreateRentalTransactionService,
     protected readonly _getRentalTransactionByRenterService: GetRentalTransactionByRenterService,
+    protected readonly _getRentalTransactionByOwnerService: GetRentalTransactionByOwnerService,
     protected readonly _updateRentalTransactionDateService: UpdateRentalTransactionDateService,
     protected readonly _deleteRentalAssetService: DeleteRentalAssetService,
     protected readonly _updateRentalTransactionStatusService: UpdateRentalTransactionStatusService,
+    protected readonly _getRentalAssetByOwnerService: GetRentalAssetByOwnerService,
     protected readonly _jwtUtil: JWTToken
   ) {}
 
   // Use-case 1
-  @httpGet("/avail", role(Role.company))
+  @httpGet("/for-rent", role(Role.company))
   public async index(@request() req: Request, @response() res: Response) {
     const { company } = req.user;
     const data = await this._getRentalAssetExceptOwnerService.execute(company.id);
@@ -52,7 +57,7 @@ export class RentalController implements interfaces.Controller {
   }
 
   // Use-case 2
-  @httpPost("/rent", role(Role.company))
+  @httpPost("/rent/create", role(Role.company))
   public async rent(@request() req: Request, @response() res: Response) {
     const {company} = req.user;
     const { rental, duration, date } = req.body; 
@@ -64,7 +69,7 @@ export class RentalController implements interfaces.Controller {
   }
 
   // Use-case 3
-  @httpGet("/renting", role(Role.company))
+  @httpGet("/rent-in", role(Role.company))
   public async renting(@request() req: Request, @response() res: Response) {
     const {company} = req.user;
     const data = await this._getRentalTransactionByRenterService.execute(company.id)
@@ -73,7 +78,7 @@ export class RentalController implements interfaces.Controller {
   }
 
   // Use-case 4
-  @httpPost("/renting/date", role(Role.company))
+  @httpPost("/rent/change-date", role(Role.company))
   public async changeDate(@request() req: Request, @response() res: Response) {
     const { transaction, date } = req.body;
     const data = await this._updateRentalTransactionDateService.execute(
@@ -95,17 +100,17 @@ export class RentalController implements interfaces.Controller {
   }
 
   // Use-case 7
-  @httpPost("/avail/delete", role(Role.company))
+  @httpDelete("/my-asset/delete", role(Role.company))
   public async deleteAvailability(@request() req: Request, @response() res: Response) {
-    const {rental} = req.body;
+    let params = req.params as GetByIdParams;
     const data = await this._deleteRentalAssetService.execute(
-      new DeleteRentalAssetRequest(rental)
+      new DeleteRentalAssetRequest(params.id)
     );
 
     sendSuccessResponse(res, "delete rental item success", data);
   }
 
-  @httpPost("/add", role(Role.company))
+  @httpPost("/my-asset/add", role(Role.company))
   public async add(@request() req: Request, @response() res: Response) {
     const { company } = req.user;
     const { asset } = req.body;
@@ -116,4 +121,19 @@ export class RentalController implements interfaces.Controller {
     sendSuccessResponse(res, "add rental item success", data);
   }
 
+  @httpGet("/my-asset", role(Role.company))
+  public async myAsset(@request() req: Request, @response() res: Response) {
+    const { company } = req.user;
+    const data = await this._getRentalAssetByOwnerService.execute(company.id);
+
+    sendSuccessResponse(res, "", data)
+  }
+
+  @httpGet("/rent-out", role(Role.company))
+  public async rentOut(@request() req: Request, @response() res: Response) {
+    const { company } = req.user;
+    const data = await this._getRentalTransactionByOwnerService.execute(company.id);
+
+    sendSuccessResponse(res, "", data)
+  }
 }

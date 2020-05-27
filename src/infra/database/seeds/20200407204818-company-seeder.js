@@ -4,12 +4,20 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("companies", [
       {
-        name: "Company",
-        email: "company@email.com",
+        name: "Tracktor",
+        email: "Tracktor@email.com",
         tel: "087703402012",
         address: "Jl. Merdeka",
         latitude: 0,
         longitude: 0
+      },
+      {
+        name: "PLN",
+        email: "pln@pln.com",
+        tel: "087702402012",
+        address: "Jl. Merdeka",
+        latitude: 2,
+        longitude: 1
       }
     ]);
   },

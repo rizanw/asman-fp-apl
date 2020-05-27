@@ -28,7 +28,7 @@ export class RentalTransactionRepository
       duration: request.duration,
       issue_date: request.issue_date,
       return_date: null,
-      status: 0
+      status: 0,
     });
 
     return this._dataMapper.get(dataEntity);
@@ -44,7 +44,7 @@ export class RentalTransactionRepository
         duration: transaction.duration,
         issue_date: transaction.issue_date,
         return_date: transaction.return_date,
-        status: transaction.status
+        status: transaction.status,
       },
       {
         where: {
@@ -61,7 +61,63 @@ export class RentalTransactionRepository
   }
 
   async getByOwner(id: number): Promise<RentalTransaction[]> {
-    return false;
+    const dataEntity = await RentalTransactionEntity.findAll<
+      RentalTransactionEntity
+    >({
+      include: [
+        {
+          association: RentalTransactionEntity.associations.rental,
+          where: { owner_id: id },
+          include: [
+            {
+              association: RentalEntitiy.associations.owner,
+            },
+            {
+              association: RentalEntitiy.associations.asset,
+              include: [
+                {
+                  association: AssetEntity.associations.type,
+                },
+                {
+                  association: AssetEntity.associations.category,
+                },
+                {
+                  association: AssetEntity.associations.class,
+                },
+                {
+                  association: AssetEntity.associations.consumption_type,
+                },
+                {
+                  association: AssetEntity.associations.growth_type,
+                },
+                {
+                  association: AssetEntity.associations.group,
+                  include: [
+                    {
+                      association: GroupEntity.associations.parent,
+                      include: [
+                        {
+                          association: GroupEntity.associations.parent,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          association: RentalTransactionEntity.associations.renter,
+        },
+      ],
+    });
+
+    if (!dataEntity) {
+      return null;
+    }
+
+    return dataEntity.map((data) => this._dataMapper.get(data));
   }
 
   async getByRenter(id: number): Promise<RentalTransaction[]> {
@@ -127,7 +183,9 @@ export class RentalTransactionRepository
   }
 
   async findById(id: number): Promise<RentalTransaction> {
-    const dataEntity = await RentalTransactionEntity.findByPk<RentalTransactionEntity>(id, {
+    const dataEntity = await RentalTransactionEntity.findByPk<
+      RentalTransactionEntity
+    >(id, {
       include: [
         {
           association: RentalTransactionEntity.associations.rental,

@@ -11,7 +11,7 @@ export class GetRentalTransactionByOwnerService {
 
   async execute(id: number) {
       try {
-        const data = await this._rentalTransactionRepository.getAllExcept(id);
+        const data = await this._rentalTransactionRepository.getByOwner(id);
         if (!data) {
           return undefined;
         }
