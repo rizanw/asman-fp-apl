@@ -67,7 +67,8 @@ export class GroupController implements interfaces.Controller {
         address,
         latitude,
         longitude,
-        null
+        null,
+        1
       )
     );
 
@@ -87,7 +88,8 @@ export class GroupController implements interfaces.Controller {
         address,
         latitude,
         longitude,
-        parent_id
+        parent_id,
+        2
       )
     );
 
@@ -107,7 +109,8 @@ export class GroupController implements interfaces.Controller {
         address,
         latitude,
         longitude,
-        parent_id
+        parent_id,
+        3
       )
     );
 

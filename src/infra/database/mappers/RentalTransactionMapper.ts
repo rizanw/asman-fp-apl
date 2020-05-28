@@ -40,7 +40,8 @@ export class RentalTransactionMapper
       entity.duration,
       entity.issue_date,
       entity.return_date,
-      entity.status
+      entity.status,
+      ""
     );
 
     return rentalTransaction;

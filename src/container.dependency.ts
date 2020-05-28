@@ -92,6 +92,7 @@ container.bind<AddRentalAssetService>(AddRentalAssetService).toSelf();
 container.bind<GetRentalAssetExceptOwnerService>(GetRentalAssetExceptOwnerService).toSelf();
 container.bind<GetRentalAssetByOwnerService>(GetRentalAssetByOwnerService).toSelf();
 
+// rental-transaction module
 container.bind<RentalTransactionMapper>(RentalTransactionMapper).toSelf();
 container.bind<IRentalTransactionRepository>(TYPES.RentalTransactionRepository).to(RentalTransactionRepository);
 container.bind<CreateRentalTransactionService>(CreateRentalTransactionService).toSelf();

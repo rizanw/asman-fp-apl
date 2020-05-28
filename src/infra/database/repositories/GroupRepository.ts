@@ -70,68 +70,83 @@ export class GroupRepository implements IGroupRepository {
     return groupEntities.map((data) => this._dataMapper.get(data));
   }
 
-  async registerInduk({
-    company_id,
-    name,
-    tel,
-    address,
-    latitude,
-    longitude,
-  }: RegisterGroupRequest): Promise<Group> {
+  // async registerInduk({
+  //   company_id,
+  //   name,
+  //   tel,
+  //   address,
+  //   latitude,
+  //   longitude,
+  // }: RegisterGroupRequest): Promise<Group> {
+  //   const groupEntity = await GroupEntity.create<GroupEntity>({
+  //     name: name,
+  //     company_id: company_id,
+  //     tel: tel,
+  //     address: address,
+  //     latitude: latitude,
+  //     longitude: longitude,
+  //     level: 1,
+  //   });
+
+  //   return this._dataMapper.get(groupEntity);
+  // }
+
+  // async registerSubInduk({
+  //   company_id,
+  //   parent_id,
+  //   name,
+  //   tel,
+  //   address,
+  //   latitude,
+  //   longitude,
+  // }: RegisterGroupRequest): Promise<Group> {
+  //   const groupEntity = await GroupEntity.create<GroupEntity>({
+  //     name: name,
+  //     company_id: company_id,
+  //     parent_id: parent_id,
+  //     tel: tel,
+  //     address: address,
+  //     latitude: latitude,
+  //     longitude: longitude,
+  //     level: 2,
+  //   });
+
+  //   return this._dataMapper.get(groupEntity);
+  // }
+
+  // async registerEquipment({
+  //   company_id,
+  //   parent_id,
+  //   name,
+  //   tel,
+  //   address,
+  //   latitude,
+  //   longitude,
+  // }: RegisterGroupRequest): Promise<Group> {
+  //   const groupEntity = await GroupEntity.create<GroupEntity>({
+  //     name: name,
+  //     company_id: company_id,
+  //     parent_id: parent_id,
+  //     tel: tel,
+  //     address: address,
+  //     latitude: latitude,
+  //     longitude: longitude,
+  //     level: 3,
+  //   });
+
+  //   return this._dataMapper.get(groupEntity);
+  // }
+
+  async add(request: RegisterGroupRequest): Promise<Group> {
     const groupEntity = await GroupEntity.create<GroupEntity>({
-      name: name,
-      company_id: company_id,
-      tel: tel,
-      address: address,
-      latitude: latitude,
-      longitude: longitude,
-      level: 1,
-    });
-
-    return this._dataMapper.get(groupEntity);
-  }
-
-  async registerSubInduk({
-    company_id,
-    parent_id,
-    name,
-    tel,
-    address,
-    latitude,
-    longitude,
-  }: RegisterGroupRequest): Promise<Group> {
-    const groupEntity = await GroupEntity.create<GroupEntity>({
-      name: name,
-      company_id: company_id,
-      parent_id: parent_id,
-      tel: tel,
-      address: address,
-      latitude: latitude,
-      longitude: longitude,
-      level: 2,
-    });
-
-    return this._dataMapper.get(groupEntity);
-  }
-
-  async registerEquipment({
-    company_id,
-    parent_id,
-    name,
-    tel,
-    address,
-    latitude,
-    longitude,
-  }: RegisterGroupRequest): Promise<Group> {
-    const groupEntity = await GroupEntity.create<GroupEntity>({
-      name: name,
-      company_id: company_id,
-      parent_id: parent_id,
-      tel: tel,
-      address: address,
-      latitude: latitude,
-      longitude: longitude,
-      level: 3,
+      name: request.name,
+      company_id: request.company_id,
+      parent_id: request.parent_id,
+      tel: request.tel,
+      address: request.address,
+      latitude: request.latitude,
+      longitude: request.longitude,
+      level: request.level,
     });
 
     return this._dataMapper.get(groupEntity);

@@ -1,4 +1,5 @@
 import GroupEntity from "../entities/group";
+import { IMapper } from "./IMapper";
 import { injectable } from "inversify";
 import Group from "../../../domain/models/Group";
 

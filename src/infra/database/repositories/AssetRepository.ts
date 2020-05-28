@@ -181,4 +181,8 @@ export class AssetRepository implements IAssetRepository {
 
     return this._dataMapper.get(dataEntity);
   }
+
+  async registerAssetCSV(request: RegisterAssetCSVRequest): Promise<Asset> {
+    return undefined
+  }
 }

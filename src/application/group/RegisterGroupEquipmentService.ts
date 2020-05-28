@@ -10,7 +10,7 @@ export class RegisterGroupEquipmentService {
     private readonly _groupRepository: IGroupRepository
   ) {}
 
-  async execute(request: RegisterGroupRequest) {
-    return await this._groupRepository.registerEquipment(request);
+  async execute(request: RegisterGroupRequest) { 
+    return await this._groupRepository.add(request);
   }
 }

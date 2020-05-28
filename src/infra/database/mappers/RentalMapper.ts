@@ -52,7 +52,8 @@ export class RentalMapper implements IMapper<Rental, RentalEntity> {
       asset,
       owner,
       entity.price,
-      entity.availability
+      entity.availability,
+      ""
     );
 
     return rental;

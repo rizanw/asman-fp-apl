@@ -9,7 +9,7 @@ export class GetAllSubIndukService {
     private readonly _groupReporistory: IGroupRepository
   ) {}
 
-  async execute(id) {
+  async execute(id: number) {
     return await this._groupReporistory.findAllSubIndukByUser(id);
   }
 }

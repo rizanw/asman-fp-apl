@@ -110,6 +110,7 @@ export class RentalController implements interfaces.Controller {
     sendSuccessResponse(res, "delete rental item success", data);
   }
 
+  // use-case2 tambahan :
   @httpPost("/my-asset/add", role(Role.company))
   public async add(@request() req: Request, @response() res: Response) {
     const { company } = req.user;
@@ -120,7 +121,6 @@ export class RentalController implements interfaces.Controller {
 
     sendSuccessResponse(res, "add rental item success", data);
   }
-
   @httpGet("/my-asset", role(Role.company))
   public async myAsset(@request() req: Request, @response() res: Response) {
     const { company } = req.user;
@@ -128,7 +128,6 @@ export class RentalController implements interfaces.Controller {
 
     sendSuccessResponse(res, "", data)
   }
-
   @httpGet("/rent-out", role(Role.company))
   public async rentOut(@request() req: Request, @response() res: Response) {
     const { company } = req.user;

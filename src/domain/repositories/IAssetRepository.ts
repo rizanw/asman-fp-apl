@@ -12,4 +12,6 @@ export interface IAssetRepository {
   deleteAsset(id: number): Promise<Asset>;
   editAsset(id: number, request: RegisterAssetRequest): Promise<Asset>;
   setServicePlan(request: SetServicePlanAssetRequest): Promise<Asset>; 
+  update(asset: Asset): Promise<boolean>;
 }
+

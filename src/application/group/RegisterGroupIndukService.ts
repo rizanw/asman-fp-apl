@@ -11,6 +11,6 @@ export class RegisterGroupIndukService {
   ) {}
 
   async execute(request: RegisterGroupRequest) {
-    return await this._groupRepository.registerInduk(request);
+    return await this._groupRepository.add(request);
   }
 }

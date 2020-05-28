@@ -13,7 +13,6 @@ export class UpdateRentalTransactionDateService {
   async execute(request: UpdateRentalTransactionDateRequest) {
     try {
       let transaction = await this._rentalTransactionRepository.findById(request.id);
-      console.log("=====", transaction)
       if (transaction.isPending()) {
             transaction.updateIssueDate(request.issue_date);
             const data = await this._rentalTransactionRepository.update(transaction);

@@ -1,6 +1,7 @@
 import User from "./User";
 import Rental from "./Rental";
 import Company from "./Company"; 
+import { statusLabels, statusIDs } from "./RentalTransactionStatus";
 
 export default class RentalTransaction {
   constructor(
@@ -10,19 +11,29 @@ export default class RentalTransaction {
     public readonly duration: number,
     public issue_date: Date,
     public return_date: Date,
-    public status: number
-  ) {}
+    public statusId: number,
+    public status: string
+  ) {
+    this.status = this.getStatusLabel(this.statusId);
+  }
+
+  private getStatusLabel(status: number) : string{
+    let statusId = statusIDs[status];
+    let statusLabel = statusLabels;
+
+    return statusLabel[statusId];
+  }
 
   public updateIssueDate(date: Date) {
     this.issue_date = date
   }
 
   public updateStatus(status: number) {
-    this.status = status
+    this.statusId = status
   }
 
   public isPending() {
-    if(this.status != 0){
+    if(this.statusId != 0){
       return false
     }
     return true

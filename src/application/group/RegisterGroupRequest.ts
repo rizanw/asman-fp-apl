@@ -7,5 +7,6 @@ export class RegisterGroupRequest {
     public readonly latitude: number,
     public readonly longitude: number,
     public readonly parent_id: number | null,
+    public readonly level: number
   ) {}
 }
