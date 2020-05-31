@@ -1,7 +1,6 @@
 import { injectable, inject } from "inversify";
 import TYPES from "src/types.dependency";
 import { IServiceRepository } from "src/domain/repositories/IServiceRepository";
-import { ServiceStatus } from "src/domain/models/ServiceStatus";
 
 @injectable()
 export class FinishServicesService {
@@ -16,12 +15,10 @@ export class FinishServicesService {
     );
 
     for (const service of services) {
-      if (service.status !== ServiceStatus.PROCESSED) {
-        throw new Error("Service cannot finished");
-      }
+      service.finish();
     }
 
-    await this._serviceRepository.finishServices(services);
+    await this._serviceRepository.updateServices(services);
 
     return services.length;
   }

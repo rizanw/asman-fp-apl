@@ -23,36 +23,6 @@ export class ServiceRepository implements IServiceRepository {
     this._assetMapper = assetMapper;
   }
 
-  async releaseServices(services: Service[]): Promise<void> {
-    const serviceIds = services.map((service) => service.id as number);
-
-    await ServiceEntity.update(
-      { status: ServiceStatus.PROCESSED },
-      {
-        where: {
-          id: {
-            [Op.in]: serviceIds,
-          },
-        },
-      }
-    );
-  }
-
-  async finishServices(services: Service[]): Promise<void> {
-    const serviceIds = services.map((service) => service.id as number);
-
-    await ServiceEntity.update(
-      { status: ServiceStatus.FINISHED },
-      {
-        where: {
-          id: {
-            [Op.in]: serviceIds,
-          },
-        },
-      }
-    );
-  }
-
   async findServicesByIds(ids: number[]): Promise<Service[]> {
     const services = await ServiceEntity.findAll({
       where: {
@@ -307,6 +277,31 @@ export class ServiceRepository implements IServiceRepository {
           start_date: start_date,
           end_date: end_date,
         });
+      }
+
+      return services.length;
+    } catch {
+      return null;
+    }
+  }
+
+  async updateServices(services: Service[]): Promise<number | null> {
+    try {
+      for (const service of services) {
+        const { start_date, end_date, service_date, status } = service;
+        await ServiceEntity.update(
+          {
+            start_date: start_date,
+            end_date: end_date,
+            service_date: service_date,
+            status: status,
+          },
+          {
+            where: {
+              id: service.id,
+            },
+          }
+        );
       }
 
       return services.length;
