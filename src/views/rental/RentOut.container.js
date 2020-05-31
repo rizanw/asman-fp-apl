@@ -113,7 +113,7 @@ class RentOutContainer extends React.Component {
                   <td>{item.rental.owner.name}</td>
                   <td>{item.rental.price}</td>
                   <td>{item.status}</td>
-                  <td>{item.duration}</td>
+                  <td>{item.duration} hari</td>
                   <td>{item.issue_date}</td>
                   <td>{item.return_date}</td>
                   <td>

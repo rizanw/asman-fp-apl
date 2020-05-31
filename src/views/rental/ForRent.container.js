@@ -130,7 +130,7 @@ class ForRentContainer extends React.Component {
                   <td>{item.owner.name}</td>
                   <td>{item.price}</td>
                   <td>
-                    {item.availability}
+                    {item.status}
                   </td>
                 </tr>
               ))}

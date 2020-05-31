@@ -131,7 +131,7 @@ class MyRentalContainer extends React.Component {
                   <td className="pl-3">{++key}</td>
                   <td>{item.asset.name}</td>
                   <td>{item.price}</td>
-                  <td>{item.availability}</td>
+                  <td>{item.status}</td>
                   <td>
                     <div>
                       <Button
